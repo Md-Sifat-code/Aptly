@@ -80,7 +80,7 @@ export default function Buy() {
   };
 
   return (
-    <section className="py-10">
+    <section className="">
       <div className="container mx-auto">
         {/* Search Bar Section */}
         <div className="flex md:hidden justify-center items-center space-x-4 mb-6 gap-4 sm:gap-6 md:gap-8">

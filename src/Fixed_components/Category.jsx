@@ -39,7 +39,7 @@ export default function Category() {
   }
 
   return (
-    <div className="p-4">
+    <div className="w-[90%] mx-auto mt-4 mb-12">
       <ul className="flex gap-6 overflow-x-auto hide-scrollbar">
         {categories.map((category) => {
           // Get the corresponding icon component based on the library
@@ -58,7 +58,7 @@ export default function Category() {
                 className="flex items-center justify-center bg-gray-200 text-gray-600 rounded-full w-[50px] h-[40px]" // Circle container
               >
                 {IconComponent && (
-                  <IconComponent className="text-xl text-[#ff9b0f] " />
+                  <IconComponent className="text-xl text-black " />
                 )}
               </div>
               <span className="text-sm font-medium text-center">

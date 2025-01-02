@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "/baris.png";
+import logo from "/bariss.png";
 import { Link, useLocation } from "react-router-dom";
 
 export default function Navabr() {
@@ -12,7 +12,7 @@ export default function Navabr() {
 
   // Helper function to check if the link is active
   const isActive = (path) =>
-    location.pathname === path ? "text-[#ff9b0f] font-bold" : "";
+    location.pathname === path ? "text-[#006d6f] font-bold" : "";
 
   return (
     <section className="flex justify-center pop items-center">
@@ -24,12 +24,12 @@ export default function Navabr() {
 
         {/* Middle Links */}
         <div className="hidden lg:flex flex-row gap-12">
-          <Link to="/" className={`hover:text-[#ff9b0f] ${isActive("/")}`}>
+          <Link to="/" className={`hover:text-[#006d6f] ${isActive("/")}`}>
             Buy
           </Link>
           <Link
             to="/sell"
-            className={`hover:text-yellow-500 ${isActive("/sell")}`}
+            className={`hover:text-teal-700 ${isActive("/sell")}`}
           >
             Rent
           </Link>
@@ -37,7 +37,7 @@ export default function Navabr() {
 
         {/* Last Section */}
         <div className="hidden lg:block">
-          <Link className="btn btn-primary px-12 bg-[#ff9b0f] text-black hover:bg-orange-400 font-bold border-none rounded-[12px]">
+          <Link className="btn btn-primary px-12 bg-[#006d6f] text-white hover:bg-teal-700 font-bold border-none rounded-[12px]">
             Login
           </Link>
         </div>
@@ -85,7 +85,7 @@ export default function Navabr() {
             </Link>
             <Link
               onClick={() => setIsOpen(false)}
-              className="btn btn-primary px-12 bg-[#ff9b0f] text-white font-bold border-none rounded-none"
+              className="btn btn-primary px-12 bg-[#006d6f] text-white font-bold border-none rounded-none"
             >
               Login
             </Link>

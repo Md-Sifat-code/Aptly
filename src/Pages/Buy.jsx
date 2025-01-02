@@ -93,7 +93,7 @@ export default function Buy() {
                 type="text"
                 value={searchTerm}
                 onChange={handleChange}
-                className="w-full py-4 pl-10 pr-4 text-lg rounded-full border border-[#ff9b0f] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full py-4 pl-10 pr-4 text-lg rounded-full border border-[#006d6f] focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Search location"
                 onClick={() => setShowFullMenu(true)} // Clicking the search bar triggers the full menu
               />
@@ -106,7 +106,7 @@ export default function Buy() {
               <div className="flex flex-col gap-4 lg:gap-0">
                 {/* Date Selector */}
                 <div className="relative" onClick={handleCalendarToggle}>
-                  <div className="py-4 pl-4 pr-4 text-lg border-t border-b border-[#ff9b0f] cursor-pointer rounded-full">
+                  <div className="py-4 pl-4 pr-4 text-lg border-t border-b border-[#006d6f] cursor-pointer rounded-full">
                     {selectedDate ? selectedDate.toDateString() : "Select date"}
                     <MdDateRange className="inline ml-2 text-gray-500" />
                   </div>
@@ -124,7 +124,7 @@ export default function Buy() {
 
                 {/* Side Dropdown */}
                 <div className="relative" onClick={handleSideDropdownToggle}>
-                  <div className="py-4 pl-4 pr-4 text-lg text-gray-500 cursor-pointer rounded-full border-t border-b border-[#ff9b0f]">
+                  <div className="py-4 pl-4 pr-4 text-lg text-gray-500 cursor-pointer rounded-full border-t border-b border-[#006d6f]">
                     {selectedSide || "Select side"}
                     <FaAngleDown className="inline ml-2" />
                   </div>
@@ -162,7 +162,7 @@ export default function Buy() {
 
                 {/* Stay Type Dropdown */}
                 <div className="relative" onClick={handleStayDropdownToggle}>
-                  <div className="py-4 pl-4 pr-4 text-lg text-gray-500 cursor-pointer rounded-full border-t border-b border-[#ff9b0f]">
+                  <div className="py-4 pl-4 pr-4 text-lg text-gray-500 cursor-pointer rounded-full border-t border-b border-[#006d6f]">
                     {selectedStay || "Select type"}
                     <FaAngleDown className="inline ml-2" />
                   </div>
@@ -194,7 +194,7 @@ export default function Buy() {
 
                 {/* Close Button */}
                 <button
-                  className="mt-4 py-2 px-4 text-white bg-[#ff9b0f] font-bold rounded-full"
+                  className="mt-4 py-2 px-4 text-white bg-[#006d6f] font-bold rounded-full"
                   onClick={() => setShowFullMenu(false)}
                 >
                   SEARCH
@@ -206,14 +206,14 @@ export default function Buy() {
           {/* For Large Devices */}
           <div className="hidden md:flex justify-center items-center space-x-4 mb-6 gap-4 sm:gap-6 md:gap-8">
             {/* Search Bar Wrapper */}
-            <div className="relative flex items-center space-x-2 bg-[#ff9b0f] rounded-full px-4 py-2 w-full  md:w-[900px]">
+            <div className="relative flex items-center space-x-2 bg-[#006d6f] border border-gray-300 shadow-lg rounded-full px-4 py-2 w-full  md:w-[900px]">
               {/* Location Input */}
               <div className="relative flex-grow">
                 <input
                   type="text"
                   value={searchTerm}
                   onChange={handleChange}
-                  className="w-full py-2 pl-10 pr-4 text-lg rounded-full border-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full py-2 pl-10 pr-4 text-lg rounded-full border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Search location"
                 />
               </div>
@@ -221,7 +221,7 @@ export default function Buy() {
               {/* Date Selector */}
               <div className="relative">
                 <div
-                  className="py-2 px-4 text-sm lg:text-lg text-white cursor-pointer rounded-full border-none bg-[#ff9b0f] flex items-center"
+                  className="py-2 px-4 text-sm lg:text-lg text-white cursor-pointer rounded-full border-none bg-[#006d6f] flex items-center"
                   onClick={handleCalendarToggle}
                 >
                   {selectedDate ? selectedDate.toDateString() : "Select date"}
@@ -242,7 +242,7 @@ export default function Buy() {
               {/* Side Dropdown */}
               <div className="relative">
                 <div
-                  className="py-2 px-4 text-sm lg:text-lg text-white cursor-pointer rounded-full bg-[#ff9b0f] flex items-center"
+                  className="py-2 px-4 text-sm lg:text-lg text-white cursor-pointer rounded-full bg-[#006d6f] flex items-center"
                   onClick={handleSideDropdownToggle}
                 >
                   {selectedSide || "Select side"}
@@ -283,7 +283,7 @@ export default function Buy() {
               {/* Stay Type Dropdown */}
               <div className="relative">
                 <div
-                  className="py-2 px-4 text-sm lg:text-lg text-white cursor-pointer rounded-full bg-[#ff9b0f] flex items-center"
+                  className="py-2 px-4 text-sm lg:text-lg text-white cursor-pointer rounded-full bg-[#006d6f] flex items-center"
                   onClick={handleStayDropdownToggle}
                 >
                   {selectedStay || "Select type"}
@@ -314,7 +314,7 @@ export default function Buy() {
                   </div>
                 )}
               </div>
-              <div className=" text-white bg-black p-3 rounded-full ">
+              <div className=" text-black bg-white p-3 rounded-full ">
                 <FaSearch className=" cursor-pointer " size={20} />
               </div>
             </div>

@@ -14,17 +14,17 @@ const Flats = () => {
   };
 
   return (
-    <div className="container pop mx-auto p-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+    <div className=" pop w-[90%] mx-auto p-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-8 gap-x-6">
         {flats.slice(0, visibleCount).map((flat, index) => (
           <div
             key={index}
-            className="flex flex-col justify-start items-start border border-gray-300 rounded-lg shadow-md p-4 h-full"
+            className="flex flex-col justify-start items-start   h-full"
           >
             <img
               src={flat.picture}
               alt={flat.title}
-              className="h-40 w-full object-cover rounded-md mb-3"
+              className="h-[250px] w-full object-cover rounded-[18px] mb-3"
             />
             <h2 className="text-lg flex-grow font-semibold text-start mb-2 w-full">
               {flat.title}
@@ -33,11 +33,12 @@ const Flats = () => {
               {flat.description}
             </p>
             <p className="text-sm flex items-center gap-2 font-bold text-start mb-2 w-full">
-              <FaRegMoneyBill1 className=" inline-block" /> {flat.price} BDT
-            </p>
-            <p className="text-sm flex items-center gap-2 font-bold text-start mb-2 w-full">
               <FaLocationDot className=" inline-block" /> {flat.location}
             </p>
+            <p className="text-sm flex items-center gap-2 font-bold text-start mb-2 w-full">
+              <FaRegMoneyBill1 className=" inline-block" /> {flat.price} BDT
+            </p>
+
             <p
               className={`text-sm font-medium text-start w-full ${
                 flat.availability ? "text-green-500" : "text-red-500"
@@ -53,7 +54,7 @@ const Flats = () => {
         <div className="text-center mt-6">
           <button
             onClick={loadMoreFlats}
-            className="px-4 py-2 bg-[#ff9b0f] font-bold pop text-white rounded-md shadow hover:bg-orange-400"
+            className="px-4 py-2 bg-[#006d6f] font-bold pop text-white rounded-md shadow hover:bg-teal-700"
           >
             Load More
           </button>

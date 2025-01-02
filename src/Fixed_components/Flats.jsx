@@ -14,7 +14,7 @@ const Flats = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container pop mx-auto p-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
         {flats.slice(0, visibleCount).map((flat, index) => (
           <div
@@ -53,7 +53,7 @@ const Flats = () => {
         <div className="text-center mt-6">
           <button
             onClick={loadMoreFlats}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600"
+            className="px-4 py-2 bg-[#ff9b0f] font-bold pop text-white rounded-md shadow hover:bg-orange-400"
           >
             Load More
           </button>

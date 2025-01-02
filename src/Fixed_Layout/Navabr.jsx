@@ -31,7 +31,7 @@ export default function Navabr() {
             to="/sell"
             className={`hover:text-yellow-500 ${isActive("/sell")}`}
           >
-            Sell
+            Rent
           </Link>
         </div>
 

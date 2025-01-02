@@ -203,7 +203,7 @@ export default function Buy() {
         {/* For Large Devices */}
         <div className="hidden md:flex justify-center items-center space-x-4 mb-6 gap-4 sm:gap-6 md:gap-8">
           {/* Search Bar Wrapper */}
-          <div className="relative flex items-center space-x-2 bg-[#ff9b0f] rounded-full px-4 py-2 w-full md:w-[800px]">
+          <div className="relative flex items-center space-x-2 bg-[#ff9b0f] rounded-full px-4 py-2 w-full  md:w-[900px]">
             {/* Location Input */}
             <div className="relative flex-grow">
               <input
@@ -213,9 +213,6 @@ export default function Buy() {
                 className="w-full py-2 pl-10 pr-4 text-lg rounded-full border-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Search location"
               />
-              <div className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white">
-                <FaSearch />
-              </div>
             </div>
 
             {/* Date Selector */}
@@ -313,6 +310,9 @@ export default function Buy() {
                   </ul>
                 </div>
               )}
+            </div>
+            <div className=" text-white bg-black p-3 rounded-full ">
+              <FaSearch className=" cursor-pointer " size={20} />
             </div>
           </div>
         </div>

@@ -31,114 +31,116 @@ export default function Buy() {
     <section className="py-10">
       <div className="container mx-auto">
         {/* Search Bar Section */}
-        <div className="flex justify-center items-center space-x-4 mb-6">
-          <div className="relative w-full  bg-white rounded-full shadow-lg flex items-center p-1">
-            {/* Location Input */}
+        <div className="flex flex-wrap justify-center items-center space-x-4 mb-6 gap-4 sm:gap-6 md:gap-8">
+          {/* Location Input */}
+          <div className="relative w-full sm:w-1/2 md:w-1/4">
             <input
               type="text"
               value={searchTerm}
               onChange={handleChange}
-              className="w-1/4 py-4 pl-10 pr-4 text-lg rounded-l-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full py-4 pl-10 pr-4 text-lg rounded-full border border-[#ff9b0f] focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Search location"
             />
-            {/* Date Selector */}
-            <div
-              className="w-1/4 py-4 pl-4 pr-4 text-lg border-t border-b border-gray-300 cursor-pointer"
-              onClick={() => setShowCalendar(!showCalendar)}
-            >
+          </div>
+
+          {/* Date Selector */}
+          <div
+            className="relative w-full sm:w-1/2 md:w-1/4"
+            onClick={() => setShowCalendar(!showCalendar)}
+          >
+            <div className="py-4 pl-4 pr-4 text-lg border-t border-b border-[#ff9b0f] cursor-pointer rounded-full">
               {selectedDate ? selectedDate.toDateString() : "Select date"}
               <MdDateRange className="inline ml-2 text-gray-500" />
             </div>
-            {/* Side Dropdown */}
-            <div
-              className="w-1/4 py-4 text-lg text-gray-500 cursor-pointer"
-              onClick={() => setShowSideDropdown(!showSideDropdown)}
-            >
+            {showCalendar && (
+              <div className="absolute top-full mt-2 w-full bg-white p-4 shadow-lg rounded-lg">
+                <Calendar
+                  onChange={setSelectedDate}
+                  value={selectedDate}
+                  className="rounded-lg"
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Side Dropdown */}
+          <div
+            className="relative w-full sm:w-1/2 md:w-1/4"
+            onClick={() => setShowSideDropdown(!showSideDropdown)}
+          >
+            <div className="py-4 pl-4 pr-4 text-lg text-gray-500 cursor-pointer rounded-full border-t border-b border-[#ff9b0f]">
               {selectedSide || "Select side"}
               <FaAngleDown className="inline ml-2" />
             </div>
-            {/* Stay Type Dropdown */}
-            <div
-              className="w-1/4 py-4 text-lg text-gray-500 cursor-pointer"
-              onClick={() => setShowStayDropdown(!showStayDropdown)}
-            >
+            {showSideDropdown && (
+              <div className="absolute top-full mt-2 w-full bg-white p-4 shadow-lg rounded-lg">
+                <ul>
+                  <li
+                    className="cursor-pointer py-2 hover:bg-gray-200"
+                    onClick={() => handleSideSelect("South")}
+                  >
+                    South
+                  </li>
+                  <li
+                    className="cursor-pointer py-2 hover:bg-gray-200"
+                    onClick={() => handleSideSelect("North")}
+                  >
+                    North
+                  </li>
+                  <li
+                    className="cursor-pointer py-2 hover:bg-gray-200"
+                    onClick={() => handleSideSelect("East")}
+                  >
+                    East
+                  </li>
+                  <li
+                    className="cursor-pointer py-2 hover:bg-gray-200"
+                    onClick={() => handleSideSelect("West")}
+                  >
+                    West
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {/* Stay Type Dropdown */}
+          <div
+            className="relative w-full sm:w-1/2 md:w-1/4"
+            onClick={() => setShowStayDropdown(!showStayDropdown)}
+          >
+            <div className="py-4 pl-4 pr-4 text-lg text-gray-500 cursor-pointer rounded-full border-t border-b border-[#ff9b0f]">
               {selectedStay || "Select type"}
               <FaAngleDown className="inline ml-2" />
             </div>
-            <FaSearch className="absolute right-4 text-gray-500" />
+            {showStayDropdown && (
+              <div className="absolute top-full mt-2 w-full bg-white p-4 shadow-lg rounded-lg">
+                <ul>
+                  <li
+                    className="cursor-pointer py-2 hover:bg-gray-200"
+                    onClick={() => handleStaySelect("For Family")}
+                  >
+                    For Family
+                  </li>
+                  <li
+                    className="cursor-pointer py-2 hover:bg-gray-200"
+                    onClick={() => handleStaySelect("For Bachelor")}
+                  >
+                    For Bachelor
+                  </li>
+                  <li
+                    className="cursor-pointer py-2 hover:bg-gray-200"
+                    onClick={() => handleStaySelect("For Married")}
+                  >
+                    For Married
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
+
+          {/* Search Icon */}
         </div>
-
-        {/* Full Calendar */}
-        {showCalendar && (
-          <div className="absolute top-20 left-1/2 transform -translate-x-1/2 bg-white p-4 shadow-lg rounded-lg w-96">
-            <Calendar
-              onChange={setSelectedDate}
-              value={selectedDate}
-              className="rounded-lg"
-            />
-          </div>
-        )}
-
-        {/* Side Dropdown */}
-        {showSideDropdown && (
-          <div className="absolute top-32 left-1/4 transform -translate-x-1/2 bg-white p-4 shadow-lg rounded-lg w-1/4">
-            <h3 className="text-lg font-semibold">Select Side</h3>
-            <ul>
-              <li
-                className="cursor-pointer py-2 hover:bg-gray-200"
-                onClick={() => handleSideSelect("South")}
-              >
-                South
-              </li>
-              <li
-                className="cursor-pointer py-2 hover:bg-gray-200"
-                onClick={() => handleSideSelect("North")}
-              >
-                North
-              </li>
-              <li
-                className="cursor-pointer py-2 hover:bg-gray-200"
-                onClick={() => handleSideSelect("East")}
-              >
-                East
-              </li>
-              <li
-                className="cursor-pointer py-2 hover:bg-gray-200"
-                onClick={() => handleSideSelect("West")}
-              >
-                West
-              </li>
-            </ul>
-          </div>
-        )}
-
-        {/* Stay Type Dropdown */}
-        {showStayDropdown && (
-          <div className="absolute top-32 left-3/4 transform -translate-x-1/2 bg-white p-4 shadow-lg rounded-lg w-1/4">
-            <h3 className="text-lg font-semibold">Select Stay Type</h3>
-            <ul>
-              <li
-                className="cursor-pointer py-2 hover:bg-gray-200"
-                onClick={() => handleStaySelect("For Family")}
-              >
-                For Family
-              </li>
-              <li
-                className="cursor-pointer py-2 hover:bg-gray-200"
-                onClick={() => handleStaySelect("For Bachelor")}
-              >
-                For Bachelor
-              </li>
-              <li
-                className="cursor-pointer py-2 hover:bg-gray-200"
-                onClick={() => handleStaySelect("For Married")}
-              >
-                For Married
-              </li>
-            </ul>
-          </div>
-        )}
       </div>
     </section>
   );

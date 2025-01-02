@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "/aptly.png";
+import logo from "/baris.png";
 import { Link, useLocation } from "react-router-dom";
 
 export default function Navabr() {

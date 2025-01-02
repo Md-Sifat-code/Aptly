@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { FlatContext } from "../Context_Api/FlatContext";
-
+import { FaRegMoneyBill1 } from "react-icons/fa6";
+import { FaLocationDot } from "react-icons/fa6";
 const Flats = () => {
   const { flats, loading, error } = useContext(FlatContext);
   const [visibleCount, setVisibleCount] = useState(30); // Show the first 36 cards initially
@@ -31,8 +32,11 @@ const Flats = () => {
             <p className="text-sm flex-grow text-gray-400 text-start mb-2 w-full">
               {flat.description}
             </p>
-            <p className="text-sm font-bold text-start mb-2 w-full">
-              Price: {flat.price} BDT
+            <p className="text-sm flex items-center gap-2 font-bold text-start mb-2 w-full">
+              <FaRegMoneyBill1 className=" inline-block" /> {flat.price} BDT
+            </p>
+            <p className="text-sm flex items-center gap-2 font-bold text-start mb-2 w-full">
+              <FaLocationDot className=" inline-block" /> {flat.location}
             </p>
             <p
               className={`text-sm font-medium text-start w-full ${

@@ -4,279 +4,319 @@
     "picture": "/flat-1.png",
     "description": "A spacious 3-bedroom apartment with modern amenities, located in the heart of the city.",
     "price": 7500000,
-    "availability": true
+    "availability": true,
+    "location": "Gulshan"
   },
   {
     "title": "Cozy 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "A comfortable 2-bedroom flat with excellent natural lighting and a balcony view.",
     "price": 5500000,
-    "availability": false
+    "availability": false,
+    "location": "Dhanmondi"
   },
   {
     "title": "Affordable 1BHK Studio",
     "picture": "/flat-2.png",
     "description": "A budget-friendly studio apartment, perfect for young professionals or small families.",
     "price": 3000000,
-    "availability": true
+    "availability": true,
+    "location": "Gulshan"
   },
   {
     "title": "Premium Penthouse",
     "picture": "/flat-1.png",
     "description": "An exclusive penthouse with a private terrace and panoramic city views.",
     "price": 15000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Suburban 4BHK Villa",
     "picture": "/flat-2.png",
     "description": "A luxurious villa in a quiet suburb, complete with a garden and swimming pool.",
     "price": 12000000,
-    "availability": false
+    "availability": false,
+    "location": "Dhanmondi"
   },
   {
     "title": "Modern Studio Apartment",
     "picture": "/flat-1.png",
     "description": "A sleek and modern studio apartment, ideal for single occupants.",
     "price": 2500000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Family 3BHK Home",
     "picture": "/flat-2.png",
     "description": "A family-friendly 3-bedroom home located near schools and parks.",
     "price": 8000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Beachside Villa",
     "picture": "/flat-2.png",
     "description": "A stunning villa located near the beach, offering serene ocean views.",
     "price": 18000000,
-    "availability": false
+    "availability": false,
+    "location": "Dhanmondi"
   },
   {
     "title": "Compact 1BHK Flat",
     "picture": "/flat-1.png",
     "description": "A compact and cozy 1-bedroom flat, perfect for first-time buyers.",
     "price": 3200000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Elegant 4BHK Apartment",
     "picture": "/flat-2.png",
     "description": "A beautifully designed 4-bedroom apartment in a gated community.",
     "price": 9500000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "City Center Studio",
     "picture": "/flat-2.png",
     "description": "A convenient studio apartment located in the bustling city center.",
     "price": 2800000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Luxury Duplex Apartment",
     "picture": "/flat-1.png",
     "description": "A high-end duplex apartment with state-of-the-art facilities.",
     "price": 14000000,
-    "availability": false
+    "availability": false,
+    "location": "Dhanmondi"
   },
   {
     "title": "Rustic Countryside Home",
     "picture": "/flat-2.png",
     "description": "A charming countryside home surrounded by nature.",
     "price": 7000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Penthouse with Rooftop Pool",
     "picture": "/flat-1.png",
     "description": "A luxurious penthouse with a private rooftop pool and breathtaking views.",
     "price": 20000000,
-    "availability": false
+    "availability": false,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Gulshan"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Gulshan"
   },
   {
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
     "price": 5000000,
-    "availability": true
+    "availability": true,
+    "location": "Dhanmondi"
   }
 ]

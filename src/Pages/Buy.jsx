@@ -4,6 +4,7 @@ import { FaAngleDown } from "react-icons/fa"; // Dropdown Arrow
 import Calendar from "react-calendar"; // For the full calendar
 import { FaSearch } from "react-icons/fa";
 import Category from "../Fixed_components/Category";
+import Flats from "../Fixed_components/Flats";
 
 export default function Buy() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -323,6 +324,9 @@ export default function Buy() {
       </section>
       <section>
         <Category />
+      </section>
+      <section>
+        <Flats />
       </section>
     </>
   );

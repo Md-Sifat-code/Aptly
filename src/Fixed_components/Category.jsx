@@ -57,7 +57,9 @@ export default function Category() {
               <div
                 className="flex items-center justify-center bg-gray-200 text-gray-600 rounded-full w-[50px] h-[40px]" // Circle container
               >
-                {IconComponent && <IconComponent className="text-xl" />}
+                {IconComponent && (
+                  <IconComponent className="text-xl text-[#ff9b0f] " />
+                )}
               </div>
               <span className="text-sm font-medium text-center">
                 {category.name}

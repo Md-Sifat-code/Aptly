@@ -37,7 +37,7 @@ export default function Navabr() {
 
         {/* Last Section */}
         <div className="hidden lg:block">
-          <Link className="btn btn-primary px-12 bg-[#ff9b0f] text-white font-bold border-none rounded-none">
+          <Link className="btn btn-primary px-12 bg-[#ff9b0f] text-black hover:bg-orange-400 font-bold border-none rounded-[12px]">
             Login
           </Link>
         </div>

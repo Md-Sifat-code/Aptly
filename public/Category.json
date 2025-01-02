@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "name": "Studio Apartment",
+    "icon": "PiBuildingApartmentBold",
+    "iconLibrary": "pi",
+    "description": "Compact apartments ideal for singles or couples."
+  },
+  {
+    "id": 2,
+    "name": "1 BHK",
+    "icon": "RiHome9Fill",
+    "iconLibrary": "ri",
+    "description": "1 Bedroom, Hall, and Kitchen. Perfect for small families."
+  },
+  {
+    "id": 3,
+    "name": "2 BHK",
+    "icon": "MdOutlineMapsHomeWork",
+    "iconLibrary": "md",
+    "description": "2 Bedrooms, Hall, and Kitchen. Spacious and comfortable."
+  },
+  {
+    "id": 4,
+    "name": "3 BHK",
+    "icon": "IoHome",
+    "iconLibrary": "io",
+    "description": "3 Bedrooms, Hall, and Kitchen. Suitable for larger families."
+  },
+  {
+    "id": 5,
+    "name": "Penthouse",
+    "icon": "GiModernCity",
+    "iconLibrary": "gi",
+    "description": "Luxurious top-floor apartments with premium amenities."
+  },
+  {
+    "id": 6,
+    "name": "Serviced Apartment",
+    "icon": "FaServicestack",
+    "iconLibrary": "fa",
+    "description": "Fully furnished apartments with hotel-like services."
+  },
+  {
+    "id": 7,
+    "name": "Duplex",
+    "icon": "RiBuilding2Fill",
+    "iconLibrary": "ri",
+    "description": "Two-level apartments offering extra space and privacy."
+  },
+  {
+    "id": 8,
+    "name": "Loft",
+    "icon": "GiWoodCabin",
+    "iconLibrary": "gi",
+    "description": "Apartments with open-plan designs and high ceilings."
+  },
+  {
+    "id": 9,
+    "name": "Villa",
+    "icon": "MdVilla",
+    "iconLibrary": "md",
+    "description": "Independent houses with spacious gardens and luxury features."
+  },
+  {
+    "id": 10,
+    "name": "Townhouse",
+    "icon": "FaCity",
+    "iconLibrary": "fa",
+    "description": "Multi-story homes with private entrances, ideal for families."
+  },
+  {
+    "id": 11,
+    "name": "Studio Loft",
+    "icon": "GiStoneTower",
+    "iconLibrary": "gi",
+    "description": "A blend of studio and loft-style living."
+  },
+  {
+    "id": 12,
+    "name": "Luxury Apartments",
+    "icon": "RiVipCrownFill",
+    "iconLibrary": "ri",
+    "description": "High-end flats with world-class amenities."
+  },
+  {
+    "id": 13,
+    "name": "Shared Flats",
+    "icon": "BsPeople",
+    "iconLibrary": "bs",
+    "description": "Flats with shared living spaces, ideal for students or professionals."
+  },
+  {
+    "id": 14,
+    "name": "Affordable Housing",
+    "icon": "MdAttachMoney",
+    "iconLibrary": "md",
+    "description": "Budget-friendly flats for cost-conscious buyers or renters."
+  },
+  {
+    "id": 15,
+    "name": "Vacation Rentals",
+    "icon": "MdBeachAccess",
+    "iconLibrary": "md",
+    "description": "Short-term flats for holiday stays."
+  },
+  {
+    "id": 16,
+    "name": "Eco-Friendly",
+    "icon": "GiTreehouse",
+    "iconLibrary": "gi",
+    "description": "Sustainable apartments with green features."
+  },
+  {
+    "id": 17,
+    "name": "Smart Flats",
+    "icon": "IoIosSmartphone",
+    "iconLibrary": "io",
+    "description": "Homes equipped with smart technology for modern living."
+  },
+  {
+    "id": 18,
+    "name": "Heritage Homes",
+    "icon": "GiCastle",
+    "iconLibrary": "gi",
+    "description": "Historic flats with classic architecture."
+  }
+]

@@ -5,3 +5,12 @@
 .pop {
   font-family: "Poppins", serif;
 }
+/* Add this CSS to hide the scrollbar */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Hides the scrollbar */
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* Hides scrollbar in IE and Edge */
+  scrollbar-width: none; /* Hides scrollbar in Firefox */
+}

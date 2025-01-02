@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { FlatContext } from "../Context_Api/FlatContext";
 import { FaRegMoneyBill1 } from "react-icons/fa6";
 import { FaLocationDot } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 const Flats = () => {
   const { flats, loading, error } = useContext(FlatContext);
   const [visibleCount, setVisibleCount] = useState(30); // Show the first 36 cards initially
@@ -17,9 +18,10 @@ const Flats = () => {
     <div className=" pop w-[90%] mx-auto p-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-8 gap-x-6">
         {flats.slice(0, visibleCount).map((flat, index) => (
-          <div
-            key={index}
-            className="flex flex-col justify-start items-start   h-full"
+          <Link
+            to={`/details/${flat.id}`} // Assuming `flat.id` is the dynamic value you want to pass
+            key={flat.id}
+            className="flex flex-col justify-start items-start h-full"
           >
             <img
               src={flat.picture}
@@ -46,7 +48,7 @@ const Flats = () => {
             >
               {flat.availability ? "Available" : "Not Available"}
             </p>
-          </div>
+          </Link>
         ))}
       </div>
       {/* Load More Button */}

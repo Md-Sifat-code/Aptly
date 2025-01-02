@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "title": "Luxury 3BHK Apartment",
     "picture": "/flat-1.png",
     "description": "A spacious 3-bedroom apartment with modern amenities, located in the heart of the city.",
@@ -8,6 +9,7 @@
     "location": "Gulshan"
   },
   {
+    "id": 2,
     "title": "Cozy 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "A comfortable 2-bedroom flat with excellent natural lighting and a balcony view.",
@@ -16,6 +18,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 3,
     "title": "Affordable 1BHK Studio",
     "picture": "/flat-2.png",
     "description": "A budget-friendly studio apartment, perfect for young professionals or small families.",
@@ -24,6 +27,7 @@
     "location": "Gulshan"
   },
   {
+    "id": 4,
     "title": "Premium Penthouse",
     "picture": "/flat-1.png",
     "description": "An exclusive penthouse with a private terrace and panoramic city views.",
@@ -32,6 +36,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 5,
     "title": "Suburban 4BHK Villa",
     "picture": "/flat-2.png",
     "description": "A luxurious villa in a quiet suburb, complete with a garden and swimming pool.",
@@ -40,6 +45,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 6,
     "title": "Modern Studio Apartment",
     "picture": "/flat-1.png",
     "description": "A sleek and modern studio apartment, ideal for single occupants.",
@@ -48,6 +54,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 7,
     "title": "Family 3BHK Home",
     "picture": "/flat-2.png",
     "description": "A family-friendly 3-bedroom home located near schools and parks.",
@@ -56,6 +63,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 8,
     "title": "Beachside Villa",
     "picture": "/flat-2.png",
     "description": "A stunning villa located near the beach, offering serene ocean views.",
@@ -64,6 +72,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 9,
     "title": "Compact 1BHK Flat",
     "picture": "/flat-1.png",
     "description": "A compact and cozy 1-bedroom flat, perfect for first-time buyers.",
@@ -72,6 +81,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 10,
     "title": "Elegant 4BHK Apartment",
     "picture": "/flat-2.png",
     "description": "A beautifully designed 4-bedroom apartment in a gated community.",
@@ -80,6 +90,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 11,
     "title": "City Center Studio",
     "picture": "/flat-2.png",
     "description": "A convenient studio apartment located in the bustling city center.",
@@ -88,6 +99,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 12,
     "title": "Luxury Duplex Apartment",
     "picture": "/flat-1.png",
     "description": "A high-end duplex apartment with state-of-the-art facilities.",
@@ -96,6 +108,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 13,
     "title": "Rustic Countryside Home",
     "picture": "/flat-2.png",
     "description": "A charming countryside home surrounded by nature.",
@@ -104,6 +117,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 14,
     "title": "Penthouse with Rooftop Pool",
     "picture": "/flat-1.png",
     "description": "A luxurious penthouse with a private rooftop pool and breathtaking views.",
@@ -112,6 +126,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 15,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -120,6 +135,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -128,6 +144,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -136,6 +153,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -144,6 +162,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -152,6 +171,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -160,6 +180,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -168,6 +189,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -176,6 +198,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -184,6 +207,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -192,6 +216,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -200,6 +225,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -208,6 +234,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -216,6 +243,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -224,6 +252,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -232,6 +261,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -240,6 +270,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -248,6 +279,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -256,6 +288,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -264,6 +297,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -272,6 +306,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -280,6 +315,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -288,6 +324,7 @@
     "location": "Gulshan"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -296,6 +333,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -304,6 +342,7 @@
     "location": "Dhanmondi"
   },
   {
+    "id": 1,
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",
@@ -312,6 +351,8 @@
     "location": "Gulshan"
   },
   {
+    "id": 1,
+
     "title": "Eco-Friendly 2BHK Flat",
     "picture": "/flat-2.png",
     "description": "An eco-conscious flat with energy-saving appliances and a green roof.",

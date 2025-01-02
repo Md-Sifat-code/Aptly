@@ -7,6 +7,7 @@ import Buy from "./Pages/Buy";
 import Sell from "./Pages/Sell";
 import { CategoryProvider } from "./Context_Api/CategoryContext";
 import { FlatProvider } from "./Context_Api/FlatContext";
+import Details from "./Fixed_components/Details";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/sell",
         element: <Sell />,
+      },
+      {
+        path: "/details/:id",
+        element: <Details />,
       },
     ],
   },

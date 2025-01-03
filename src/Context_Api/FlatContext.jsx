@@ -10,8 +10,8 @@ export const FlatProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch data from the flats.json file
-    fetch("/flats.json")
+    // Fetch data from the external API
+    fetch("https://flatelse.onrender.com/api/properties")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch flat data");

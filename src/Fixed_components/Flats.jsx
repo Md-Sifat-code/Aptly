@@ -25,7 +25,7 @@ const Flats = () => {
             className="flex flex-col justify-start items-start h-full"
           >
             <img
-              src={`data:image/jpeg;base64,${flat.heroImage}`} // Ensure the base64 string is prefixed correctly
+              src={flat.heroImage} // Directly using the URL provided by the backend
               alt={flat.title}
               className="h-[250px] w-full object-cover rounded-[18px] mb-3"
             />

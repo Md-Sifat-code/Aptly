@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FaMoneyBill } from "react-icons/fa";
+import { FaBed } from "react-icons/fa";
+import { BiSolidMessageSquareError } from "react-icons/bi";
 import { Link, useParams } from "react-router-dom"; // Import useParams from react-router-dom
 import { PiMapPinAreaFill } from "react-icons/pi";
 import { FlatContext } from "../Context_Api/FlatContext"; // Import the FlatContext
@@ -31,7 +33,7 @@ export default function Details() {
   return (
     <div className="p-6 mb-32">
       {/* Image Gallery */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 container mx-auto max-w-[900px]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 container mx-auto max-w-[1200px]">
         <img
           src={flat.heroImage}
           alt={flat.title}
@@ -70,34 +72,56 @@ export default function Details() {
       </div>
 
       {/* Other Details */}
-      <div className="pop mt-[100px] container mx-auto max-w-[900px]">
-        <div className="flex flex-col md:flex-row">
-          <div className="md:w-2/3 pr-6">
-            <p className="text-2xl mb-3 text-black font-bold flex flex-row items-center gap-2">
-              <FaMapMarkerAlt className=" text-teal-700 inline-block" />{" "}
-              {flat.location}
-            </p>
-            <p>{flat.longDescription}</p>
-            <p className="text-lg text-gray-500 flex flex-row items-center gap-2">
-              <FaMoneyBill className=" text-green-500 inline-block" />
-              <span className=" font-bold">{flat.price.toLocaleString()}</span>
-              /-
-            </p>
-            <p className="font-bold flex items-center gap-2">
-              <PiMapPinAreaFill className=" inline-block" />
-              {flat.propertySize}
-              <span className="px-2">Fit</span>
-            </p>
-            <p className="mt-4">{flat.description}</p>
-            <p className="mt-4">
-              <strong>Availability: </strong>
-              {flat.availability ? "Available" : "Not Available"}
-            </p>
+      {/* Other Details */}
+      <div className="pop mt-[60px] container mx-auto max-w-[1200px]">
+        <div className="flex flex-col md:flex-row gap-6">
+          {/* Left Column */}
+          <div className="md:w-3/4 pr-6 flex flex-col justify-between">
+            <div>
+              <p className="text-2xl mb-3 text-black font-medium flex flex-row items-center gap-2">
+                {flat.shortDescription}
+              </p>
+              <p className="font-bold flex items-center gap-2">
+                <FaBed className="inline-block text-teal-700" />
+                {flat.features}
+              </p>
+              <p className="text-lg mb-1 text-black font-bold flex flex-row items-center gap-2">
+                <FaMapMarkerAlt className="text-teal-700 inline-block" />{" "}
+                {flat.location}
+              </p>
+              <p
+                className={`mt-1 mb-6 font-semibold ${
+                  flat.availability ? "text-green-400" : "text-red-400"
+                }`}
+              >
+                <strong>Availability: </strong>
+                {flat.availability ? "Available" : "Not Available"}
+              </p>
+              <hr />
+              <p className="text-lg mt-6 text-gray-500 flex flex-row items-center gap-2">
+                <FaMoneyBill className="text-teal-700 inline-block" />
+                <span className="font-bold">{flat.price.toLocaleString()}</span>
+                /-
+              </p>
+              <p className="font-bold flex items-center gap-2">
+                <PiMapPinAreaFill className="text-teal-700 inline-block" />
+                {flat.propertySize}
+                <span className="px-2">Fit</span>
+              </p>
+              <p className="font-bold mb-6 flex items-center gap-2">
+                <BiSolidMessageSquareError className="text-teal-700 inline-block" />
+                {flat.restrictions}
+              </p>
+              <hr />
+              <p className="mt-6 text-teal-700 font-bold">About Flat</p>
+              <p>{flat.longDescription}</p>
+            </div>
           </div>
-          <div className="mt-12 md:mt-0 md:w-3/4">
-            {/* Professional Card for Owner Details */}
-            <div className="border p-4 rounded-lg shadow-lg bg-white">
-              <h3 className="text-xl font-bold text-center mb-6 text-gray-800 ">
+
+          {/* Right Column */}
+          <div className="mt-12 md:mt-0 md:w-3/4 flex flex-col">
+            <div className="border p-4 rounded-lg shadow-lg bg-white flex-1">
+              <h3 className="text-xl font-bold text-center mb-6 text-gray-800">
                 Home Details
               </h3>
               <p className="text-lg text-center text-gray-700 mb-2">
@@ -124,7 +148,7 @@ export default function Details() {
 
               {/* Property Features Section */}
               <div className="mt-4 grid grid-cols-2 gap-4 px-6">
-                <div className="flex items-center justify-start  gap-2">
+                <div className="flex items-center justify-start gap-2">
                   <FaCar className="text-teal-700" />
                   <p className="text-sm text-gray-700">
                     Parking: {flat.parking ? "Available" : "Not Available"}

@@ -206,7 +206,7 @@ export default function Buy() {
           {/* For Large Devices */}
           <div className="hidden md:flex justify-center items-center space-x-4 mb-6 gap-4 sm:gap-6 md:gap-8">
             {/* Search Bar Wrapper */}
-            <div className="relative flex items-center space-x-2 bg-[#006d6f] border border-gray-300 shadow-lg rounded-full px-4 py-2 w-full  md:w-[900px]">
+            <div className="relative flex items-center space-x-2 bg-[#006d6f] border border-gray-300 shadow-lg rounded-full px-4 py-2 w-full  max-w-[900px]">
               {/* Location Input */}
               <div className="relative flex-grow">
                 <input

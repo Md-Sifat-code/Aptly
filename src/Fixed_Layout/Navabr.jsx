@@ -57,7 +57,7 @@ export default function Navabr() {
         <div className="hidden lg:block relative">
           <button
             onClick={toggleDropdown}
-            className="text-black focus:outline-none"
+            className=" p-4 border rounded-full bg-teal-700 font-bold text-white focus:outline-none"
             aria-label="User menu"
           >
             <svg

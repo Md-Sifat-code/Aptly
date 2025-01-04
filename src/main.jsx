@@ -8,6 +8,7 @@ import Sell from "./Pages/Sell";
 import { CategoryProvider } from "./Context_Api/CategoryContext";
 import { FlatProvider } from "./Context_Api/FlatContext";
 import Details from "./Fixed_components/Details";
+import AddHomeForm from "./Modals/AddHomeForm";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
         element: <Details />,
       },
     ],
+  },
+  {
+    path: "/add-home",
+    element: <AddHomeForm />,
   },
 ]);
 

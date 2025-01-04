@@ -3,7 +3,6 @@ import logo from "/bariss.png";
 import { Link, useLocation } from "react-router-dom";
 import LoginModal from "../Modals/LoginModal"; // Import LoginModal
 import SignupModal from "../Modals/SignupModal"; // Import SignupModal
-import AddHomeModal from "../Modals/AddHomeModal"; // Import AddHomeModal
 
 export default function Navabr() {
   const [isOpen, setIsOpen] = useState(false);
@@ -94,12 +93,12 @@ export default function Navabr() {
                   >
                     Signup
                   </button>
-                  <button
-                    onClick={() => showModal("add-home")}
+                  <Link
+                    to="/add-home"
                     className="w-full btn-outline border-[#006d6f] btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
                   >
                     Add Home
-                  </button>
+                  </Link>
                 </>
               ) : (
                 <Link
@@ -206,12 +205,12 @@ export default function Navabr() {
                         >
                           Signup
                         </button>
-                        <button
-                          onClick={() => showModal("add-home")}
+                        <Link
+                          to="/add-home"
                           className="w-full btn-outline border-[#006d6f] btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
                         >
                           Add Home
-                        </button>
+                        </Link>
                       </>
                     ) : (
                       <Link
@@ -232,7 +231,6 @@ export default function Navabr() {
       {/* Show the modal based on the modalType */}
       {modalType === "login" && <LoginModal closeModal={closeModal} />}
       {modalType === "signup" && <SignupModal closeModal={closeModal} />}
-      {modalType === "add-home" && <AddHomeModal closeModal={closeModal} />}
     </section>
   );
 }

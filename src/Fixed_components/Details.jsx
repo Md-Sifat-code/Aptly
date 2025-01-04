@@ -173,7 +173,7 @@ export default function Details() {
                   </p>
                 </div>
               </div>
-              <Link className="btn mt-6 w-full bg-teal-700 font-bold text-white">
+              <Link className="btn mt-6 w-full bg-teal-700 font-bold hover:bg-teal-900 text-white">
                 Buy Now
               </Link>
             </div>

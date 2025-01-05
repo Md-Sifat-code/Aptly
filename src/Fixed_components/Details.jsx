@@ -2,29 +2,28 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaMoneyBill } from "react-icons/fa";
 import { FaBed } from "react-icons/fa";
 import { BiSolidMessageSquareError } from "react-icons/bi";
-import { Link, useParams } from "react-router-dom"; // Import useParams from react-router-dom
+import { Link, useParams } from "react-router-dom";
 import { PiMapPinAreaFill } from "react-icons/pi";
-import { FlatContext } from "../Context_Api/FlatContext"; // Import the FlatContext
+import { FlatContext } from "../Context_Api/FlatContext";
 import {
   FaMapMarkerAlt,
   FaCar,
   FaCouch,
   FaCalendarAlt,
   FaPaw,
-} from "react-icons/fa"; // Correct imports for icons
+} from "react-icons/fa";
 
 export default function Details() {
-  const { flats, loading, error } = useContext(FlatContext); // Use context to get the data
-  const { id } = useParams(); // Use useParams to get the `id` from the URL
+  const { flats, loading, error } = useContext(FlatContext);
+  const { id } = useParams();
   const [flat, setFlat] = useState(null);
 
   useEffect(() => {
-    // Check if id exists before using it
     if (id) {
       const selectedFlat = flats.find((flat) => flat.id === parseInt(id));
       setFlat(selectedFlat);
     }
-  }, [flats, id]); // Re-run when flats or the id changes
+  }, [flats, id]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -41,7 +40,6 @@ export default function Details() {
         />
         <div className="col-span-1 sm:col-span-2 lg:col-span-3">
           <div className="grid grid-cols-2 gap-2">
-            {/* First Div with Two Images */}
             {flat.imageUrls &&
               flat.imageUrls.length > 0 &&
               flat.imageUrls
@@ -56,22 +54,22 @@ export default function Details() {
                 ))}
           </div>
           <div className="grid grid-cols-2 gap-2 mt-2">
-            {/* Second Div with Next Two Images */}
             {flat.imageUrls &&
               flat.imageUrls.length > 2 &&
-              flat.imageUrls.slice(2, 4).map((imageUrl, index) => (
-                <img
-                  key={index + 2} // Adjust index to avoid key collision
-                  src={imageUrl}
-                  alt={`${flat.title} - ${index + 3}`}
-                  className="w-full h-full rounded-xl object-cover"
-                />
-              ))}
+              flat.imageUrls
+                .slice(2, 4)
+                .map((imageUrl, index) => (
+                  <img
+                    key={index + 2}
+                    src={imageUrl}
+                    alt={`${flat.title} - ${index + 3}`}
+                    className="w-full h-full rounded-xl object-cover"
+                  />
+                ))}
           </div>
         </div>
       </div>
 
-      {/* Other Details */}
       {/* Other Details */}
       <div className="pop mt-[60px] container mx-auto max-w-[1200px]">
         <div className="flex flex-col md:flex-row gap-6">
@@ -114,7 +112,7 @@ export default function Details() {
               </p>
               <hr />
               <p className="mt-6 text-teal-700 font-bold">About Flat</p>
-              <p>{flat.longDescription}</p>
+              <p className="whitespace-pre-line">{flat.longDescription}</p>
             </div>
           </div>
 
@@ -173,7 +171,10 @@ export default function Details() {
                   </p>
                 </div>
               </div>
-              <Link className="btn mt-6 w-full bg-teal-700 font-bold hover:bg-teal-900 text-white">
+              <Link
+                to="/checkout"
+                className="btn mt-6 w-full bg-teal-700 font-bold hover:bg-teal-900 text-white"
+              >
                 Buy Now
               </Link>
             </div>

@@ -94,75 +94,94 @@ const AddHomeForm = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-[900px] mx-auto">
-      <form onSubmit={handleSubmit}>
-        <h2 className="text-2xl font-semibold mb-6 text-center">
+    <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-4xl mx-auto">
+      <form onSubmit={handleSubmit} className="space-y-8">
+        <h2 className="text-3xl font-semibold text-teal-700 text-center mb-6">
           Add Home for Rent/Sell
         </h2>
 
         {/* Location, Price and Short Title */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="form-group">
-            <label className="text-sm font-medium">Location</label>
+            <label className="text-sm font-medium text-gray-700">
+              Location
+            </label>
             <input
               type="text"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              placeholder="Location"
-              className="w-full p-2 border rounded-md shadow-sm"
+              placeholder="Enter location"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
           <div className="form-group">
-            <label className="text-sm font-medium">Price</label>
+            <label className="text-sm font-medium text-gray-700">Price</label>
             <input
               type="text"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              placeholder="Price"
-              className="w-full p-2 border rounded-md shadow-sm"
+              placeholder="Enter price"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
           <div className="form-group">
-            <label className="text-sm font-medium">Short Title</label>
+            <label className="text-sm font-medium text-gray-700">
+              Short Title
+            </label>
             <input
               type="text"
               value={shortTitle}
               onChange={(e) => setShortTitle(e.target.value)}
-              placeholder="Short Title"
-              className="w-full p-2 border rounded-md shadow-sm"
+              placeholder="Enter short title"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
         </div>
 
         {/* Short Description and Long Description */}
-        <div className="form-group mb-4">
-          <label className="text-sm font-medium">Short Description</label>
-          <input
-            type="text"
-            value={shortDescription}
-            onChange={(e) => setShortDescription(e.target.value)}
-            placeholder="Short Description"
-            className="w-full p-2 border rounded-md shadow-sm"
-          />
-        </div>
-        <div className="form-group mb-4">
-          <label className="text-sm font-medium">Long Description</label>
-          <textarea
-            value={longDescription}
-            onChange={(e) => setLongDescription(e.target.value)}
-            placeholder="Long Description"
-            className="w-full p-2 border rounded-md shadow-sm"
-          />
+        <div className="space-y-4">
+          <div className="form-group">
+            <label className="text-sm font-medium text-gray-700">
+              Short Description
+            </label>
+            <input
+              type="text"
+              value={shortDescription}
+              onChange={(e) => setShortDescription(e.target.value)}
+              placeholder="Enter a brief description"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+          </div>
+          <div className="form-group">
+            <label className="text-sm font-medium text-gray-700">
+              Long Description
+            </label>
+            <textarea
+              value={longDescription}
+              onChange={(e) => {
+                if (e.target.value.length <= 250) {
+                  setLongDescription(e.target.value);
+                }
+              }}
+              placeholder="Detailed description (max 250 characters)"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+            <p className="text-sm text-gray-500">
+              {longDescription.length}/250 characters
+            </p>
+          </div>
         </div>
 
         {/* Property Type, Size, Parking */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="form-group">
-            <label className="text-sm font-medium">Property Type</label>
+            <label className="text-sm font-medium text-gray-700">
+              Property Type
+            </label>
             <select
               value={propertyType}
               onChange={(e) => setPropertyType(e.target.value)}
-              className="w-full p-2 border rounded-md shadow-sm"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
               <option value="">Select Property Type</option>
               <option value="Apartment">Apartment</option>
@@ -171,133 +190,163 @@ const AddHomeForm = () => {
             </select>
           </div>
           <div className="form-group">
-            <label className="text-sm font-medium">
-              Property Size(Squire Fit)
+            <label className="text-sm font-medium text-gray-700">
+              Property Size (Sq. Ft.)
             </label>
             <input
               type="text"
               value={propertySize}
               onChange={(e) => setPropertySize(e.target.value)}
-              placeholder="Property Size"
-              className="w-full p-2 border rounded-md shadow-sm"
+              placeholder="Enter size"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
           <div className="form-group">
-            <label className="text-sm font-medium">Parking</label>
-            <select
-              value={parking}
-              onChange={(e) => setParking(e.target.value === "Yes")}
-              className="w-full p-2 border rounded-md shadow-sm"
-            >
-              <option value="">Parking</option>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>
+            <label className="text-sm font-medium text-gray-700">
+              Year Built
+            </label>
+            <input
+              type="number"
+              value={yearBuilt === 0 ? "" : yearBuilt} // Show empty string if yearBuilt is 0
+              onChange={(e) =>
+                setYearBuilt(
+                  e.target.value === "" ? "" : Number(e.target.value)
+                )
+              }
+              placeholder="Enter year built"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
           </div>
         </div>
 
         {/* Furnished, Year Built, Pet Friendly */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-          <div className="form-group">
-            <label className="text-sm font-medium">Furnished</label>
-            <select
-              value={furnished}
-              onChange={(e) => setFurnished(e.target.value === "Yes")}
-              className="w-full p-2 border rounded-md shadow-sm"
-            >
-              <option value="">Furnished</option>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label className="text-sm font-medium">
-              Year Built(Write year)
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="form-group flex flex-row items-center gap-2">
+            <label className="text-sm font-medium text-gray-700">
+              Furnished
             </label>
             <input
-              type="number"
-              value={yearBuilt}
-              onChange={(e) => setYearBuilt(Number(e.target.value))}
-              placeholder="Year Built"
-              className="w-full p-2 border rounded-md shadow-sm"
+              type="checkbox"
+              checked={furnished}
+              onChange={(e) => setFurnished(e.target.checked)}
+              className="w-5 h-5 text-teal-700 border-2 border-teal-700 focus:ring-teal-700"
             />
           </div>
-          <div className="form-group">
-            <label className="text-sm font-medium">Pet Friendly</label>
-            <select
-              value={petFriendly}
-              onChange={(e) => setPetFriendly(e.target.value === "Yes")}
-              className="w-full p-2 border rounded-md shadow-sm"
-            >
-              <option value="">Pet Friendly</option>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>
+          <div className="form-group flex flex-row items-center gap-2">
+            <label className="text-sm font-medium text-gray-700">Parking</label>
+            <input
+              type="checkbox"
+              checked={parking}
+              onChange={(e) => setParking(e.target.checked)}
+              className="w-5 h-5 text-teal-700 border-2 border-teal-700 focus:ring-teal-700"
+            />
+          </div>
+
+          {/* ok */}
+          <div className="form-grou flex flex-row items-center gap-2">
+            <label className="text-sm font-medium text-gray-700">
+              Pet Friendly
+            </label>
+            <input
+              type="checkbox"
+              checked={petFriendly}
+              onChange={(e) => setPetFriendly(e.target.checked)}
+              className="w-5 h-5 text-teal-700 border-2 border-teal-700 focus:ring-teal-700"
+            />
           </div>
         </div>
 
         {/* Availability, Owner Name, Owner Contact */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="form-group">
-            <label className="text-sm font-medium">Availability Status</label>
+            <label className="text-sm font-medium text-gray-700">
+              Availability Status
+            </label>
             <input
               type="text"
               value={availabilityStatus}
               onChange={(e) => setAvailabilityStatus(e.target.value)}
               placeholder="Available/Not Available/Booked"
-              className="w-full p-2 border rounded-md shadow-sm"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
           <div className="form-group">
-            <label className="text-sm font-medium">Owner Name</label>
+            <label className="text-sm font-medium text-gray-700">
+              Owner Name
+            </label>
             <input
               type="text"
               value={ownerName}
               onChange={(e) => setOwnerName(e.target.value)}
-              placeholder="Owner Name"
-              className="w-full p-2 border rounded-md shadow-sm"
+              placeholder="Enter owner's name"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
           <div className="form-group">
-            <label className="text-sm font-medium">Owner Contact</label>
+            <label className="text-sm font-medium text-gray-700">
+              Owner Contact
+            </label>
             <input
               type="text"
               value={ownerContact}
               onChange={(e) => setOwnerContact(e.target.value)}
-              placeholder="Owner Contact"
-              className="w-full p-2 border rounded-md shadow-sm"
+              placeholder="Enter owner's contact"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
         </div>
 
+        <div className="form-group">
+          <label className="text-sm font-medium text-gray-700">
+            Showcase Image
+          </label>
+          <input
+            type="file"
+            onChange={(e) => setHeroImage(e.target.files[0])}
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+          />
+        </div>
         {/* Images and Hero Image */}
-        <div className="form-group mb-4">
-          <label className="text-sm font-medium">
-            Detailed Images Add 3-4 just clicking one by one
+        <div className="form-group space-y-4">
+          <label className="text-sm font-medium text-gray-700">
+            Add Detailed Images (3-4)
           </label>
           <input
             type="file"
             multiple
             onChange={handleImageChange}
-            className="w-full p-2 border rounded-md shadow-sm"
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
-        </div>
-        <div className="form-group mb-4">
-          <label className="text-sm font-medium">Showcase Image</label>
-          <input
-            type="file"
-            onChange={(e) => setHeroImage(e.target.files[0])}
-            className="w-full p-2 border rounded-md shadow-sm"
-          />
+          <div className="mt-4 grid grid-cols-3 gap-2">
+            {images.length > 0 &&
+              Array.from(images).map((image, index) => (
+                <div key={index} className="relative">
+                  <img
+                    src={URL.createObjectURL(image)}
+                    alt={`preview-${index}`}
+                    className="w-full h-24 object-cover rounded-md"
+                  />
+                  <button
+                    onClick={() => {
+                      const newImages = images.filter((_, i) => i !== index);
+                      setImages(newImages);
+                    }}
+                    className="absolute top-0 right-0 p-1 bg-red-600 text-white rounded-full text-xs"
+                  >
+                    X
+                  </button>
+                </div>
+              ))}
+          </div>
         </div>
 
         {/* Submit Button */}
         <div className="text-center">
           <button
             type="submit"
-            className="px-6 py-2 bg-teal-700 text-white rounded-md hover:bg-teal-700"
+            className="w-full py-3 bg-teal-700 text-white rounded-lg hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-500 flex items-center justify-center"
           >
-            Add Property <FaUpload className="inline ml-2" />
+            Add Property <FaUpload className="ml-2" />
           </button>
         </div>
       </form>
@@ -315,9 +364,9 @@ const AddHomeForm = () => {
             <div className="text-center">
               <button
                 onClick={handleCloseModal}
-                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-700"
+                className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
               >
-                Go to Home
+                OK
               </button>
             </div>
           </div>

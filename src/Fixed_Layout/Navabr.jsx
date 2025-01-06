@@ -4,11 +4,13 @@ import { Link, useLocation } from "react-router-dom";
 import LoginModal from "../Modals/LoginModal"; // Import LoginModal
 import SignupModal from "../Modals/SignupModal"; // Import SignupModal
 import { useUser } from "../Authentication/UserContext"; // Import user context
+import ProfileDrawer from "../Modals/ProfileDrawer"; // Import ProfileDrawer
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // For dropdown menu
   const [modalType, setModalType] = useState(null); // Track which modal to show
+  const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false); // For profile drawer
   const location = useLocation();
   const { user, logout } = useUser(); // Access user and logout from the context
 
@@ -35,6 +37,15 @@ export default function Navbar() {
 
   const isActive = (path) =>
     location.pathname === path ? "text-[#006d6f] font-bold" : "";
+
+  const openProfileDrawer = () => {
+    setIsProfileDrawerOpen(true); // Open the profile drawer
+    setIsDropdownOpen(false); // Close the dropdown menu if it's open
+  };
+
+  const closeProfileDrawer = () => {
+    setIsProfileDrawerOpen(false); // Close the profile drawer
+  };
 
   return (
     <section className="flex justify-center pop items-center">
@@ -106,12 +117,12 @@ export default function Navbar() {
                   >
                     Add Home
                   </Link>
-                  <Link
-                    to="/profile"
+                  <button
+                    onClick={openProfileDrawer} // Open profile drawer
                     className="w-full btn-outline border-[#006d6f] btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
                   >
                     Profile
-                  </Link>
+                  </button>
                   <button
                     onClick={logout} // Log out function
                     className="w-full mt-2 bg-[#006d6f] hover:bg-teal-700 btn px-4 py-2 text-white"
@@ -131,6 +142,11 @@ export default function Navbar() {
             closeModal={closeModal}
             openLoginModal={openLoginModal}
           />
+        )}
+
+        {/* Profile Drawer */}
+        {isProfileDrawerOpen && (
+          <ProfileDrawer closeDrawer={closeProfileDrawer} />
         )}
       </div>
     </section>

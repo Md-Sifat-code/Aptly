@@ -1,16 +1,13 @@
+// LoginModal.js
 import React, { useState } from "react";
-import {
-  FaGoogle,
-  FaFacebook,
-  FaUser,
-  FaEnvelope,
-  FaLock,
-} from "react-icons/fa"; // Import new icons
+import { FaGoogle, FaFacebook, FaUser, FaLock } from "react-icons/fa"; // Import new icons
+import { useUser } from "./UserContext"; // Import useUser hook
 
 const LoginModal = ({ closeModal }) => {
+  const { updateUser, logout } = useUser(); // Access updateUser and logout from context
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Handle Google login
   const handleGoogleLogin = () => {
@@ -24,10 +21,43 @@ const LoginModal = ({ closeModal }) => {
     // Implement Facebook login logic here
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login submission logic here
-    closeModal();
+
+    // Prepare the data to send in the POST request
+    const loginData = { username, password };
+
+    try {
+      // Send the POST request to the backend
+      const response = await fetch("https://flatelse.onrender.com/Log", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+
+      // Check if the response is successful (status code 200)
+      if (!response.ok) {
+        throw new Error("Invalid login credentials");
+      }
+
+      // Parse the response data
+      const data = await response.json();
+
+      // Update user context with the response data
+      updateUser({
+        token: data.token,
+        username: data.username,
+        email: data.email,
+        roles: data.roles,
+      });
+
+      // Close the modal
+      closeModal();
+    } catch (error) {
+      setErrorMessage(error.message); // Show the error message if login fails
+    }
   };
 
   return (
@@ -54,6 +84,7 @@ const LoginModal = ({ closeModal }) => {
         </button>
         <form onSubmit={handleSubmit}>
           <h2 className="text-xl mb-4">Login</h2>
+
           {/* Username Field */}
           <div className="flex items-center mb-2">
             <FaUser className="text-gray-400 mr-2" />
@@ -66,29 +97,22 @@ const LoginModal = ({ closeModal }) => {
             />
           </div>
 
-          {/* Email Field */}
-          <div className="flex items-center mb-2">
-            <FaEnvelope className="text-gray-400 mr-2" />
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              className="w-full p-2 border rounded-md"
-            />
-          </div>
-
           {/* Password Field */}
           <div className="flex items-center mb-4">
             <FaLock className="text-gray-400 mr-2" />
             <input
-              type="password"
+              type="text" // Changed password type to text
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               className="w-full p-2 border rounded-md"
             />
           </div>
+
+          {/* Error message (if any) */}
+          {errorMessage && (
+            <div className="text-red-500 text-sm mb-2">{errorMessage}</div>
+          )}
 
           <button
             type="submit"

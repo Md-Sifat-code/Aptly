@@ -1,44 +1,56 @@
-// // src/Authentication/UserContext.jsx
-// import React, { createContext, useState, useContext } from "react"; // Combine imports here
-// import axios from "axios"; // Axios is imported directly here
+// UserContext.js
+import React, { createContext, useState, useContext, useEffect } from "react";
 
-// // Define the context
-// const UserContext = createContext();
+// Create the context
+const UserContext = createContext();
 
-// // UserProvider will be used to wrap your components
-// const UserProvider = ({ children }) => {
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState(null);
+// Create a custom hook to access the user context
+export const useUser = () => {
+  return useContext(UserContext);
+};
 
-//   // signupUser function handles the API request
-//   const signupUser = async (userData) => {
-//     try {
-//       setLoading(true);
-//       setError(null); // Reset error before making a request
-//       const response = await axios.post(
-//         "https://flatelse.onrender.com/User",
-//         userData
-//       );
-//       console.log("User successfully signed up:", response.data);
-//       // Here you can handle successful signup (store user data, redirect, etc.)
-//     } catch (err) {
-//       console.error("Error signing up:", err);
-//       setError(err.response?.data?.message || "Something went wrong!");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
+// Create the provider component
+export const UserProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
 
-//   return (
-//     <UserContext.Provider value={{ signupUser, loading, error }}>
-//       {children}
-//     </UserContext.Provider>
-//   );
-// };
+  // Check for existing session token on app load
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      // Token exists, you can decode or fetch user details here if needed
+      const username = sessionStorage.getItem("username");
+      const email = sessionStorage.getItem("email");
+      const roles = sessionStorage.getItem("roles")?.split(",") || [];
 
-// // Custom hook to use context easily
-// const useUserContext = () => {
-//   return useContext(UserContext);
-// };
+      setUser({
+        username,
+        email,
+        roles,
+        token,
+      });
+    }
+  }, []);
 
-// export { UserProvider, useUserContext };
+  // Function to update user data in the context
+  const updateUser = (userData) => {
+    setUser(userData);
+
+    // Save user data in sessionStorage
+    sessionStorage.setItem("token", userData.token);
+    sessionStorage.setItem("username", userData.username);
+    sessionStorage.setItem("email", userData.email);
+    sessionStorage.setItem("roles", userData.roles.join(","));
+  };
+
+  // Function to clear user data and log out
+  const logout = () => {
+    setUser(null);
+    sessionStorage.clear(); // Clear session storage
+  };
+
+  return (
+    <UserContext.Provider value={{ user, updateUser, logout }}>
+      {children}
+    </UserContext.Provider>
+  );
+};

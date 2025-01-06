@@ -9,6 +9,7 @@ import { CategoryProvider } from "./Context_Api/CategoryContext";
 import { FlatProvider } from "./Context_Api/FlatContext";
 import Details from "./Fixed_components/Details";
 import AddHomeForm from "./Modals/AddHomeForm";
+import { UserProvider } from "./Authentication/UserContext";
 
 const router = createBrowserRouter([
   {
@@ -37,10 +38,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <FlatProvider>
-      <CategoryProvider>
-        <RouterProvider router={router} />
-      </CategoryProvider>
-    </FlatProvider>
+    <UserProvider>
+      <FlatProvider>
+        <CategoryProvider>
+          <RouterProvider router={router} />
+        </CategoryProvider>
+      </FlatProvider>
+    </UserProvider>
   </React.StrictMode>
 );

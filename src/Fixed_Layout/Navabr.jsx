@@ -3,14 +3,14 @@ import logo from "/bariss.png";
 import { Link, useLocation } from "react-router-dom";
 import LoginModal from "../Modals/LoginModal"; // Import LoginModal
 import SignupModal from "../Modals/SignupModal"; // Import SignupModal
+import { useUser } from "../Authentication/UserContext"; // Import user context
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // For dropdown menu
   const [modalType, setModalType] = useState(null); // Track which modal to show
   const location = useLocation();
-
-  const user = null; // Example user state, replace with actual auth logic
+  const { user, logout } = useUser(); // Access user and logout from the context
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -58,10 +58,10 @@ export default function Navbar() {
         </div>
 
         {/* User Icon */}
-        <div className="hidden lg:block relative">
+        <div className="block relative">
           <button
             onClick={toggleDropdown}
-            className=" p-4 border rounded-full bg-teal-700 font-bold text-white focus:outline-none"
+            className="p-4 border rounded-full bg-teal-700 font-bold text-white focus:outline-none"
             aria-label="User menu"
           >
             <svg
@@ -97,20 +97,28 @@ export default function Navbar() {
                   >
                     Signup
                   </button>
+                </>
+              ) : (
+                <>
                   <Link
                     to="/add-home"
                     className="w-full btn-outline border-[#006d6f] btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
                   >
                     Add Home
                   </Link>
+                  <Link
+                    to="/profile"
+                    className="w-full btn-outline border-[#006d6f] btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    onClick={logout} // Log out function
+                    className="w-full mt-2 bg-[#006d6f] hover:bg-teal-700 btn px-4 py-2 text-white"
+                  >
+                    Logout
+                  </button>
                 </>
-              ) : (
-                <Link
-                  to="/profile"
-                  className="w-full text-black hover:text-[#006d6f] py-2"
-                >
-                  Profile
-                </Link>
               )}
             </div>
           )}

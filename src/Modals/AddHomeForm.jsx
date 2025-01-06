@@ -11,7 +11,7 @@ const AddHomeForm = () => {
   const [furnished, setFurnished] = useState(false);
   const [yearBuilt, setYearBuilt] = useState(0);
   const [petFriendly, setPetFriendly] = useState(false);
-  const [availabilityStatus, setAvailabilityStatus] = useState(false);
+  const [availabilityStatus, setAvailabilityStatus] = useState("available"); // Changed to dropdown with string values
   const [ownerName, setOwnerName] = useState("");
   const [ownerContact, setOwnerContact] = useState("");
   const [images, setImages] = useState([]);
@@ -23,6 +23,7 @@ const AddHomeForm = () => {
   const [restrictions, setRestrictions] = useState("");
   const [heroImage, setHeroImage] = useState(null);
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [isSubmitting, setIsSubmitting] = useState(false); // To prevent multiple submits
 
   const navigate = useNavigate(); // Initialize useNavigate hook
 
@@ -33,14 +34,15 @@ const AddHomeForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Immediately show the modal and navigate to the homepage
-    setShowModal(true);
-    navigate("/"); // Navigate to home page right away
+    // Prevent submitting multiple times
+    if (isSubmitting) return;
+    setIsSubmitting(true);
 
     const updatedParking = parking ? "true" : "false";
     const updatedFurnished = furnished ? "true" : "false";
     const updatedPetFriendly = petFriendly ? "true" : "false";
-    const updatedAvailabilityStatus = availabilityStatus || "";
+    const updatedAvailabilityStatus =
+      availabilityStatus === "available" ? "true" : "false"; // logic for availability status dropdown
     const updatedPropertyType = propertyType || "";
     const updatedPropertySize = propertySize || "";
     const updatedYearBuilt = yearBuilt || 0;
@@ -83,10 +85,18 @@ const AddHomeForm = () => {
         const errorText = await response.text();
         console.error("Server Error:", errorText);
         alert("Failed to add property.");
+      } else {
+        setShowModal(true);
+        setTimeout(() => {
+          setShowModal(false);
+          navigate("/"); // Navigate to the homepage after 3 seconds
+        }, 3000);
       }
     } catch (error) {
       console.error("Error adding property:", error);
       alert("An error occurred while adding the property.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -266,11 +276,11 @@ const AddHomeForm = () => {
             </label>
             <select
               value={availabilityStatus}
-              onChange={(e) => setAvailabilityStatus(e.target.value === "true")}
+              onChange={(e) => setAvailabilityStatus(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
-              <option value={false}>Not Available</option>
-              <option value={true}>Available</option>
+              <option value="available">Available</option>
+              <option value="not-available">Not Available</option>
             </select>
           </div>
           <div className="form-group">
@@ -309,6 +319,7 @@ const AddHomeForm = () => {
             className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
         </div>
+
         {/* Images and Hero Image */}
         <div className="form-group space-y-4">
           <label className="text-sm font-medium text-gray-700">
@@ -347,31 +358,27 @@ const AddHomeForm = () => {
         <div className="text-center">
           <button
             type="submit"
+            disabled={isSubmitting}
             className="w-full py-3 bg-teal-700 text-white rounded-lg hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-500 flex items-center justify-center"
           >
-            Add Property <FaUpload className="ml-2" />
+            {isSubmitting ? "Adding..." : "Add Property"}
           </button>
         </div>
       </form>
 
-      {/* Modal */}
+      {/* Success Modal */}
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[300px] sm:w-[400px]">
-            <h3 className="text-xl font-semibold text-center mb-4">
-              Property Added!
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg text-center max-w-sm w-full">
+            <h3 className="text-xl font-semibold text-teal-700 mb-4">
+              Property Added Successfully!
             </h3>
-            <p className="text-center text-sm mb-4">
-              Your property has been successfully added.
-            </p>
-            <div className="text-center">
-              <button
-                onClick={handleCloseModal}
-                className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
-              >
-                OK
-              </button>
-            </div>
+            <button
+              onClick={handleCloseModal}
+              className="py-2 px-4 bg-teal-700 text-white rounded-lg"
+            >
+              OK
+            </button>
           </div>
         </div>
       )}

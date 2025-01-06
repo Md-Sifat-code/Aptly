@@ -6,7 +6,7 @@ import swal from "sweetalert";
 import { FaTimes } from "react-icons/fa";
 import qs from "qs"; // For serializing the form data
 
-const SignupModal = ({ closeModal }) => {
+const SignupModal = ({ closeModal, openLoginModal }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -64,6 +64,7 @@ const SignupModal = ({ closeModal }) => {
           swal("Success!", "Registration successful!", "success");
           formik.resetForm();
           closeModal();
+          openLoginModal(); // Trigger LoginModal to open after successful sign-up
         } else {
           console.log("Unexpected response:", response);
           alert("Something went wrong while processing your request.");
@@ -98,7 +99,7 @@ const SignupModal = ({ closeModal }) => {
         <span className="label-text font-bold">{label}</span>
       </label>
       <input
-        type={type} // Set the type to text for password
+        type={type} // Set the type to text for password to show the plain text password
         name={name}
         placeholder={placeholder}
         className="input input-bordered w-full p-2"
@@ -129,7 +130,7 @@ const SignupModal = ({ closeModal }) => {
           {renderInput("Full Name", "username", "text", "Full Name")}
           {renderInput("Email", "email", "email", "Email")}
           {renderInput("Password", "password", "text", "Password")}{" "}
-          {/* Set the password field type to "password" for better security */}
+          {/* Keep password field type as "text" */}
           {/* Submit Button */}
           <button
             type="submit"

@@ -1,7 +1,7 @@
 // LoginModal.js
 import React, { useState } from "react";
 import { FaGoogle, FaFacebook, FaUser, FaLock } from "react-icons/fa"; // Import new icons
-import { useUser } from "./UserContext"; // Import useUser hook
+import { useUser } from "../Authentication/UserContext"; // Import useUser hook
 
 const LoginModal = ({ closeModal }) => {
   const { updateUser, logout } = useUser(); // Access updateUser and logout from context

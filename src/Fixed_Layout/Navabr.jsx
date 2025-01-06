@@ -5,12 +5,15 @@ import LoginModal from "../Modals/LoginModal"; // Import LoginModal
 import SignupModal from "../Modals/SignupModal"; // Import SignupModal
 import { useUser } from "../Authentication/UserContext"; // Import user context
 import ProfileDrawer from "../Modals/ProfileDrawer"; // Import ProfileDrawer
+import ProfileUpdateModal from "../Modals/ProfileUpdateModal"; // Import the profile update modal
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // For dropdown menu
   const [modalType, setModalType] = useState(null); // Track which modal to show
   const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false); // For profile drawer
+  const [isProfileUpdateModalOpen, setIsProfileUpdateModalOpen] =
+    useState(false); // Track profile update modal visibility
   const location = useLocation();
   const { user, logout } = useUser(); // Access user and logout from the context
 
@@ -38,9 +41,14 @@ export default function Navbar() {
   const isActive = (path) =>
     location.pathname === path ? "text-[#006d6f] font-bold" : "";
 
-  const openProfileDrawer = () => {
-    setIsProfileDrawerOpen(true); // Open the profile drawer
-    setIsDropdownOpen(false); // Close the dropdown menu if it's open
+  const openProfileUpdateModal = () => {
+    setIsProfileUpdateModalOpen(true); // Open profile update modal
+    setIsDropdownOpen(false); // Close dropdown
+  };
+
+  const closeProfileUpdateModal = () => {
+    setIsProfileUpdateModalOpen(false); // Close profile update modal
+    setIsProfileDrawerOpen(true); // Open profile drawer after confirmation
   };
 
   const closeProfileDrawer = () => {
@@ -118,7 +126,7 @@ export default function Navbar() {
                     Add Home
                   </Link>
                   <button
-                    onClick={openProfileDrawer} // Open profile drawer
+                    onClick={openProfileUpdateModal} // Open profile update modal
                     className="w-full btn-outline border-[#006d6f] btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
                   >
                     Profile
@@ -142,6 +150,11 @@ export default function Navbar() {
             closeModal={closeModal}
             openLoginModal={openLoginModal}
           />
+        )}
+
+        {/* Profile Update Modal */}
+        {isProfileUpdateModalOpen && (
+          <ProfileUpdateModal closeModal={closeProfileUpdateModal} />
         )}
 
         {/* Profile Drawer */}

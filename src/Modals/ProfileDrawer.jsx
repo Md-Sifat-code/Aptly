@@ -7,7 +7,7 @@ const ProfileDrawer = ({ closeDrawer }) => {
 
   return (
     <div className="pop fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-end">
-      <div className="bg-white px-4 w-72 h-auto max-h-[90vh] shadow-lg  rounded-bl-lg rounded-br-lg rounded-tl-lg rounded-tr-[42px] flex flex-col justify-center mt-12 mr-4">
+      <div className="bg-white px-4 w-full lg:w-96 h-auto max-h-[90vh] shadow-lg  rounded-bl-lg rounded-br-lg rounded-tl-lg rounded-tr-[42px] flex flex-col justify-center mt-12 mr-4">
         {/* Close button with icon */}
         <button
           onClick={closeDrawer}

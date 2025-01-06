@@ -11,7 +11,7 @@ const AddHomeForm = () => {
   const [furnished, setFurnished] = useState(false);
   const [yearBuilt, setYearBuilt] = useState(0);
   const [petFriendly, setPetFriendly] = useState(false);
-  const [availabilityStatus, setAvailabilityStatus] = useState("");
+  const [availabilityStatus, setAvailabilityStatus] = useState(false);
   const [ownerName, setOwnerName] = useState("");
   const [ownerContact, setOwnerContact] = useState("");
   const [images, setImages] = useState([]);
@@ -264,13 +264,14 @@ const AddHomeForm = () => {
             <label className="text-sm font-medium text-gray-700">
               Availability Status
             </label>
-            <input
-              type="text"
+            <select
               value={availabilityStatus}
-              onChange={(e) => setAvailabilityStatus(e.target.value)}
-              placeholder="Available/Not Available/Booked"
+              onChange={(e) => setAvailabilityStatus(e.target.value === "true")}
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
-            />
+            >
+              <option value={false}>Not Available</option>
+              <option value={true}>Available</option>
+            </select>
           </div>
           <div className="form-group">
             <label className="text-sm font-medium text-gray-700">

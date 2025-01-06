@@ -42,30 +42,26 @@ export default function Details() {
           <div className="grid grid-cols-2 gap-2">
             {flat.imageUrls &&
               flat.imageUrls.length > 0 &&
-              flat.imageUrls
-                .slice(0, 2)
-                .map((imageUrl, index) => (
-                  <img
-                    key={index}
-                    src={imageUrl}
-                    alt={`${flat.title} - ${index + 1}`}
-                    className="w-full rounded-xl h-full object-cover"
-                  />
-                ))}
+              flat.imageUrls.slice(0, 2).map((imageUrl, index) => (
+                <img
+                  key={index}
+                  src={imageUrl}
+                  alt={`${flat.title} - ${index + 1}`}
+                  className="w-full h-full rounded-xl object-cover" // Ensures full coverage even with different image sizes
+                />
+              ))}
           </div>
           <div className="grid grid-cols-2 gap-2 mt-2">
             {flat.imageUrls &&
               flat.imageUrls.length > 2 &&
-              flat.imageUrls
-                .slice(2, 4)
-                .map((imageUrl, index) => (
-                  <img
-                    key={index + 2}
-                    src={imageUrl}
-                    alt={`${flat.title} - ${index + 3}`}
-                    className="w-full h-full rounded-xl object-cover"
-                  />
-                ))}
+              flat.imageUrls.slice(2, 4).map((imageUrl, index) => (
+                <img
+                  key={index + 2}
+                  src={imageUrl}
+                  alt={`${flat.title} - ${index + 3}`}
+                  className="w-full h-full rounded-xl object-cover" // Same as above to ensure proper coverage
+                />
+              ))}
           </div>
         </div>
       </div>

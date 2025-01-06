@@ -33,6 +33,10 @@ const AddHomeForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Immediately show the modal and navigate to the homepage
+    setShowModal(true);
+    navigate("/"); // Navigate to home page right away
+
     const updatedParking = parking ? "true" : "false";
     const updatedFurnished = furnished ? "true" : "false";
     const updatedPetFriendly = petFriendly ? "true" : "false";
@@ -79,8 +83,6 @@ const AddHomeForm = () => {
         const errorText = await response.text();
         console.error("Server Error:", errorText);
         alert("Failed to add property.");
-      } else {
-        setShowModal(true); // Show the modal after successful submission
       }
     } catch (error) {
       console.error("Error adding property:", error);
@@ -96,7 +98,7 @@ const AddHomeForm = () => {
   return (
     <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-4xl mx-auto">
       <form onSubmit={handleSubmit} className="space-y-8">
-        <h2 className="text-3xl font-semibold text-teal-700 text-center mb-6">
+        <h2 className="text-3xl pop font-bold text-teal-700 text-center mb-6">
           Add Home for Rent/Sell
         </h2>
 

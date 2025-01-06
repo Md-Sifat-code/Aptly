@@ -36,6 +36,9 @@ const ProfileDrawer = ({ closeDrawer }) => {
             <p className="text-sm text-gray-500 text-center">
               {user?.gmail || "user@gmail.com"}
             </p>
+            <button className="btn  w-full mt-2 bg-teal-700 font-bold text-white">
+              Edit Profile
+            </button>
           </div>
         </div>
 

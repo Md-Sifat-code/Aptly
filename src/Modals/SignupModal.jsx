@@ -20,19 +20,14 @@ const SignupModal = ({ closeModal }) => {
       if (response.ok) {
         if (contentType && contentType.includes("application/json")) {
           const data = await response.json();
-          console.log("User signed up successfully:", data);
         } else {
           const text = await response.text();
-          console.log("User signed up successfully (plain text):", text);
         }
         setIsSuccess(true); // Show success modal
       } else {
         const errorText = await response.text();
-        console.error("Failed to sign up:", errorText);
       }
-    } catch (error) {
-      console.error("Error signing up:", error);
-    }
+    } catch (error) {}
   };
 
   return (

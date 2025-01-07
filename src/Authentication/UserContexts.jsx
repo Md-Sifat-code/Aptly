@@ -9,7 +9,7 @@ const UserProviders = ({ children }) => {
 
   useEffect(() => {
     const username = sessionStorage.getItem("username");
-    console.log(username); // Get username from sessionStorage
+    // Get username from sessionStorage
 
     if (username) {
       const url = `https://flatelse.onrender.com/User/search/${username}`;
@@ -22,7 +22,6 @@ const UserProviders = ({ children }) => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
           setUserData(data); // Set the fetched user data
           setLoading(false); // Set loading to false once the data is loaded
         })

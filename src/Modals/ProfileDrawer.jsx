@@ -1,51 +1,60 @@
 import React, { useState } from "react";
-import { FaTimes, FaEnvelope } from "react-icons/fa"; // Ensure correct imports
-import { useUser } from "../Authentication/UserContext"; // Import useUser custom hook
-import ProfileEditModal from "../Modals/ProfileEditModal"; // Import ProfileEditModal component
+import { FaTimes, FaEnvelope } from "react-icons/fa";
+
+import ProfileEditModal from "../Modals/ProfileEditModal";
+import { useUserContexts } from "../Authentication/UserContexts"; // Import the custom hook
 
 const ProfileDrawer = ({ closeDrawer }) => {
-  const { user, setUser } = useUser(); // Get user data from context
-  const [isModalOpen, setIsModalOpen] = useState(false); // Track modal visibility
+  const { userData, setUserData, loading } = useUserContexts(); // Use the custom hook
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Function to open the modal
   const openModal = () => {
     setIsModalOpen(true);
   };
 
-  // Function to close the modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  // Function to update the user profile (callback from the modal)
   const updateUserProfile = (updatedProfile) => {
-    setUser(updatedProfile); // Update the user state with the new profile
+    setUserData(updatedProfile);
   };
 
+  if (loading) {
+    return (
+      <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    );
+  }
+
   return (
-    <div className="pop fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-end">
-      <div className="bg-white px-4 w-full lg:w-96 h-auto max-h-[90vh] shadow-lg rounded-bl-lg rounded-br-lg rounded-tl-lg rounded-tr-[42px] flex flex-col justify-center mt-12 mr-4">
-        {/* Close button with icon */}
+    <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-end">
+      {/* Drawer Container */}
+      <div className="bg-white px-4 w-full lg:w-96 h-auto max-h-[90vh] shadow-lg rounded-bl-lg rounded-br-lg rounded-tl-lg rounded-tr-[42px] flex flex-col justify-center mt-12 mr-4 transform transition-all duration-300 ease-in-out translate-x-full sm:translate-x-0">
         <button
           onClick={closeDrawer}
-          className="absolute top-12 right-3 p-2 bg-teal-700 text-white rounded-full"
+          className="absolute top-4 right-3 p-2 bg-teal-700 text-white rounded-full"
         >
-          <FaTimes size={24} /> {/* FaTimes icon */}
+          <FaTimes size={24} />
         </button>
 
+        {/* User Profile Details */}
         <div className="flex flex-col gap-6 items-center mb-4">
-          {/* Display user image */}
           <img
-            src={user?.profilePicture || "default-avatar.jpg"} // Use a default avatar if no picture is available
+            src={userData.profilpic || "/default-avatar.jpg"} // Use profilePicture URL or fallback to default avatar
             alt="Profile"
-            className="w-16 h-16 rounded-full mr-4"
+            className="w-16 h-16 rounded-full"
+            onError={(e) => {
+              e.target.src = "/default-avatar.jpg"; // Fallback in case the URL is invalid
+            }}
           />
           <div>
             <h2 className="text-2xl text-center font-bold">
-              {user?.username || "User Name"}
+              {userData.username}
             </h2>
             <p className="text-sm text-center text-gray-500">
-              {user?.email || "user@gmail.com"}
+              {userData.email}
             </p>
             <button
               onClick={openModal}
@@ -56,56 +65,19 @@ const ProfileDrawer = ({ closeDrawer }) => {
           </div>
         </div>
 
-        {/* Display Additional Profile Information */}
+        {/* User Info */}
         <div className="mt-4 space-y-4">
-          {user?.fullname && (
-            <div className="flex justify-between">
-              <span className="font-semibold">Full Name:</span>
-              <span>{user?.fullname}</span>
-            </div>
-          )}
-          {user?.address && (
-            <div className="flex justify-between">
-              <span className="font-semibold">Address:</span>
-              <span>{user?.address}</span>
-            </div>
-          )}
-          {user?.phone && (
-            <div className="flex justify-between">
-              <span className="font-semibold">Phone:</span>
-              <span>{user?.phone}</span>
-            </div>
-          )}
-          {user?.bio && (
-            <div className="flex justify-between">
-              <span className="font-semibold">Bio:</span>
-              <span>{user?.bio}</span>
-            </div>
-          )}
-          {user?.propertiesSold && (
-            <div className="flex justify-between">
-              <span className="font-semibold">Properties Sold:</span>
-              <span>{user?.propertiesSold}</span>
-            </div>
-          )}
-          {user?.propertiesAdded && (
-            <div className="flex justify-between">
-              <span className="font-semibold">Properties Added:</span>
-              <span>{user?.propertiesAdded}</span>
-            </div>
-          )}
-          {user?.profession && (
-            <div className="flex justify-between">
-              <span className="font-semibold">Profession:</span>
-              <span>{user?.profession}</span>
-            </div>
-          )}
+          <div className="flex justify-between">
+            <span className="font-semibold">Full Name:</span>
+            <span>{userData.fullname}</span>
+          </div>
+          {/* Other user details */}
         </div>
 
+        {/* Send Email */}
         <div className="mt-12">
-          {/* Button to mail the user */}
           <button
-            onClick={() => (window.location.href = `mailto:${user?.gmail}`)}
+            onClick={() => (window.location.href = `mailto:${userData.gmail}`)}
             className="w-full p-2 bg-teal-700 text-white rounded-lg flex items-center justify-center"
           >
             <FaEnvelope size={18} className="mr-2" />
@@ -114,12 +86,12 @@ const ProfileDrawer = ({ closeDrawer }) => {
         </div>
       </div>
 
-      {/* Render Profile Edit Modal */}
+      {/* Edit Profile Modal */}
       {isModalOpen && (
         <ProfileEditModal
           closeModal={closeModal}
-          user={user}
-          updateUserProfile={updateUserProfile} // Pass the update function as a prop
+          user={userData}
+          updateUserProfile={updateUserProfile}
         />
       )}
     </div>

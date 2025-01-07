@@ -1,4 +1,3 @@
-// UserContext.js
 import React, { createContext, useState, useContext, useEffect } from "react";
 
 // Create the context

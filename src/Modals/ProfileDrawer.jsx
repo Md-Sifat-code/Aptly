@@ -3,15 +3,16 @@ import { FaTimes, FaEnvelope } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { PiBagSimpleFill } from "react-icons/pi";
 import { MdSell } from "react-icons/md";
+import { FaFacebookMessenger } from "react-icons/fa";
 import { MdAddHomeWork } from "react-icons/md";
 import { MdPermPhoneMsg } from "react-icons/md";
 import ProfileEditModal from "../Modals/ProfileEditModal";
 import { useUserContexts } from "../Authentication/UserContexts"; // Import the custom hook
-
+import ChattingModal from "../Modals/ChattingModal";
 const ProfileDrawer = ({ closeDrawer }) => {
   const { userData, setUserData, loading } = useUserContexts(); // Use the custom hook
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -22,6 +23,13 @@ const ProfileDrawer = ({ closeDrawer }) => {
 
   const updateUserProfile = (updatedProfile) => {
     setUserData(updatedProfile);
+  };
+  const openChatModal = () => {
+    setIsChatModalOpen(true);
+  };
+
+  const closeChatModal = () => {
+    setIsChatModalOpen(false);
   };
 
   if (loading) {
@@ -47,7 +55,6 @@ const ProfileDrawer = ({ closeDrawer }) => {
         >
           <FaTimes size={24} />
         </button>
-
         {/* User Profile Details */}
         <div className="flex flex-col gap-6 items-center mb-4 mt-6 sm:mt-0">
           <img
@@ -79,7 +86,6 @@ const ProfileDrawer = ({ closeDrawer }) => {
             </div>
           </div>
         </div>
-
         {/* User Info */}
         <div className="mt-4 border card shadow-lg flex justify-center items-center flex-col pop">
           <div className="p-6">
@@ -103,7 +109,6 @@ const ProfileDrawer = ({ closeDrawer }) => {
             </div>
           </div>
         </div>
-
         {/* Property Part */}
         <div className="grid grid-cols-2 gap-4 items-center mt-4">
           <div className="border card shadow-lg p-6 flex justify-center items-center flex-col gap-2 pop">
@@ -119,7 +124,6 @@ const ProfileDrawer = ({ closeDrawer }) => {
             {userData.sold}
           </div>
         </div>
-
         {/* Send Email */}
         <div className="mt-12">
           <button
@@ -130,6 +134,26 @@ const ProfileDrawer = ({ closeDrawer }) => {
             Send Email
           </button>
         </div>
+        {/* send msg */}
+        <div className="mt-2">
+          <button
+            onClick={openChatModal}
+            className="w-full p-2 bg-teal-700 text-white rounded-lg flex items-center justify-center"
+          >
+            <FaFacebookMessenger size={18} className="mr-2" />
+            Send Message
+          </button>
+        </div>
+
+        <div className="mt-2">
+          <a
+            href={`tel:${userData.phone}`}
+            className="w-full p-2 bg-teal-700 text-white rounded-lg flex items-center justify-center"
+          >
+            <MdPermPhoneMsg size={18} className="mr-2" />
+            Call
+          </a>
+        </div>
       </div>
 
       {/* Edit Profile Modal */}
@@ -139,6 +163,12 @@ const ProfileDrawer = ({ closeDrawer }) => {
           user={userData}
           updateUserProfile={updateUserProfile}
           className="w-full h-screen sm:w-[30rem] sm:h-auto"
+        />
+      )}
+      {isChatModalOpen && (
+        <ChattingModal
+          closeModal={closeChatModal}
+          username={userData.username}
         />
       )}
     </div>

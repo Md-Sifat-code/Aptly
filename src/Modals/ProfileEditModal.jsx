@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useUserContexts } from "../Authentication/UserContexts";
 
 export default function ProfileEditModal() {
+  const { userData } = useUserContexts();
+  const [isModalOpen, setIsModalOpen] = useState(true); // State to control modal visibility
   const [formData, setFormData] = useState({
     fullname: "",
     profession: "",
@@ -30,6 +33,11 @@ export default function ProfileEditModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!userData || !userData.id) {
+      alert("User ID not found. Please log in.");
+      return;
+    }
+
     const formDataToSend = new FormData();
     formDataToSend.append("fullname", formData.fullname);
     formDataToSend.append("profession", formData.profession);
@@ -45,7 +53,7 @@ export default function ProfileEditModal() {
 
     try {
       const response = await fetch(
-        "https://flatelse.onrender.com/User/update",
+        `https://flatelse.onrender.com/User/update?id=${userData.id}`,
         {
           method: "PUT",
           body: formDataToSend,
@@ -55,6 +63,7 @@ export default function ProfileEditModal() {
       const result = await response.json();
       if (response.ok) {
         alert("Profile updated successfully");
+        setIsModalOpen(false); // Close the modal on successful update
       } else {
         alert("Failed to update profile");
       }
@@ -64,9 +73,21 @@ export default function ProfileEditModal() {
     }
   };
 
+  if (!isModalOpen) {
+    return null; // If the modal is closed, render nothing
+  }
+
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-4xl">
+      <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-4xl relative">
+        {/* Close button */}
+        <button
+          onClick={() => setIsModalOpen(false)}
+          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none"
+        >
+          ✕
+        </button>
+
         <h2 className="text-2xl font-semibold text-gray-700 mb-6 text-center">
           Edit Profile
         </h2>

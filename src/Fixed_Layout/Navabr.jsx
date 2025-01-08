@@ -47,7 +47,7 @@ export default function Navbar() {
       <div className="container mt-4 px-4 md:px-0 flex justify-between items-center">
         {/* Logo */}
         <div className="flex justify-start items-start">
-          <img className="w-[150px] h-auto" src={logo} alt="" />
+          <img className="w-[80px] h-auto" src={logo} alt="" />
         </div>
 
         {/* Middle Links */}

@@ -39,7 +39,7 @@ export default function Category() {
   }
 
   return (
-    <div className="w-[90%] mx-auto mt-4 mb-12">
+    <div className="w-[90%] mx-auto mt-2 mb-6">
       <ul className="flex gap-6 overflow-x-auto hide-scrollbar">
         {categories.map((category) => {
           // Get the corresponding icon component based on the library

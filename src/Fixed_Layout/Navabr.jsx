@@ -5,7 +5,7 @@ import LoginModal from "../Modals/LoginModal"; // Import LoginModal
 import SignupModal from "../Modals/SignupModal"; // Import SignupModal
 import { useUser } from "../Authentication/UserContext"; // Import user context
 import ProfileDrawer from "../Modals/ProfileDrawer"; // Import ProfileDrawer
-
+import { useUserContexts } from "../Authentication/UserContexts";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // For dropdown menu
@@ -13,7 +13,7 @@ export default function Navbar() {
   const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false); // For profile drawer
   const location = useLocation();
   const { user, logout } = useUser(); // Access user and logout from the context
-
+  const { userData, setUserData, loading } = useUserContexts();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };

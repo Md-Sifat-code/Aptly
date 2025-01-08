@@ -7,30 +7,22 @@ import { FaFacebookMessenger } from "react-icons/fa";
 import { MdAddHomeWork } from "react-icons/md";
 import { MdPermPhoneMsg } from "react-icons/md";
 import ProfileEditModal from "../Modals/ProfileEditModal";
-import { useUserContexts } from "../Authentication/UserContexts"; // Import the custom hook
+import { useUserContexts } from "../Authentication/UserContexts";
 import ChattingModal from "../Modals/ChattingModal";
 
-const ProfileDrawer = ({ closeDrawer }) => {
-  const { userData, setUserData, loading } = useUserContexts(); // Use the custom hook
+const ProfileModal = ({ closeDrawer }) => {
+  const { userData, setUserData, loading } = useUserContexts();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const openModal = () => setIsModalOpen(true);
+  const closeProfileEditModal = () => setIsModalOpen(false);
+
+  const openChatModal = () => setIsChatModalOpen(true);
+  const closeChatModal = () => setIsChatModalOpen(false);
 
   const updateUserProfile = (updatedProfile) => {
     setUserData(updatedProfile);
-  };
-  const openChatModal = () => {
-    setIsChatModalOpen(true);
-  };
-
-  const closeChatModal = () => {
-    setIsChatModalOpen(false);
   };
 
   if (loading) {
@@ -42,35 +34,43 @@ const ProfileDrawer = ({ closeDrawer }) => {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-end">
-      {/* Drawer Container */}
+    <div
+      className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center p-4"
+      onClick={() => closeDrawer()} // Close when clicking outside
+    >
       <div
-        className="bg-white px-4 w-full h-auto sm:w-[400px] lg:w-[450px] max-h-screen sm:max-h-[80vh] shadow-lg 
-          sm:rounded-bl-[42px] sm:rounded-br-[42px] sm:rounded-tl-[42px] sm:rounded-tr-[42px] 
-          flex flex-col justify-center sm:mt-12 sm:mr-4 overflow-y-auto"
+        className="bg-white p-6 rounded-lg shadow-xl w-full sm:w-[500px] max-w-[90vw] overflow-hidden"
+        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
       >
-        <button
-          onClick={closeDrawer}
-          className="absolute top-14 right-6 p-2 bg-teal-700 text-white rounded-full"
-        >
-          <FaTimes size={24} />
-        </button>
-        {/* User Profile Details */}
-        <div className="flex flex-col gap-6 items-center mb-4 mt-6 sm:mt-0">
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-semibold text-teal-700">
+            Profile Details
+          </h2>
+          <button
+            onClick={closeDrawer} // Close the parent modal when this button is clicked
+            className="p-2 bg-teal-700 text-white rounded-full"
+          >
+            <FaTimes size={24} />
+          </button>
+        </div>
+
+        <div className="flex flex-col items-center mt-6">
           <img
-            src={userData.profilpic || "/default-avatar.jpg"} // Use profilePicture URL or fallback to default avatar
+            src={userData.profilpic || "/default-avatar.jpg"}
             alt="Profile"
-            className="w-36 h-36 rounded-full"
+            className="w-36 h-36 rounded-full border-4 border-teal-700"
             onError={(e) => {
-              e.target.src = "/default-avatar.jpg"; // Fallback in case the URL is invalid
+              e.target.src = "/default-avatar.jpg";
             }}
           />
-          <div>
-            <h2 className="text-2xl text-center font-bold">
-              <span className="text-teal-700 px-1">@</span>
-              {userData.username}
-            </h2>
-            <div className="mt-2 flex gap-4 justify-center items-center">
+          <div className="mt-4 text-center">
+            <h3 className="text-2xl font-semibold text-teal-700">
+              @{userData.username}
+            </h3>
+            <p className="mt-2 text-sm text-gray-500">{userData.email}</p>
+            <p className="mt-4 text-sm text-gray-600">{userData.bio}</p>
+
+            <div className="mt-4 flex gap-6 justify-center">
               <FaEnvelope
                 size={24}
                 className="text-teal-700 cursor-pointer"
@@ -89,72 +89,49 @@ const ProfileDrawer = ({ closeDrawer }) => {
                 onClick={() => (window.location.href = `tel:${userData.phone}`)}
               />
             </div>
-            <p className="text-sm mt-2 text-center text-gray-500">
-              {userData.email}
-            </p>
-            <p className="text-sm text-center text-gray-500 mt-2">
-              {userData.bio}
-            </p>
-            <div className="flex items-center justify-center">
-              <button
-                onClick={openModal}
-                className="btn px-6 mt-4 bg-teal-700 hover:bg-teal-800 font-bold text-white"
-              >
-                Edit Profile
-              </button>
-            </div>
+
+            <button
+              onClick={openModal}
+              className="mt-6 bg-teal-700 hover:bg-teal-800 text-white font-bold py-2 px-6 rounded-lg"
+            >
+              Edit Profile
+            </button>
           </div>
         </div>
-        {/* User Info */}
-        <div className="mt-4 border card shadow-lg flex justify-center items-center flex-col pop">
-          <div className="p-6">
-            <div className="flex justify-start items-center gap-2">
-              <span className="font-semibold">
-                <FaLocationDot className="text-teal-700 font-bold inline-block" />
-              </span>
-              <span>{userData.address}</span>
-            </div>
-            <div className="flex justify-start items-center gap-2">
-              <span className="font-semibold">
-                <MdPermPhoneMsg className="text-teal-700" />
-              </span>{" "}
-              {userData.phone}
-            </div>
-            <div className="flex justify-start items-center gap-2">
-              <span className="font-semibold">
-                <PiBagSimpleFill className="text-teal-700" />
-              </span>{" "}
-              {userData.profession}
-            </div>
+
+        <div className="mt-6 flex justify-between text-gray-600">
+          <div className="flex items-center gap-2">
+            <FaLocationDot className="text-teal-700" />
+            <span>{userData.address}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <PiBagSimpleFill className="text-teal-700" />
+            <span>{userData.profession}</span>
           </div>
         </div>
-        {/* Property Part */}
-        <div className="grid grid-cols-2 gap-4 items-center mt-4">
-          <div className="border card shadow-lg p-6 flex justify-center items-center flex-col gap-2 pop">
-            <span className="font-semibold">
-              <MdSell className="text-teal-700" />
-            </span>{" "}
-            {userData.sold}
+
+        <div className="mt-6 grid grid-cols-2 gap-6">
+          <div className="card p-4 bg-gray-50 rounded-lg shadow-md flex items-center justify-center gap-2">
+            <MdSell className="text-teal-700" />
+            <span>{userData.sold}</span>
           </div>
-          <div className="border card shadow-lg p-6 flex justify-center items-center flex-col gap-2 pop">
-            <span className="font-semibold">
-              <MdAddHomeWork className="text-teal-700" />
-            </span>{" "}
-            {userData.sold}
+          <div className="card p-4 bg-gray-50 rounded-lg shadow-md flex items-center justify-center gap-2">
+            <MdAddHomeWork className="text-teal-700" />
+            <span>{userData.sold}</span>
           </div>
         </div>
-        {/* Icons for Email, Message, and Call */}
       </div>
 
-      {/* Edit Profile Modal */}
+      {/* Profile Edit Modal */}
       {isModalOpen && (
         <ProfileEditModal
-          closeModal={closeModal}
+          closeModal={closeProfileEditModal}
           user={userData}
           updateUserProfile={updateUserProfile}
-          className="w-full h-screen sm:w-[30rem] sm:h-auto"
         />
       )}
+
+      {/* Chat Modal */}
       {isChatModalOpen && (
         <ChattingModal
           closeModal={closeChatModal}
@@ -165,4 +142,4 @@ const ProfileDrawer = ({ closeDrawer }) => {
   );
 };
 
-export default ProfileDrawer;
+export default ProfileModal;

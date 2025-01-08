@@ -45,7 +45,7 @@ const ProfileDrawer = ({ closeDrawer }) => {
     <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-end">
       {/* Drawer Container */}
       <div
-        className="bg-white px-4 w-full h-auto sm:w-[400px] lg:w-[500px] max-h-screen sm:max-h-[90vh] shadow-lg 
+        className="bg-white px-4 w-full h-auto sm:w-[400px] lg:w-[450px] max-h-screen sm:max-h-[80vh] shadow-lg 
           sm:rounded-bl-[42px] sm:rounded-br-[42px] sm:rounded-tl-[42px] sm:rounded-tr-[42px] 
           flex flex-col justify-center sm:mt-12 sm:mr-4 overflow-y-auto"
       >
@@ -70,7 +70,26 @@ const ProfileDrawer = ({ closeDrawer }) => {
               <span className="text-teal-700 px-1">@</span>
               {userData.username}
             </h2>
-            <p className="text-sm text-center text-gray-500">
+            <div className="mt-2 flex gap-4 justify-center items-center">
+              <FaEnvelope
+                size={24}
+                className="text-teal-700 cursor-pointer"
+                onClick={() =>
+                  (window.location.href = `mailto:${userData.gmail}`)
+                }
+              />
+              <FaFacebookMessenger
+                size={24}
+                className="text-teal-700 cursor-pointer"
+                onClick={openChatModal}
+              />
+              <MdPermPhoneMsg
+                size={24}
+                className="text-teal-700 cursor-pointer"
+                onClick={() => (window.location.href = `tel:${userData.phone}`)}
+              />
+            </div>
+            <p className="text-sm mt-2 text-center text-gray-500">
               {userData.email}
             </p>
             <p className="text-sm text-center text-gray-500 mt-2">
@@ -124,36 +143,7 @@ const ProfileDrawer = ({ closeDrawer }) => {
             {userData.sold}
           </div>
         </div>
-        {/* Send Email */}
-        <div className="mt-12">
-          <button
-            onClick={() => (window.location.href = `mailto:${userData.gmail}`)}
-            className="w-full p-2 bg-teal-700 text-white rounded-lg flex items-center justify-center"
-          >
-            <FaEnvelope size={18} className="mr-2" />
-            Send Email
-          </button>
-        </div>
-        {/* send msg */}
-        <div className="mt-2">
-          <button
-            onClick={openChatModal}
-            className="w-full p-2 bg-teal-700 text-white rounded-lg flex items-center justify-center"
-          >
-            <FaFacebookMessenger size={18} className="mr-2" />
-            Send Message
-          </button>
-        </div>
-
-        <div className="mt-2">
-          <a
-            href={`tel:${userData.phone}`}
-            className="w-full p-2 bg-teal-700 text-white rounded-lg flex items-center justify-center"
-          >
-            <MdPermPhoneMsg size={18} className="mr-2" />
-            Call
-          </a>
-        </div>
+        {/* Icons for Email, Message, and Call */}
       </div>
 
       {/* Edit Profile Modal */}

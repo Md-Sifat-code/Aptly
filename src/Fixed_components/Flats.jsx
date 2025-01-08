@@ -16,7 +16,7 @@ const Flats = () => {
   };
 
   return (
-    <div className="pop w-[90%] mx-auto p-4">
+    <div className="pop w-[90%] mx-auto ">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-8 gap-x-6">
         {flats.slice(0, visibleCount).map((flat) => (
           <Link
@@ -44,10 +44,10 @@ const Flats = () => {
 
             <p
               className={`text-sm font-medium text-start w-full ${
-                flat.availability ? "text-green-500" : "text-red-500"
+                flat.availabilityStatus ? "text-green-500" : "text-red-500"
               }`}
             >
-              {flat.availability ? "Available" : "Not Available"}
+              {flat.availabilityStatus ? "Available" : "Not Available"}
             </p>
           </Link>
         ))}

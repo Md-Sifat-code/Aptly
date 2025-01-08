@@ -9,6 +9,7 @@ import { MdPermPhoneMsg } from "react-icons/md";
 import ProfileEditModal from "../Modals/ProfileEditModal";
 import { useUserContexts } from "../Authentication/UserContexts"; // Import the custom hook
 import ChattingModal from "../Modals/ChattingModal";
+
 const ProfileDrawer = ({ closeDrawer }) => {
   const { userData, setUserData, loading } = useUserContexts(); // Use the custom hook
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,14 +45,13 @@ const ProfileDrawer = ({ closeDrawer }) => {
     <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-end">
       {/* Drawer Container */}
       <div
-        className="bg-white px-4 w-full h-auto sm:w-96 max-h-screen sm:max-h-[90vh] shadow-lg 
-          rounded-bl-lg rounded-br-lg sm:rounded-tl-lg sm:rounded-tr-[42px] 
-          flex flex-col justify-center sm:mt-12 sm:mr-4 
-          transform transition-all duration-300 ease-in-out"
+        className="bg-white px-4 w-full h-auto sm:w-[400px] lg:w-[500px] max-h-screen sm:max-h-[90vh] shadow-lg 
+          sm:rounded-bl-[42px] sm:rounded-br-[42px] sm:rounded-tl-[42px] sm:rounded-tr-[42px] 
+          flex flex-col justify-center sm:mt-12 sm:mr-4 overflow-y-auto"
       >
         <button
           onClick={closeDrawer}
-          className="absolute top-4 right-3 p-2 bg-teal-700 text-white rounded-full"
+          className="absolute top-14 right-6 p-2 bg-teal-700 text-white rounded-full"
         >
           <FaTimes size={24} />
         </button>

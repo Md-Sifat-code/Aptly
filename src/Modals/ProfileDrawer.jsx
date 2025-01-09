@@ -22,11 +22,26 @@ export default function ProfileDrawer() {
     setIsReportModalOpen(!isReportModalOpen);
   };
 
+  // Static reviews (you can replace this with dynamic data if needed)
+  const reviews = [
+    { name: "John Doe", rating: 4, comment: "Great service, very reliable!" },
+    {
+      name: "Jane Smith",
+      rating: 5,
+      comment: "Excellent experience, highly recommend.",
+    },
+    {
+      name: "Alice Brown",
+      rating: 3,
+      comment: "Good, but there's room for improvement.",
+    },
+  ];
+
   return (
     <section>
       <div className="container mt-12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {/* Profile Card Section */}
-        <div className="lg:col-span-1 flex flex-col gap-6">
+        <div className="lg:col-span-1 flex flex-col gap-6 sticky top-0">
           <div className="card shadow-xl grid grid-cols-2 gap-6 p-6 bg-white rounded-lg">
             {/* Profile Image and Info */}
             <div className="flex flex-col items-center justify-center gap-4">
@@ -42,7 +57,7 @@ export default function ProfileDrawer() {
             </div>
             {/* Rating and Hosting Info */}
             <div className="flex flex-col items-center justify-center gap-4">
-              <p className="text-lg font-semibold text-gray-700">
+              <p className="text-lg flex text-center flex-col font-semibold text-gray-700">
                 5{" "}
                 <span className="font-medium text-gray-500 text-xs">
                   Reviews
@@ -59,7 +74,7 @@ export default function ProfileDrawer() {
                 </span>
               </p>
               <hr className="w-full border-t-2 border-gray-200" />
-              <p className="text-lg font-semibold text-gray-700">
+              <p className="text-lg flex text-center flex-col font-semibold text-gray-700">
                 2{" "}
                 <span className="font-medium text-gray-500 text-xs">
                   Hosting
@@ -102,8 +117,41 @@ export default function ProfileDrawer() {
         </div>
 
         {/* Empty space for the remaining columns (col-span-2) */}
-        <div className="lg:col-span-2">
-          {/* Additional content or user statistics can be added here */}
+        <div className="lg:col-span-2 px-12 overflow-y-auto max-h-screen">
+          <div>
+            <h1 className="text-3xl  font-bold text-black">About Sifat</h1>
+          </div>
+          <div className=" mt-6 mb-6 ">
+            <p>{userData.bio}</p>
+            <p></p>
+          </div>
+          <hr />
+          <div className="mt-4">
+            <h1 className="text-xl font-bold text-gray-800">
+              What People are saying about Sifat
+            </h1>
+            {/* Review Cards */}
+            <div className="flex flex-wrap gap-6">
+              {/* Review Cards */}
+              {reviews.map((review, index) => (
+                <div
+                  key={index}
+                  className="card my-4 p-6 shadow-lg bg-white rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
+                >
+                  <div className="flex items-center gap-4">
+                    <h2 className="text-lg font-semibold text-teal-700">
+                      {review.name}
+                    </h2>
+                    <div className="flex items-center gap-1">
+                      <FaStar className="text-yellow-500" />
+                      <span className="text-gray-600">{review.rating}</span>
+                    </div>
+                  </div>
+                  <p className="mt-2 text-gray-600">{review.comment}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -158,7 +206,7 @@ export default function ProfileDrawer() {
             <div className="flex justify-end gap-4">
               <button
                 onClick={handleReportModal}
-                className="btn btn-secondary btn-sm"
+                className="btn btn-secondary bg-teal-700 border-none text-white font-bold hover:bg-teal-800 btn-sm"
               >
                 Cancel
               </button>

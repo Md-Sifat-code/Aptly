@@ -84,12 +84,11 @@ export default function Details() {
                 {flat.location}
               </p>
               <p
-                className={`mt-1 mb-6 font-semibold ${
-                  flat.availability ? "text-green-400" : "text-red-400"
+                className={`text-sm font-medium text-start w-full ${
+                  flat.availabilityStatus ? "text-green-500" : "text-red-500"
                 }`}
               >
-                <strong>Availability: </strong>
-                {flat.availability ? "Available" : "Not Available"}
+                {flat.availabilityStatus ? "Available" : "Not Available"}
               </p>
               <hr />
               <p className="text-lg mt-6 text-gray-500 flex flex-row items-center gap-2">

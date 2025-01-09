@@ -36,14 +36,6 @@ const Flats = () => {
             <p className="text-sm flex items-center gap-2 font-bold text-start mb-2 mt-1 w-full">
               {flat.price} BDT
             </p>
-
-            <p
-              className={`text-sm font-medium text-start w-full ${
-                flat.availabilityStatus ? "text-green-500" : "text-red-500"
-              }`}
-            >
-              {flat.availabilityStatus ? "Available" : "Not Available"}
-            </p>
           </Link>
         ))}
       </div>

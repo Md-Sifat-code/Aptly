@@ -11,6 +11,7 @@ import Details from "./Fixed_components/Details";
 import AddHomeForm from "./Modals/AddHomeForm";
 import { UserProvider } from "./Authentication/UserContext";
 import { UserProviders } from "./Authentication/UserContexts";
+import { UserDataProvider } from "./Authentication/UserDataContext";
 
 const router = createBrowserRouter([
   {
@@ -40,13 +41,15 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <UserProvider>
-      <UserProviders>
-        <FlatProvider>
-          <CategoryProvider>
-            <RouterProvider router={router} />
-          </CategoryProvider>
-        </FlatProvider>
-      </UserProviders>
+      <UserDataProvider>
+        <UserProviders>
+          <FlatProvider>
+            <CategoryProvider>
+              <RouterProvider router={router} />
+            </CategoryProvider>
+          </FlatProvider>
+        </UserProviders>
+      </UserDataProvider>
     </UserProvider>
   </React.StrictMode>
 );

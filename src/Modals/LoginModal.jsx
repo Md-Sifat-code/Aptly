@@ -1,10 +1,12 @@
 // LoginModal.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaGoogle, FaFacebook, FaUser, FaLock } from "react-icons/fa"; // Import new icons
 import { useUser } from "../Authentication/UserContext"; // Import useUser hook
+import { useFetchUserData } from "../Authentication/UserDataContext"; // Import new context API for GET request
 
 const LoginModal = ({ closeModal }) => {
   const { updateUser } = useUser(); // Access updateUser from context
+  const { fetchUserData } = useFetchUserData(); // Access fetchUserData from the new context
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -53,6 +55,9 @@ const LoginModal = ({ closeModal }) => {
         email: data.email,
         roles: data.roles,
       });
+
+      // Fetch additional user data using the new context API
+      await fetchUserData(data.username);
 
       // Set loginSuccess to true to show success modal
       setLoginSuccess(true);

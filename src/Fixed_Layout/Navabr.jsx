@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import logo from "/bariss.png";
 import { Link, useLocation } from "react-router-dom";
-import LoginModal from "../Modals/LoginModal"; // Import LoginModal
-import SignupModal from "../Modals/SignupModal"; // Import SignupModal
-import { useUser } from "../Authentication/UserContext"; // Import user context
-import ProfileDrawer from "../Modals/ProfileDrawer"; // Import ProfileDrawer
-import { useUserContexts } from "../Authentication/UserContexts";
+import LoginModal from "../Modals/LoginModal";
+import SignupModal from "../Modals/SignupModal";
+import { useUser } from "../Authentication/UserContext";
+import ProfileDrawer from "../Modals/ProfileDrawer";
+import { useFetchUserData } from "../Authentication/UserDataContext"; // Import the UserDataContext
+import { FiUser } from "react-icons/fi"; // Import React Icon for fallback
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // For dropdown menu
-  const [modalType, setModalType] = useState(null); // Track which modal to show
-  const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false); // For profile drawer
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [modalType, setModalType] = useState(null);
+  const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false);
   const location = useLocation();
-  const { user, logout } = useUser(); // Access user and logout from the context
-  const { userData, setUserData, loading } = useUserContexts();
+
+  const { user, logout } = useUser();
+  const { userData } = useFetchUserData(); // Access fetchUserData and userData
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -23,23 +27,23 @@ export default function Navbar() {
   };
 
   const showModal = (type) => {
-    setModalType(type); // Set modal type based on button click
-    setIsDropdownOpen(false); // Close dropdown when a modal is triggered
+    setModalType(type);
+    setIsDropdownOpen(false);
   };
 
   const closeModal = () => {
-    setModalType(null); // Close the modal
+    setModalType(null);
   };
 
   const openLoginModal = () => {
-    setModalType("login"); // Set modal type to 'login'
+    setModalType("login");
   };
 
   const isActive = (path) =>
     location.pathname === path ? "text-[#006d6f] font-bold" : "";
 
   const closeProfileDrawer = () => {
-    setIsProfileDrawerOpen(false); // Close the profile drawer
+    setIsProfileDrawerOpen(false);
   };
 
   return (
@@ -47,7 +51,7 @@ export default function Navbar() {
       <div className="container mt-4 px-4 md:px-0 flex justify-between items-center">
         {/* Logo */}
         <div className="flex justify-start items-start">
-          <img className="w-[80px] h-auto" src={logo} alt="" />
+          <img className="w-[80px] h-auto" src={logo} alt="Logo" />
         </div>
 
         {/* Middle Links */}
@@ -70,20 +74,19 @@ export default function Navbar() {
             className="p-4 border rounded-full bg-teal-700 font-bold text-white focus:outline-none"
             aria-label="User menu"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 0c0 1.1-.9 2-2 2H8c-1.1 0-2 .9-2 2s.9 2 2 2h8c1.1 0 2-.9 2-2s-.9-2-2-2h-2c-1.1 0-2-.9-2-2z"
+            {userData && userData.profilpic ? (
+              <img
+                src={userData.profilpic}
+                alt="Profile"
+                className="w-10 h-10 rounded-full object-cover"
+                onError={(e) => {
+                  e.target.onerror = null; // Prevent infinite error loop
+                  e.target.src = "https://via.placeholder.com/40"; // Fallback image URL
+                }}
               />
-            </svg>
+            ) : (
+              <FiUser className="w-10 h-10" /> // React Icon fallback
+            )}
           </button>
 
           {/* Dropdown Menu */}
@@ -113,13 +116,13 @@ export default function Navbar() {
                     Add Home
                   </Link>
                   <button
-                    onClick={() => setIsProfileDrawerOpen(true)} // Open profile drawer
+                    onClick={() => setIsProfileDrawerOpen(true)}
                     className="w-full btn-outline border-[#006d6f] btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
                   >
                     Profile
                   </button>
                   <button
-                    onClick={logout} // Log out function
+                    onClick={logout}
                     className="w-full mt-2 bg-[#006d6f] hover:bg-teal-700 btn px-4 py-2 text-white"
                   >
                     Logout

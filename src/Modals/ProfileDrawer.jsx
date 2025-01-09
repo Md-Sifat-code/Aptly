@@ -1,143 +1,51 @@
-import React, { useState } from "react";
-import { FaTimes, FaEnvelope } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
-import { PiBagSimpleFill } from "react-icons/pi";
-import { MdSell } from "react-icons/md";
-import { MdAddHomeWork } from "react-icons/md";
-import { MdPermPhoneMsg } from "react-icons/md";
-import ProfileEditModal from "../Modals/ProfileEditModal";
-import { useUserContexts } from "../Authentication/UserContexts";
-import { FaFacebookMessenger } from "react-icons/fa6";
-import ChattingModal from "../Modals/ChattingModal"; // Import ChattingModal
+import React, { useEffect } from "react";
+import { FaStar } from "react-icons/fa";
+import { useFetchUserData } from "../Authentication/UserDataContext"; // Import the custom hook
 
-const ProfileModal = ({ closeDrawer }) => {
-  const { userData, setUserData, loading } = useUserContexts();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isChatModalOpen, setIsChatModalOpen] = useState(false); // Track ChattingModal state
-
-  const openModal = () => setIsModalOpen(true);
-  const closeProfileEditModal = () => setIsModalOpen(false);
-
-  const openChatModal = () => setIsChatModalOpen(true); // Open ChattingModal
-  const closeChatModal = () => setIsChatModalOpen(false); // Close ChattingModal
-
-  const updateUserProfile = (updatedProfile) => {
-    setUserData(updatedProfile);
-  };
+export default function ProfileDrawer() {
+  const { userData, loading } = useFetchUserData(); // Use the hook to get user data and loading state
 
   if (loading) {
-    return (
-      <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-        <div className="text-white">Loading...</div>
-      </div>
-    );
+    return <div>Loading...</div>; // Show a loading message if data is being fetched
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center p-4">
-      <div
-        className="bg-white p-6 rounded-[25px] shadow-xl w-full sm:w-[500px] max-w-[90vw] overflow-hidden"
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
-      >
-        <div className="flex mt-[-12px] justify-end items-center">
-          <button
-            onClick={closeDrawer} // Close the parent modal when this button is clicked
-            className="p-2 bg-teal-700 text-white rounded-full"
-          >
-            <FaTimes size={24} />
-          </button>
-        </div>
-
-        <div className="flex flex-col items-center mt-2">
-          <img
-            src={userData.profilpic || "/default-avatar.jpg"}
-            alt="Profile"
-            className="w-36 h-36 rounded-full border-4 border-teal-700"
-            onError={(e) => {
-              e.target.src = "/default-avatar.jpg";
-            }}
-          />
-          <div className="mt-2 text-center">
-            <h3 className="text-2xl font-semibold text-teal-700">
+    <section>
+      <div className="container mt-12 mx-auto grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className=" flex card shadow-xl flex-col col-span-1 md:flex-row gap-4">
+          {/* this will be the card div */}
+          <div className="p-6  flex flex-col items-center justify-center ">
+            <img
+              className="w-[100px] h-[100px] rounded-full"
+              src={userData.profilpic}
+              alt=""
+            />
+            <h1 className="font-bold text-teal-700 text-lg">
               @{userData.username}
-            </h3>
-            <p className=" mb-5 text-sm text-gray-500">{userData.email}</p>
-
-            <p className="mt-2 mb-5 text-sm text-start text-gray-600">
-              {userData.bio}
+            </h1>
+            <p className=" font-semibold">{userData.address}</p>
+          </div>
+          {/* rating part */}
+          <div className=" flex flex-col items-center justify-center gap-2">
+            <p className="flex flex-col text-[16px] font-bold">
+              5<span className="font-semibold text-[10px]">Reviews</span>
             </p>
-            <div className="mt-2 mb-5 flex flex-col justify-between text-gray-600">
-              <div className="flex mt-2 items-center gap-2">
-                <FaLocationDot className="text-teal-700" />
-                <span>{userData.address}</span>
-              </div>
-              <div className="flex mt-2 items-center gap-2">
-                <PiBagSimpleFill className="text-teal-700" />
-                <span>{userData.profession}</span>
-              </div>
-              <div className="flex mt-2 items-center gap-2">
-                <MdPermPhoneMsg className="text-teal-700" />
-                <span>{userData.phone}</span>
-              </div>
-            </div>
-            <div className="mt-2 mb-4 flex gap-6 justify-start">
-              <FaEnvelope
-                size={24}
-                className="text-teal-700 cursor-pointer"
-                onClick={() =>
-                  (window.location.href = `mailto:${userData.gmail}`)
-                }
-              />
-              <FaFacebookMessenger
-                size={24}
-                className="text-teal-700 cursor-pointer"
-                onClick={openChatModal} // Trigger ChattingModal on click
-              />
-              <MdPermPhoneMsg
-                size={24}
-                className="text-teal-700 cursor-pointer"
-                onClick={() => (window.location.href = `tel:${userData.phone}`)}
-              />
-            </div>
+            <hr className="w-full border-1 border-black" />
+            <p className="flex flex-col font-bold">
+              <p className="flex flex-row items-center gap-1">
+                4.8
+                <FaStar className=" inline-block" />
+              </p>
+              <span className="font-semibold text-[10px]">Rating</span>
+            </p>
+            <hr className="w-full border-1 border-black" />
+            <p className="flex flex-col font-bold">
+              2<span className="font-semibold text-[10px]">Hosting</span>
+            </p>
           </div>
         </div>
-
-        <div className="mt-4 grid grid-cols-2 gap-6">
-          <div className="card p-4 bg-gray-50 rounded-lg shadow-md flex items-center justify-center gap-2">
-            <MdSell className="text-teal-700" />
-            <span>{userData.sold}</span>
-          </div>
-          <div className="card p-4 bg-gray-50 rounded-lg shadow-md flex items-center justify-center gap-2">
-            <MdAddHomeWork className="text-teal-700" />
-            <span>{userData.sold}</span>
-          </div>
-        </div>
-        <button
-          onClick={openModal}
-          className="mt-8 w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-2 px-6 rounded-lg"
-        >
-          Edit Profile
-        </button>
+        <div className="col-span-3"></div>
       </div>
-
-      {/* Profile Edit Modal */}
-      {isModalOpen && (
-        <ProfileEditModal
-          closeModal={closeProfileEditModal}
-          user={userData}
-          updateUserProfile={updateUserProfile}
-        />
-      )}
-
-      {/* Chatting Modal */}
-      {isChatModalOpen && (
-        <ChattingModal
-          closeModal={closeChatModal}
-          username={userData.username}
-        />
-      )}
-    </div>
+    </section>
   );
-};
-
-export default ProfileModal;
+}

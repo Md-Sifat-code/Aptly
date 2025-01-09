@@ -12,6 +12,7 @@ import AddHomeForm from "./Modals/AddHomeForm";
 import { UserProvider } from "./Authentication/UserContext";
 import { UserProviders } from "./Authentication/UserContexts";
 import { UserDataProvider } from "./Authentication/UserDataContext";
+import ProfileDrawer from "./Modals/ProfileDrawer";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/details/:id",
         element: <Details />,
+      },
+      {
+        path: "/profile/:username", // Use :username to handle dynamic route parameters
+        element: <ProfileDrawer />, // Render the ProfileModal when the route is matched
       },
     ],
   },

@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 import LoginModal from "../Modals/LoginModal";
 import SignupModal from "../Modals/SignupModal";
 import { useUser } from "../Authentication/UserContext";
-import ProfileDrawer from "../Modals/ProfileDrawer";
 import { useFetchUserData } from "../Authentication/UserDataContext"; // Import the UserDataContext
 import { FiUser } from "react-icons/fi"; // Import React Icon for fallback
 
@@ -12,7 +11,6 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
-  const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false);
   const location = useLocation();
 
   const { user, logout } = useUser();
@@ -41,10 +39,6 @@ export default function Navbar() {
 
   const isActive = (path) =>
     location.pathname === path ? "text-[#006d6f] font-bold" : "";
-
-  const closeProfileDrawer = () => {
-    setIsProfileDrawerOpen(false);
-  };
 
   return (
     <section className="flex justify-center pop items-center">
@@ -115,12 +109,12 @@ export default function Navbar() {
                   >
                     Add Home
                   </Link>
-                  <button
-                    onClick={() => setIsProfileDrawerOpen(true)}
+                  <Link
+                    to={`/profile/${userData?.username}`} // Navigate to user's profile
                     className="w-full btn-outline border-[#006d6f] btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
                   >
                     Profile
-                  </button>
+                  </Link>
                   <button
                     onClick={logout}
                     className="w-full mt-2 bg-[#006d6f] hover:bg-teal-700 btn px-4 py-2 text-white"
@@ -140,11 +134,6 @@ export default function Navbar() {
             closeModal={closeModal}
             openLoginModal={openLoginModal}
           />
-        )}
-
-        {/* Profile Drawer */}
-        {isProfileDrawerOpen && (
-          <ProfileDrawer closeDrawer={closeProfileDrawer} />
         )}
       </div>
     </section>

@@ -32,14 +32,14 @@ const Flats = () => {
             <h2 className="text-lg flex-grow font-semibold text-start mb-2 w-full">
               {flat.title}
             </h2>
-            <p className="text-sm flex-grow text-gray-400 text-start mb-2 w-full">
+            <p className="text-sm flex-grow text-gray-400 text-start  w-full">
               {flat.description}
             </p>
-            <p className="text-sm flex items-center gap-2 font-bold text-start mb-2 w-full">
-              <FaLocationDot className="inline-block" /> {flat.location}
+            <p className="text-sm flex items-center gap-2 font-medium text-start  w-full">
+              {flat.location}
             </p>
-            <p className="text-sm flex items-center gap-2 font-bold text-start mb-2 w-full">
-              <FaRegMoneyBill1 className="inline-block" /> {flat.price} BDT
+            <p className="text-sm flex items-center gap-2 font-bold text-start mb-2 mt-1 w-full">
+              {flat.price} BDT
             </p>
 
             <p

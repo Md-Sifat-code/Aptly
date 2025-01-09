@@ -29,12 +29,7 @@ const Flats = () => {
               alt={flat.title}
               className="h-[250px] w-full object-cover rounded-[18px] mb-3"
             />
-            <h2 className="text-lg flex-grow font-semibold text-start mb-2 w-full">
-              {flat.title}
-            </h2>
-            <p className="text-sm flex-grow text-gray-400 text-start  w-full">
-              {flat.description}
-            </p>
+
             <p className="text-sm flex items-center gap-2 font-medium text-start  w-full">
               {flat.location}
             </p>

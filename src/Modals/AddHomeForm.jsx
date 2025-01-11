@@ -359,7 +359,7 @@ const AddHomeForm = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 bg-teal-700 text-white rounded-lg hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-500 flex items-center justify-center"
+            className="w-full py-3 bgc text-white rounded-lg hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-500 flex items-center justify-center"
           >
             {isSubmitting ? "Adding..." : "Add Property"}
           </button>
@@ -370,12 +370,12 @@ const AddHomeForm = () => {
       {showModal && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-8 rounded-lg shadow-lg text-center max-w-sm w-full">
-            <h3 className="text-xl font-semibold text-teal-700 mb-4">
+            <h3 className="text-xl font-semibold bgt mb-4">
               Property Added Successfully!
             </h3>
             <button
               onClick={handleCloseModal}
-              className="py-2 px-4 bg-teal-700 text-white rounded-lg"
+              className="py-2 px-4 bgc text-white rounded-lg"
             >
               OK
             </button>

@@ -211,7 +211,7 @@ const SignupModal = ({ closeModal }) => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-teal-500 text-white p-3 rounded-lg font-semibold hover:bg-teal-600 transition"
+              className="w-full bgc text-white p-3 rounded-lg font-semibold hover:bg-teal-600 transition"
             >
               Sign Up
             </button>
@@ -224,9 +224,7 @@ const SignupModal = ({ closeModal }) => {
         <div className="fixed inset-0 flex justify-center items-center z-50">
           <div className="modal modal-open">
             <div className="modal-box">
-              <h2 className="text-xl font-bold text-teal-500">
-                Successfully Signed Up!
-              </h2>
+              <h2 className="text-xl font-bold bgt">Successfully Signed Up!</h2>
               <p className="text-gray-600 mt-4">
                 You have successfully created an account.
               </p>

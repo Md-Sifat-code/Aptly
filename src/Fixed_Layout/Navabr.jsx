@@ -50,13 +50,10 @@ export default function Navbar() {
 
         {/* Middle Links */}
         <div className="hidden lg:flex flex-row gap-12">
-          <Link to="/" className={`hover:text-[#006d6f] ${isActive("/")}`}>
+          <Link to="/" className={`hover:bgt ${isActive("/")}`}>
             Buy
           </Link>
-          <Link
-            to="/sell"
-            className={`hover:text-teal-700 ${isActive("/sell")}`}
-          >
+          <Link to="/sell" className={`hover:bgt ${isActive("/sell")}`}>
             Rent
           </Link>
         </div>
@@ -65,7 +62,7 @@ export default function Navbar() {
         <div className="block relative">
           <button
             onClick={toggleDropdown}
-            className="p-4 border rounded-full bg-teal-700 font-bold text-white focus:outline-none"
+            className="p-1 bgc border rounded-full  font-bold text-white focus:outline-none"
             aria-label="User menu"
           >
             {userData && userData.profilpic ? (
@@ -90,13 +87,13 @@ export default function Navbar() {
                 <>
                   <button
                     onClick={() => showModal("login")}
-                    className="w-full bg-[#006d6f] hover:bg-teal-700 btn px-4 py-2 text-white"
+                    className="w-full bgc hover:bg-teal-700 btn px-4 py-2 text-white"
                   >
                     Login
                   </button>
                   <button
                     onClick={() => showModal("signup")}
-                    className="w-full btn-outline border-[#006d6f] btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
+                    className="w-full btn-outline bgr btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
                   >
                     Signup
                   </button>
@@ -105,19 +102,19 @@ export default function Navbar() {
                 <>
                   <Link
                     to="/add-home"
-                    className="w-full btn-outline border-[#006d6f] btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
+                    className="w-full btn-outline bgr btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
                   >
                     Add Home
                   </Link>
                   <Link
                     to={`/profile/${userData?.username}`} // Navigate to user's profile
-                    className="w-full btn-outline border-[#006d6f] btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
+                    className="w-full btn-outline bgr btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
                   >
                     Profile
                   </Link>
                   <button
                     onClick={logout}
-                    className="w-full mt-2 bg-[#006d6f] hover:bg-teal-700 btn px-4 py-2 text-white"
+                    className="w-full mt-2 bgc hover:bg-teal-700 btn px-4 py-2 text-white"
                   >
                     Logout
                   </button>

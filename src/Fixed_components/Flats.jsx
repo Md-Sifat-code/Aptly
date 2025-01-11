@@ -44,7 +44,7 @@ const Flats = () => {
         <div className="text-center mt-6">
           <button
             onClick={loadMoreFlats}
-            className="px-4 py-2 bg-[#006d6f] font-bold pop text-white rounded-md shadow hover:bg-teal-700"
+            className="px-4 py-2 bg-[#006d6f] font-medium pop text-white rounded-md shadow hover:bg-teal-700"
           >
             Load More
           </button>
@@ -55,3 +55,5 @@ const Flats = () => {
 };
 
 export default Flats;
+// ok
+// okk

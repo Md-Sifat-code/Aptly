@@ -11,7 +11,7 @@ export default function ProfileUpdateModal({ closeModal }) {
         <div className="w-full">
           <button
             onClick={closeModal}
-            className="bg-[#006d6f] w-full hover:bg-teal-700 px-4 py-2 text-white rounded"
+            className="bgc w-full hover:bg-teal-700 px-4 py-2 text-white rounded"
           >
             OK
           </button>

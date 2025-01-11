@@ -124,7 +124,7 @@ export default function Buy() {
 
                 {/* Side Dropdown */}
                 <div className="relative" onClick={handleSideDropdownToggle}>
-                  <div className="py-4 pl-4 pr-4 text-lg text-gray-500 cursor-pointer rounded-full border-t border-b border-[#006d6f]">
+                  <div className="py-4 pl-4 pr-4 text-lg text-gray-500 cursor-pointer rounded-full border-t border-b bgr">
                     {selectedSide || "Select side"}
                     <FaAngleDown className="inline ml-2" />
                   </div>
@@ -194,7 +194,7 @@ export default function Buy() {
 
                 {/* Close Button */}
                 <button
-                  className="mt-4 py-2 px-4 text-white bg-[#006d6f] font-bold rounded-full"
+                  className="mt-4 py-2 px-4 text-white bgc font-bold rounded-full"
                   onClick={() => setShowFullMenu(false)}
                 >
                   SEARCH
@@ -206,7 +206,7 @@ export default function Buy() {
           {/* For Large Devices */}
           <div className="hidden md:flex justify-center items-center space-x-4 mb-6 gap-4 sm:gap-6 md:gap-8">
             {/* Search Bar Wrapper */}
-            <div className="relative flex items-center space-x-2 bg-[#006d6f] border border-gray-300 shadow-lg rounded-full px-4 py-2 w-full  max-w-[900px]">
+            <div className="relative flex items-center space-x-2 bgc border border-gray-300 shadow-lg rounded-full px-4 py-2 w-full  max-w-[900px]">
               {/* Location Input */}
               <div className="relative flex-grow">
                 <input
@@ -221,7 +221,7 @@ export default function Buy() {
               {/* Date Selector */}
               <div className="relative">
                 <div
-                  className="py-2 px-4 text-sm lg:text-lg text-white cursor-pointer rounded-full border-none bg-[#006d6f] flex items-center"
+                  className="py-2 px-4 text-sm lg:text-lg text-white cursor-pointer rounded-full border-none bgc flex items-center"
                   onClick={handleCalendarToggle}
                 >
                   {selectedDate ? selectedDate.toDateString() : "Select date"}
@@ -242,7 +242,7 @@ export default function Buy() {
               {/* Side Dropdown */}
               <div className="relative">
                 <div
-                  className="py-2 px-4 text-sm lg:text-lg text-white cursor-pointer rounded-full bg-[#006d6f] flex items-center"
+                  className="py-2 px-4 text-sm lg:text-lg text-white cursor-pointer rounded-full bgc flex items-center"
                   onClick={handleSideDropdownToggle}
                 >
                   {selectedSide || "Select side"}
@@ -283,7 +283,7 @@ export default function Buy() {
               {/* Stay Type Dropdown */}
               <div className="relative">
                 <div
-                  className="py-2 px-4 text-sm lg:text-lg text-white cursor-pointer rounded-full bg-[#006d6f] flex items-center"
+                  className="py-2 px-4 text-sm lg:text-lg text-white cursor-pointer rounded-full bgc flex items-center"
                   onClick={handleStayDropdownToggle}
                 >
                   {selectedStay || "Select type"}

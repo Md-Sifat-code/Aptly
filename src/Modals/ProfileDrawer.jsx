@@ -46,7 +46,7 @@ export default function ProfileDrawer() {
             {/* Profile Image and Info */}
             <div className="flex flex-col items-center justify-center gap-4">
               <img
-                className="w-[120px] h-[120px] rounded-full border-4 border-teal-500"
+                className="w-[120px] h-[120px] rounded-full border-4 bgr"
                 src={userData.profilpic || "/default-avatar.png"} // Default image if profilpic is null or undefined
                 alt="Profile"
               />
@@ -87,20 +87,20 @@ export default function ProfileDrawer() {
           <div className="bg-white p-12 border">
             <h1 className="font-bold text-2xl text-gray-800">{`${userData.username}'s Information`}</h1>
             <p className="mt-4 font-medium text-gray-600 flex items-center gap-2">
-              <IoMailOutline className="text-teal-500" />
+              <IoMailOutline className="bgt" />
               {userData.email}
             </p>
             <p className="font-medium text-gray-600 flex items-center gap-2">
-              <HiOutlinePhoneArrowDownLeft className="text-teal-500" />
+              <HiOutlinePhoneArrowDownLeft className="bgt" />
               {userData.phone}
             </p>
             <p className="font-medium text-gray-600 flex items-center gap-2">
-              <ImProfile className="text-teal-500" />
+              <ImProfile className="bgt" />
               {userData.profession}
             </p>
             <label
               htmlFor="my-modal"
-              className="mt-5 text-teal-600 cursor-pointer hover:underline"
+              className="mt-5 bgt cursor-pointer hover:underline"
             >
               Learn About the Identity Verification
             </label>
@@ -109,7 +109,7 @@ export default function ProfileDrawer() {
           {/* Report User Button */}
           <p
             onClick={handleReportModal}
-            className="flex items-center gap-2 mt-5 text-teal-600 cursor-pointer hover:underline"
+            className="flex items-center gap-2 mt-5 bgt cursor-pointer hover:underline"
           >
             <FaFlag className="inline-block" />
             Report the User

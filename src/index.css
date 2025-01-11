@@ -14,3 +14,14 @@
   -ms-overflow-style: none; /* Hides scrollbar in IE and Edge */
   scrollbar-width: none; /* Hides scrollbar in Firefox */
 }
+
+.bgc {
+  background-color: #006d6f;
+}
+.bgr {
+  border: #006d6f;
+}
+
+.bgt {
+  color: #006d6f;
+}

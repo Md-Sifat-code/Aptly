@@ -241,7 +241,7 @@ export default function ProfileEditModal() {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="px-6 py-3 bg-teal-700 text-white font-semibold rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-600"
+              className="px-6 py-3 bgc text-white font-semibold rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-600"
             >
               Update Profile
             </button>

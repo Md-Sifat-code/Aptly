@@ -19,7 +19,7 @@ const ChattingModal = ({ closeModal, username }) => {
     <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex justify-center items-center">
       <div className="bg-white w-full sm:w-[30rem] h-full sm:h-[500px] rounded-lg shadow-lg flex flex-col">
         {/* Header */}
-        <div className="bg-teal-700 text-white px-4 py-2 flex justify-between items-center rounded-t-lg">
+        <div className="bgc text-white px-4 py-2 flex justify-between items-center rounded-t-lg">
           <h2 className="text-lg font-bold flex items-center">
             <FaUserCircle className="mr-2" size={20} />
             Chat with {username}
@@ -45,7 +45,7 @@ const ChattingModal = ({ closeModal, username }) => {
                 <div
                   className={`max-w-xs px-4 py-2 rounded-lg shadow ${
                     message.sender === "user"
-                      ? "bg-teal-700 text-white"
+                      ? "bgc text-white"
                       : "bg-gray-200 text-gray-800"
                   }`}
                 >
@@ -69,7 +69,7 @@ const ChattingModal = ({ closeModal, username }) => {
           />
           <button
             onClick={handleSendMessage}
-            className="bg-teal-700 text-white px-4 py-2 rounded-lg hover:bg-teal-800 flex items-center"
+            className="bgc text-white px-4 py-2 rounded-lg hover:bg-teal-800 flex items-center"
           >
             <FaPaperPlane className="mr-1" size={16} />
             Send

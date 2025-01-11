@@ -23,7 +23,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <a href="#" className="link link-hover text-black">
-                  Branding
+                  Buy
                 </a>
               </li>
               <li>

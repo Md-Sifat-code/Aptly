@@ -62,7 +62,7 @@ export default function Navbar() {
         <div className="block relative">
           <button
             onClick={toggleDropdown}
-            className="p-1 bgc border rounded-full  font-bold text-white focus:outline-none"
+            className="p-[2px] bgc border rounded-full  font-bold text-white focus:outline-none"
             aria-label="User menu"
           >
             {userData && userData.profilpic ? (

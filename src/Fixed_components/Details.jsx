@@ -76,12 +76,11 @@ export default function Details() {
                 {flat.shortDescription}
               </p>
               <p className="font-bold flex items-center gap-2">
-                <FaBed className="inline-block text-teal-700" />
+                <FaBed className="inline-block bgt" />
                 {flat.features}
               </p>
               <p className="text-lg mb-1 text-black font-bold flex flex-row items-center gap-2">
-                <FaMapMarkerAlt className="text-teal-700 inline-block" />{" "}
-                {flat.location}
+                <FaMapMarkerAlt className="bgt inline-block" /> {flat.location}
               </p>
               <p
                 className={`text-sm font-medium text-start w-full ${
@@ -92,21 +91,21 @@ export default function Details() {
               </p>
               <hr />
               <p className="text-lg mt-6 text-gray-500 flex flex-row items-center gap-2">
-                <FaMoneyBill className="text-teal-700 inline-block" />
+                <FaMoneyBill className="bgt inline-block" />
                 <span className="font-bold">{flat.price.toLocaleString()}</span>
                 /-
               </p>
               <p className="font-bold flex items-center gap-2">
-                <PiMapPinAreaFill className="text-teal-700 inline-block" />
+                <PiMapPinAreaFill className="bgt inline-block" />
                 {flat.propertySize}
                 <span className="px-2">Fit</span>
               </p>
               <p className="font-bold mb-6 flex items-center gap-2">
-                <BiSolidMessageSquareError className="text-teal-700 inline-block" />
+                <BiSolidMessageSquareError className="bgt inline-block" />
                 {flat.restrictions}
               </p>
               <hr />
-              <p className="mt-6 text-teal-700 font-bold">About Flat</p>
+              <p className="mt-6 bgt font-bold">About Flat</p>
               <p className="whitespace-pre-line">{flat.longDescription}</p>
             </div>
           </div>
@@ -123,9 +122,9 @@ export default function Details() {
                   {flat.price.toLocaleString()}
                 </span>
               </p>
-              <div className="p-4 border rounded-xl border-teal-700 flex flex-col mt-3 justify-center items-center">
+              <div className="p-4 border rounded-xl bgr flex flex-col mt-3 justify-center items-center">
                 <div className="flex flex-row gap-4">
-                  <p className="text-sm border-teal-700 px-4 border-r-4 text-gray-700 mb-2">
+                  <p className="text-sm bgr px-4 border-r-4 text-gray-700 mb-2">
                     <strong>Owner Name:</strong> {flat.ownerName}
                   </p>
                   <p className="text-sm text-gray-700 mb-2">
@@ -142,25 +141,25 @@ export default function Details() {
               {/* Property Features Section */}
               <div className="mt-4 grid grid-cols-2 gap-4 px-6">
                 <div className="flex items-center justify-start gap-2">
-                  <FaCar className="text-teal-700" />
+                  <FaCar className="bgt" />
                   <p className="text-sm text-gray-700">
                     Parking: {flat.parking ? "Available" : "Not Available"}
                   </p>
                 </div>
                 <div className="flex items-center justify-start gap-2">
-                  <FaCouch className="text-teal-700" />
+                  <FaCouch className="bgt" />
                   <p className="text-sm text-gray-700">
                     Furnished: {flat.furnished ? "Yes" : "No"}
                   </p>
                 </div>
                 <div className="flex items-center justify-start gap-2">
-                  <FaCalendarAlt className="text-teal-700" />
+                  <FaCalendarAlt className="bgt" />
                   <p className="text-sm text-gray-700">
                     Year Built: {flat.yearBuilt || "N/A"}
                   </p>
                 </div>
                 <div className="flex items-center justify-start gap-2">
-                  <FaPaw className="text-teal-700" />
+                  <FaPaw className="bgt" />
                   <p className="text-sm text-gray-700">
                     Pet Friendly: {flat.petFriendly ? "Yes" : "No"}
                   </p>
@@ -168,7 +167,7 @@ export default function Details() {
               </div>
               <Link
                 to="/checkout"
-                className="btn mt-6 w-full bg-teal-700 font-bold hover:bg-teal-900 text-white"
+                className="btn mt-6 w-full bgc font-bold hover:bg-teal-900 text-white"
               >
                 Buy Now
               </Link>

@@ -42,7 +42,7 @@ export default function Navbar() {
 
   return (
     <section className="flex justify-center pop items-center">
-      <div className="container mt-4 px-4 md:px-0 flex justify-between items-center">
+      <div className=" w-[90%] mt-4 px-4 md:px-0 flex justify-between items-center">
         {/* Logo */}
         <div className="flex justify-start items-start">
           <img className="w-[80px] h-auto" src={logo} alt="Logo" />
@@ -76,7 +76,7 @@ export default function Navbar() {
                 }}
               />
             ) : (
-              <FiUser className="w-10 h-10" /> // React Icon fallback
+              <FiUser className="text-5xl p-[12px]" /> // React Icon fallback
             )}
           </button>
 

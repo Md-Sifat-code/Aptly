@@ -33,7 +33,7 @@ export default function Buy() {
                 placeholder="Search for a location..."
               />
               <FaSearch
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 bg-teal-700 text-white rounded-full cursor-pointer"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 bgc text-white rounded-full cursor-pointer"
                 size={45}
                 onClick={handleSearchClick} // Trigger search on click
               />

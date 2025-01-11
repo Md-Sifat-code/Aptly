@@ -49,7 +49,7 @@ export default function ProfileDrawer() {
     <section>
       <div className="container mt-12 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Profile Card Section */}
-        <div className="lg:col-span-1 flex flex-col gap-6 ">
+        <div className="lg:col-span-1 flex flex-col gap-6 lg:sticky lg:top-0">
           <div className="card shadow-xl grid grid-cols-2 gap-6 p-6 bg-white rounded-lg">
             {/* Profile Image and Info */}
             <div className="flex flex-col items-center justify-center gap-4">

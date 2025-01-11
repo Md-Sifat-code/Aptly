@@ -33,7 +33,10 @@ const Flats = () => {
             <p className="text-sm flex items-center gap-2 font-medium text-start  w-full">
               {flat.location}
             </p>
-            <p className="text-sm flex items-center text-gray-500 gap-2 font-normal text-start mb-2 mt-1 w-full">
+            <p className="text-sm flex items-center gap-2 font-normal text-start text-gray-400 w-full">
+              Hosted by {flat.user.fullname}
+            </p>
+            <p className="text-sm flex items-center text-gray-500 gap-2 font-medium text-start mb-2 mt-1 w-full">
               {flat.price} BDT
             </p>
           </Link>

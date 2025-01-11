@@ -2,7 +2,7 @@ import React from "react";
 import home from "/okay.png";
 export default function Footer() {
   return (
-    <footer className="bg-gray-200 border-t mt-12 py-10">
+    <footer className="bg-[#84b5b9] border-t mt-12 py-10">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-start gap-8">
           {/* Company Info */}

@@ -1,28 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { FaStar, FaFlag, FaExclamationTriangle } from "react-icons/fa";
+import React, { useState } from "react";
+import {
+  FaStar,
+  FaFlag,
+  FaExclamationTriangle,
+  FaFacebookMessenger,
+} from "react-icons/fa";
 import { IoMailOutline } from "react-icons/io5";
 import { ImProfile } from "react-icons/im";
+import { MdWifiCalling3 } from "react-icons/md";
+import { IoMailSharp } from "react-icons/io5";
 import { HiOutlinePhoneArrowDownLeft } from "react-icons/hi2";
-import { useFetchUserData } from "../Authentication/UserDataContext"; // Import the custom hook
+import { useFetchUserData } from "../Authentication/UserDataContext";
+import ChattingModal from "../Modals/ChattingModal"; // import the ChattingModal
 
 export default function ProfileDrawer() {
-  const { userData, loading } = useFetchUserData(); // Use the hook to get user data and loading state
-  const [isReportModalOpen, setIsReportModalOpen] = useState(false); // State for report modal visibility
+  const { userData, loading } = useFetchUserData();
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false); // State for showing the chat modal
 
   if (loading) {
-    return <div>Loading...</div>; // Show a loading message if data is being fetched
+    return <div>Loading...</div>;
   }
 
   if (!userData) {
-    return <div>Error: User data not available</div>; // Show an error message if user data is null or undefined
+    return <div>Error: User data not available</div>;
   }
 
-  // Toggle Report Modal
   const handleReportModal = () => {
     setIsReportModalOpen(!isReportModalOpen);
   };
 
-  // Static reviews (you can replace this with dynamic data if needed)
+  // Static reviews
   const reviews = [
     { name: "John Doe", rating: 4, comment: "Great service, very reliable!" },
     {
@@ -39,18 +47,20 @@ export default function ProfileDrawer() {
 
   return (
     <section>
-      <div className="container mt-12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="container mt-12 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Profile Card Section */}
-        <div className="lg:col-span-1 flex flex-col gap-6 sticky top-0">
+        <div className="lg:col-span-1 flex flex-col gap-6 ">
           <div className="card shadow-xl grid grid-cols-2 gap-6 p-6 bg-white rounded-lg">
             {/* Profile Image and Info */}
             <div className="flex flex-col items-center justify-center gap-4">
               <img
                 className="w-[120px] h-[120px] rounded-full border-4 bgr"
-                src={userData.profilpic || "/default-avatar.png"} // Default image if profilpic is null or undefined
+                src={userData.profilpic || "/default-avatar.png"}
                 alt="Profile"
               />
-              <h1 className="font-bold text-teal-700 text-xl">{`@${userData.username}`}</h1>
+              <h1 className="font-bold text-teal-700 text-xl">
+                @{userData.username}
+              </h1>
               <p className="font-semibold text-gray-600 text-sm">
                 {userData.address}
               </p>
@@ -66,8 +76,7 @@ export default function ProfileDrawer() {
               <hr className="w-full border-t-2 border-gray-200" />
               <p className="flex flex-col items-center">
                 <p className="flex items-center gap-2 text-xl font-semibold text-teal-600">
-                  4.8
-                  <FaStar className="inline-block text-yellow-500" />
+                  4.8 <FaStar className="inline-block text-yellow-500" />
                 </p>
                 <span className="font-medium text-xs text-gray-500">
                   Rating
@@ -98,6 +107,26 @@ export default function ProfileDrawer() {
               <ImProfile className="bgt" />
               {userData.profession}
             </p>
+            {/* icons */}
+            <div className="flex flex-row gap-4 mt-4 mb-4 bgt text-xl">
+              {/* Messenger Icon */}
+              <FaFacebookMessenger
+                onClick={() => setIsChatModalOpen(true)} // Open the chat modal on click
+                className="cursor-pointer"
+              />
+              {/* Phone Icon - Call */}
+              <MdWifiCalling3
+                onClick={() => (window.location.href = `tel:${userData.phone}`)}
+                className="cursor-pointer"
+              />
+              {/* Mail Icon - Send Email */}
+              <IoMailSharp
+                onClick={() =>
+                  (window.location.href = `mailto:${userData.email}`)
+                }
+                className="cursor-pointer"
+              />
+            </div>
             <label
               htmlFor="my-modal"
               className="mt-5 bgt cursor-pointer hover:underline"
@@ -109,30 +138,30 @@ export default function ProfileDrawer() {
           {/* Report User Button */}
           <p
             onClick={handleReportModal}
-            className="flex items-center gap-2 mt-5 bgt cursor-pointer hover:underline"
+            className="flex items-center gap-2 mt-5 bgt cursor-pointer px-12 hover:underline"
           >
             <FaFlag className="inline-block" />
             Report the User
           </p>
         </div>
 
-        {/* Empty space for the remaining columns (col-span-2) */}
-        <div className="lg:col-span-2 px-12 overflow-y-auto max-h-screen">
-          <div>
-            <h1 className="text-3xl  font-bold text-black">About Sifat</h1>
-          </div>
-          <div className=" mt-6 mb-6 ">
+        {/* Right Section (About + Reviews) */}
+        <div className="lg:col-span-2 px-12 ">
+          {/* About Section */}
+          <div className="mt-6 mb-6">
+            <h1 className="text-3xl font-bold text-black">
+              About {userData.username}
+            </h1>
             <p>{userData.bio}</p>
-            <p></p>
           </div>
           <hr />
+          {/* Review Section */}
           <div className="mt-4">
             <h1 className="text-xl font-bold text-gray-800">
-              What People are saying about Sifat
+              What People are saying about {userData.username}
             </h1>
             {/* Review Cards */}
             <div className="flex flex-wrap gap-6">
-              {/* Review Cards */}
               {reviews.map((review, index) => (
                 <div
                   key={index}
@@ -221,6 +250,14 @@ export default function ProfileDrawer() {
             </label>
           </div>
         </div>
+      )}
+
+      {/* Chatting Modal */}
+      {isChatModalOpen && (
+        <ChattingModal
+          closeModal={() => setIsChatModalOpen(false)}
+          username={userData.username}
+        />
       )}
     </section>
   );

@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaMoneyBill } from "react-icons/fa";
 import { FaBed } from "react-icons/fa";
 import { BiSolidMessageSquareError } from "react-icons/bi";
-import { Link, useParams } from "react-router-dom";
+import { Link, Links, useParams } from "react-router-dom";
 import { PiMapPinAreaFill } from "react-icons/pi";
 import { FlatContext } from "../Context_Api/FlatContext";
+import { ImProfile } from "react-icons/im";
+import { MdWifiCalling3 } from "react-icons/md";
 import {
   FaMapMarkerAlt,
   FaCar,
@@ -12,7 +14,15 @@ import {
   FaCalendarAlt,
   FaPaw,
 } from "react-icons/fa";
-
+import {
+  FaStar,
+  FaFlag,
+  FaExclamationTriangle,
+  FaFacebookMessenger,
+} from "react-icons/fa";
+import { IoMailSharp } from "react-icons/io5";
+import { HiOutlinePhoneArrowDownLeft } from "react-icons/hi2";
+import { IoMailOutline } from "react-icons/io5";
 export default function Details() {
   const { flats, loading, error } = useContext(FlatContext);
   const { id } = useParams();
@@ -170,6 +180,75 @@ export default function Details() {
                 className="btn mt-6 w-full bgc font-bold hover:bg-teal-900 text-white"
               >
                 Buy Now
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="mt-12  flex flex-col lg:flex-row ">
+          {/* Right Section (About + Reviews) */}
+          <div className="card  flex-1 shadow-xl grid grid-cols-2 gap-6 p-6 bg-white rounded-lg">
+            {/* Profile Image and Info */}
+            <div className="flex flex-col items-center justify-center gap-4">
+              <img
+                className="w-[120px] h-[120px] rounded-full border-4 bgr"
+                src={flat.user.profilpic || "/default-avatar.png"}
+                alt="Profile"
+              />
+              <h1 className="font-bold text-teal-700 text-xl">
+                @{flat.user.username}
+              </h1>
+              <p className="font-semibold text-gray-600 text-sm">
+                {flat.user.address}
+              </p>
+            </div>
+            {/* Rating and Hosting Info */}
+            {/* <div className="flex flex-col items-center justify-center gap-4">
+              <p className="text-lg flex text-center flex-col font-semibold text-gray-700">
+                5{" "}
+                <span className="font-medium text-gray-500 text-xs">
+                  Reviews
+                </span>
+              </p>
+              <hr className="w-full border-t-2 border-gray-200" />
+              <p className="flex flex-col items-center">
+                <p className="flex items-center gap-2 text-xl font-semibold text-teal-600">
+                  4.8 <FaStar className="inline-block text-yellow-500" />
+                </p>
+                <span className="font-medium text-xs text-gray-500">
+                  Rating
+                </span>
+              </p>
+              <hr className="w-full border-t-2 border-gray-200" />
+              <p className="text-lg flex text-center flex-col font-semibold text-gray-700">
+                2{" "}
+                <span className="font-medium text-gray-500 text-xs">
+                  Hosting
+                </span>
+              </p>
+            </div> */}
+            <div className="bg-white border-l-2 flex flex-col border-teal-700  p-12 ">
+              <div className="flex-1">
+                <h1 className="font-bold text-2xl text-gray-800">{`${flat.user.username}'s Information`}</h1>
+                <p className="mt-4 font-medium text-gray-600 flex items-center gap-2">
+                  <IoMailOutline className="bgt" />
+                  {flat.user.email}
+                </p>
+                <p className="font-medium text-gray-600 flex items-center gap-2">
+                  <HiOutlinePhoneArrowDownLeft className="bgt" />
+                  {flat.user.phone}
+                </p>
+                <p className="font-medium text-gray-600 flex items-center gap-2">
+                  <ImProfile className="bgt" />
+                  {flat.user.profession}
+                </p>
+              </div>
+              {/* icons */}
+
+              <Link
+                to={`/profile/${flat.user?.username}`}
+                className="btn border-none hover:bg-teal-700 btn-primary text-white bgc w-full mt-4"
+              >
+                See Details
               </Link>
             </div>
           </div>

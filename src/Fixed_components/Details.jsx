@@ -18,9 +18,8 @@ import { FlatContext } from "../Context_Api/FlatContext";
 import { ImProfile } from "react-icons/im";
 import { MdWifiCalling3 } from "react-icons/md";
 import { IoMailSharp, IoMailOutline } from "react-icons/io5";
-import { HiOutlinePhoneArrowDownLeft } from "react-icons/hi2";
+import { HiOutlinePhoneArrowDownLeft } from "react-icons/hi2"; // Corrected import
 import ChattingModal from "../Modals/ChattingModal";
-
 export default function Details() {
   const { flats, loading, error } = useContext(FlatContext);
   const { id } = useParams();
@@ -41,15 +40,14 @@ export default function Details() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!flat) return <div>Flat not found</div>;
+
   const loggedInUsername = sessionStorage.getItem("username");
 
   const openChatModal = () => {
     if (!loggedInUsername) {
-      // Optionally handle the case when the user is not logged in
       alert("Please log in to send a message.");
       return;
     }
-
     setIsChatModalOpen(true);
   };
 
@@ -204,7 +202,7 @@ export default function Details() {
         </div>
 
         <div className="mt-12 flex flex-col lg:flex-row">
-          <div className="card flex-1 shadow-xl grid grid-cols-2 gap-6 p-6 bg-white rounded-lg">
+          <div className="card shadow-xl grid grid-cols-2 gap-6 p-6 bg-white rounded-lg">
             {/* Profile Image and Info */}
             <div className="flex flex-col items-center justify-center gap-4">
               <img
@@ -220,47 +218,36 @@ export default function Details() {
               </p>
             </div>
             {/* Rating and Hosting Info */}
-            <div className="bg-white border-l-2 border-teal-700 p-12">
-              <h1 className="font-bold text-2xl text-gray-800">
-                {`${flat.user.username}'s Information`}
-              </h1>
-              <p className="mt-4 font-medium text-gray-600 flex items-center gap-2">
-                <IoMailOutline className="bgt" />
-                {flat.user.email}
+            <div className="flex flex-col items-center justify-center gap-4">
+              <p className="text-lg flex text-center flex-col font-semibold text-gray-700">
+                5{" "}
+                <span className="font-medium text-gray-500 text-xs">
+                  Reviews
+                </span>
               </p>
-              <p className="font-medium text-gray-600 flex items-center gap-2">
-                <HiOutlinePhoneArrowDownLeft className="bgt" />
-                {flat.user.phone}
+              <hr className="w-full border-t-2 border-gray-200" />
+              <p className="flex flex-col items-center">
+                <p className="flex items-center gap-2 text-xl font-semibold text-teal-600">
+                  4.8 <FaStar className="inline-block text-yellow-500" />
+                </p>
+                <span className="font-medium text-xs text-gray-500">
+                  Rating
+                </span>
               </p>
-              <p className="font-medium text-gray-600 flex items-center gap-2">
-                <ImProfile className="bgt" />
-                {flat.user.profession}
+              <hr className="w-full border-t-2 border-gray-200" />
+              <p className="text-lg flex text-center flex-col font-semibold text-gray-700">
+                2{" "}
+                <span className="font-medium text-gray-500 text-xs">
+                  Hosting
+                </span>
               </p>
-              <div className="flex flex-row gap-4 mt-4 mb-4 bgt text-xl">
-                <FaFacebookMessenger
-                  onClick={() => setIsChatModalOpen(true)}
-                  className="cursor-pointer"
-                />
-                <MdWifiCalling3
-                  onClick={() =>
-                    (window.location.href = `tel:${flat.user.phone}`)
-                  }
-                  className="cursor-pointer"
-                />
-                <IoMailSharp
-                  onClick={() =>
-                    (window.location.href = `mailto:${flat.user.email}`)
-                  }
-                  className="cursor-pointer"
-                />
-              </div>
-              <Link
-                to={`/seller/${flat.user.username}`}
-                className="btn btn-outline border-teal-700 bgt font-bold hover:bg-teal-900"
-              >
-                See Details
-              </Link>
             </div>
+            <Link
+              to={`/seller/${flat.user.username}`}
+              className="btn col-span-2 w-full btn-outline border-teal-700 bgt font-bold hover:bg-teal-900"
+            >
+              See Details
+            </Link>
           </div>
         </div>
       </div>

@@ -5,13 +5,12 @@ import { io } from "socket.io-client";
 const ChattingModal = ({ closeModal, loggedInUsername, sellerUsername }) => {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
-  const [isTyping, setIsTyping] = useState(false); // New state for typing indicator
+  const [isTyping, setIsTyping] = useState(false); // Typing indicator
   const [socket, setSocket] = useState(null);
   const messageEndRef = useRef(null);
 
   // Connect to WebSocket on mount and handle socket events
   useEffect(() => {
-    // WebSocket URL now adapts to production and development environments
     const socketURL =
       process.env.NODE_ENV === "production"
         ? "ws://baribazar.onrender.com/ws" // Production URL
@@ -27,7 +26,9 @@ const ChattingModal = ({ closeModal, loggedInUsername, sellerUsername }) => {
     socketInstance.on("newMessage", (message) => {
       if (
         message.to === loggedInUsername ||
-        message.sender === loggedInUsername
+        message.sender === loggedInUsername ||
+        message.to === sellerUsername ||
+        message.sender === sellerUsername
       ) {
         setMessages((prevMessages) => [
           ...prevMessages,
@@ -36,10 +37,10 @@ const ChattingModal = ({ closeModal, loggedInUsername, sellerUsername }) => {
       }
     });
 
-    // Listen for typing status (this is the new event listener)
+    // Listen for typing status
     socketInstance.on("userTyping", (username) => {
       if (username !== loggedInUsername) {
-        setIsTyping(true); // Show typing indicator if other user is typing
+        setIsTyping(true);
         setTimeout(() => setIsTyping(false), 3000); // Typing indicator disappears after 3 seconds
       }
     });
@@ -47,7 +48,7 @@ const ChattingModal = ({ closeModal, loggedInUsername, sellerUsername }) => {
     return () => {
       socketInstance.disconnect(); // Cleanup on component unmount
     };
-  }, [loggedInUsername]);
+  }, [loggedInUsername, sellerUsername]);
 
   // Scroll to the latest message when a new one arrives
   useEffect(() => {
@@ -56,7 +57,7 @@ const ChattingModal = ({ closeModal, loggedInUsername, sellerUsername }) => {
     }
   }, [messages]);
 
-  // Handle message input and typing status (this is the updated input handler)
+  // Handle message input and typing status
   const handleInputChange = (e) => {
     setMessageInput(e.target.value);
     if (e.target.value.trim()) {
@@ -146,7 +147,7 @@ const ChattingModal = ({ closeModal, loggedInUsername, sellerUsername }) => {
             className="flex-1 px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-teal-500"
             placeholder="Type your message..."
             value={messageInput}
-            onChange={handleInputChange} // Updated input handler to include typing event
+            onChange={handleInputChange}
           />
           <button
             onClick={handleSendMessage}

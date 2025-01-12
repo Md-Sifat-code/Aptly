@@ -14,6 +14,8 @@ import { UserProviders } from "./Authentication/UserContexts";
 import { UserDataProvider } from "./Authentication/UserDataContext";
 import ProfileDrawer from "./Modals/ProfileDrawer";
 
+import SellerDetails from "./Fixed_components/SellerDetails";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/profile/:username", // Use :username to handle dynamic route parameters
         element: <ProfileDrawer />, // Render the ProfileModal when the route is matched
+      },
+      {
+        path: "/seller/:username", // Use :username to handle dynamic route parameters
+        element: <SellerDetails></SellerDetails>,
       },
     ],
   },

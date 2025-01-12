@@ -1,32 +1,31 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FaMoneyBill } from "react-icons/fa";
-import { FaBed } from "react-icons/fa";
-import { BiSolidMessageSquareError } from "react-icons/bi";
-import { Link, Links, useParams } from "react-router-dom";
-import { PiMapPinAreaFill } from "react-icons/pi";
-import { FlatContext } from "../Context_Api/FlatContext";
-import { ImProfile } from "react-icons/im";
-import { MdWifiCalling3 } from "react-icons/md";
 import {
+  FaMoneyBill,
+  FaBed,
   FaMapMarkerAlt,
   FaCar,
   FaCouch,
   FaCalendarAlt,
   FaPaw,
-} from "react-icons/fa";
-import {
+  FaFacebookMessenger,
   FaStar,
   FaFlag,
-  FaExclamationTriangle,
-  FaFacebookMessenger,
 } from "react-icons/fa";
-import { IoMailSharp } from "react-icons/io5";
+import { BiSolidMessageSquareError } from "react-icons/bi";
+import { Link, useParams } from "react-router-dom";
+import { PiMapPinAreaFill } from "react-icons/pi";
+import { FlatContext } from "../Context_Api/FlatContext";
+import { ImProfile } from "react-icons/im";
+import { MdWifiCalling3 } from "react-icons/md";
+import { IoMailSharp, IoMailOutline } from "react-icons/io5";
 import { HiOutlinePhoneArrowDownLeft } from "react-icons/hi2";
-import { IoMailOutline } from "react-icons/io5";
+import ChattingModal from "../Modals/ChattingModal"; // Import your ChattingModal component
+
 export default function Details() {
   const { flats, loading, error } = useContext(FlatContext);
   const { id } = useParams();
   const [flat, setFlat] = useState(null);
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false); // State to manage modal visibility
 
   useEffect(() => {
     if (id) {
@@ -34,6 +33,10 @@ export default function Details() {
       setFlat(selectedFlat);
     }
   }, [flats, id]);
+
+  const closeModal = () => {
+    setIsChatModalOpen(false); // Close the modal
+  };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -52,26 +55,30 @@ export default function Details() {
           <div className="grid grid-cols-2 gap-2">
             {flat.imageUrls &&
               flat.imageUrls.length > 0 &&
-              flat.imageUrls.slice(0, 2).map((imageUrl, index) => (
-                <img
-                  key={index}
-                  src={imageUrl}
-                  alt={`${flat.title} - ${index + 1}`}
-                  className="w-full h-full rounded-xl object-cover" // Ensures full coverage even with different image sizes
-                />
-              ))}
+              flat.imageUrls
+                .slice(0, 2)
+                .map((imageUrl, index) => (
+                  <img
+                    key={index}
+                    src={imageUrl}
+                    alt={`${flat.title} - ${index + 1}`}
+                    className="w-full h-full rounded-xl object-cover"
+                  />
+                ))}
           </div>
           <div className="grid grid-cols-2 gap-2 mt-2">
             {flat.imageUrls &&
               flat.imageUrls.length > 2 &&
-              flat.imageUrls.slice(2, 4).map((imageUrl, index) => (
-                <img
-                  key={index + 2}
-                  src={imageUrl}
-                  alt={`${flat.title} - ${index + 3}`}
-                  className="w-full h-full rounded-xl object-cover" // Same as above to ensure proper coverage
-                />
-              ))}
+              flat.imageUrls
+                .slice(2, 4)
+                .map((imageUrl, index) => (
+                  <img
+                    key={index + 2}
+                    src={imageUrl}
+                    alt={`${flat.title} - ${index + 3}`}
+                    className="w-full h-full rounded-xl object-cover"
+                  />
+                ))}
           </div>
         </div>
       </div>
@@ -184,9 +191,10 @@ export default function Details() {
             </div>
           </div>
         </div>
-        <div className="mt-12  flex flex-col lg:flex-row ">
+
+        <div className="mt-12 flex flex-col lg:flex-row">
           {/* Right Section (About + Reviews) */}
-          <div className="card  flex-1 shadow-xl grid grid-cols-2 gap-6 p-6 bg-white rounded-lg">
+          <div className="card flex-1 shadow-xl grid grid-cols-2 gap-6 p-6 bg-white rounded-lg">
             {/* Profile Image and Info */}
             <div className="flex flex-col items-center justify-center gap-4">
               <img
@@ -202,58 +210,57 @@ export default function Details() {
               </p>
             </div>
             {/* Rating and Hosting Info */}
-            {/* <div className="flex flex-col items-center justify-center gap-4">
-              <p className="text-lg flex text-center flex-col font-semibold text-gray-700">
-                5{" "}
-                <span className="font-medium text-gray-500 text-xs">
-                  Reviews
-                </span>
+            <div className="bg-white border-l-2 border-teal-700 p-12">
+              <h1 className="font-bold text-2xl text-gray-800">{`${flat.user.username}'s Information`}</h1>
+              <p className="mt-4 font-medium text-gray-600 flex items-center gap-2">
+                <IoMailOutline className="bgt" />
+                {flat.user.email}
               </p>
-              <hr className="w-full border-t-2 border-gray-200" />
-              <p className="flex flex-col items-center">
-                <p className="flex items-center gap-2 text-xl font-semibold text-teal-600">
-                  4.8 <FaStar className="inline-block text-yellow-500" />
-                </p>
-                <span className="font-medium text-xs text-gray-500">
-                  Rating
-                </span>
+              <p className="font-medium text-gray-600 flex items-center gap-2">
+                <HiOutlinePhoneArrowDownLeft className="bgt" />
+                {flat.user.phone}
               </p>
-              <hr className="w-full border-t-2 border-gray-200" />
-              <p className="text-lg flex text-center flex-col font-semibold text-gray-700">
-                2{" "}
-                <span className="font-medium text-gray-500 text-xs">
-                  Hosting
-                </span>
+              <p className="font-medium text-gray-600 flex items-center gap-2">
+                <ImProfile className="bgt" />
+                {flat.user.profession}
               </p>
-            </div> */}
-            <div className="bg-white border-l-2 flex flex-col border-teal-700  p-12 ">
-              <div className="flex-1">
-                <h1 className="font-bold text-2xl text-gray-800">{`${flat.user.username}'s Information`}</h1>
-                <p className="mt-4 font-medium text-gray-600 flex items-center gap-2">
-                  <IoMailOutline className="bgt" />
-                  {flat.user.email}
-                </p>
-                <p className="font-medium text-gray-600 flex items-center gap-2">
-                  <HiOutlinePhoneArrowDownLeft className="bgt" />
-                  {flat.user.phone}
-                </p>
-                <p className="font-medium text-gray-600 flex items-center gap-2">
-                  <ImProfile className="bgt" />
-                  {flat.user.profession}
-                </p>
-              </div>
               {/* icons */}
-
-              <Link
-                to={`/profile/${flat.user?.username}`}
-                className="btn border-none hover:bg-teal-700 btn-primary text-white bgc w-full mt-4"
+              <div className="flex flex-row gap-4 mt-4 mb-4 bgt text-xl">
+                {/* Messenger Icon */}
+                <FaFacebookMessenger
+                  onClick={() => setIsChatModalOpen(true)} // Open the chat modal on click
+                  className="cursor-pointer"
+                />
+                {/* Phone Icon - Call */}
+                <MdWifiCalling3
+                  onClick={() =>
+                    (window.location.href = `tel:${flat.user.phone}`)
+                  }
+                  className="cursor-pointer"
+                />
+                {/* Mail Icon - Send Email */}
+                <IoMailSharp
+                  onClick={() =>
+                    (window.location.href = `mailto:${flat.user.email}`)
+                  }
+                  className="cursor-pointer"
+                />
+              </div>
+              <label
+                htmlFor="my-modal"
+                className="mt-5 bgt cursor-pointer hover:underline"
               >
-                See Details
-              </Link>
+                Learn About the Identity Verification
+              </label>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Chatting Modal */}
+      {isChatModalOpen && (
+        <ChattingModal closeModal={closeModal} username={flat.user.username} />
+      )}
     </div>
   );
 }

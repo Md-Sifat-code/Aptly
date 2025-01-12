@@ -13,7 +13,7 @@ import { UserProvider } from "./Authentication/UserContext";
 import { UserProviders } from "./Authentication/UserContexts";
 import { UserDataProvider } from "./Authentication/UserDataContext";
 import ProfileDrawer from "./Modals/ProfileDrawer";
-
+import SignupModal from "./Modals/SignupModal";
 import SellerDetails from "./Fixed_components/SellerDetails";
 
 const router = createBrowserRouter([
@@ -46,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: "/add-home",
     element: <AddHomeForm />,
+  },
+  {
+    path: "/signup",
+    element: <SignupModal />,
   },
 ]);
 

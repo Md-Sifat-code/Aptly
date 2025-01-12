@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import logo from "/bariss.png";
 import { Link, useLocation } from "react-router-dom";
-import LoginModal from "../Modals/LoginModal";
-import SignupModal from "../Modals/SignupModal";
+import LoginModal from "../Modals/LoginModal"; // Keep the LoginModal
 import { useUser } from "../Authentication/UserContext";
 import { useFetchUserData } from "../Authentication/UserDataContext"; // Import the UserDataContext
 import { FiUser } from "react-icons/fi"; // Import React Icon for fallback
@@ -24,25 +23,12 @@ export default function Navbar() {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const showModal = (type) => {
-    setModalType(type);
-    setIsDropdownOpen(false);
-  };
-
-  const closeModal = () => {
-    setModalType(null);
-  };
-
-  const openLoginModal = () => {
-    setModalType("login");
-  };
-
   const isActive = (path) =>
     location.pathname === path ? "text-[#006d6f] font-bold" : "";
 
   return (
     <section className="flex justify-center pop items-center">
-      <div className=" w-[90%] mt-4 px-4 md:px-0 flex justify-between items-center">
+      <div className="w-[90%] mt-4 px-4 md:px-0 flex justify-between items-center">
         {/* Logo */}
         <div className="flex justify-start items-start">
           <img className="w-[80px] h-auto" src={logo} alt="Logo" />
@@ -62,7 +48,7 @@ export default function Navbar() {
         <div className="block relative">
           <button
             onClick={toggleDropdown}
-            className="p-[2px] bgc border rounded-full  font-bold text-white focus:outline-none"
+            className="p-[2px] bgc border rounded-full font-bold text-white focus:outline-none"
             aria-label="User menu"
           >
             {userData && userData.profilpic ? (
@@ -86,17 +72,17 @@ export default function Navbar() {
               {!user ? (
                 <>
                   <button
-                    onClick={() => showModal("login")}
+                    onClick={() => setModalType("login")}
                     className="w-full bgc hover:bg-teal-700 btn px-4 py-2 text-white"
                   >
                     Login
                   </button>
-                  <button
-                    onClick={() => showModal("signup")}
+                  <Link
+                    to="/signup"
                     className="w-full btn-outline bgr btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
                   >
-                    Signup
-                  </button>
+                    Sign Up
+                  </Link>
                 </>
               ) : (
                 <>
@@ -123,16 +109,12 @@ export default function Navbar() {
             </div>
           )}
         </div>
-
-        {/* Show the modal based on the modalType */}
-        {modalType === "login" && <LoginModal closeModal={closeModal} />}
-        {modalType === "signup" && (
-          <SignupModal
-            closeModal={closeModal}
-            openLoginModal={openLoginModal}
-          />
-        )}
       </div>
+
+      {/* Show the LoginModal if the modalType is 'login' */}
+      {modalType === "login" && (
+        <LoginModal closeModal={() => setModalType(null)} />
+      )}
     </section>
   );
 }

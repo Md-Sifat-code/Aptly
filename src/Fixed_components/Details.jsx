@@ -19,13 +19,13 @@ import { ImProfile } from "react-icons/im";
 import { MdWifiCalling3 } from "react-icons/md";
 import { IoMailSharp, IoMailOutline } from "react-icons/io5";
 import { HiOutlinePhoneArrowDownLeft } from "react-icons/hi2";
-import ChattingModal from "../Modals/ChattingModal"; // Import your ChattingModal component
+import ChattingModal from "../Modals/ChattingModal";
 
 export default function Details() {
   const { flats, loading, error } = useContext(FlatContext);
   const { id } = useParams();
   const [flat, setFlat] = useState(null);
-  const [isChatModalOpen, setIsChatModalOpen] = useState(false); // State to manage modal visibility
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -35,7 +35,7 @@ export default function Details() {
   }, [flats, id]);
 
   const closeModal = () => {
-    setIsChatModalOpen(false); // Close the modal
+    setIsChatModalOpen(false);
   };
 
   if (loading) return <div>Loading...</div>;
@@ -193,7 +193,6 @@ export default function Details() {
         </div>
 
         <div className="mt-12 flex flex-col lg:flex-row">
-          {/* Right Section (About + Reviews) */}
           <div className="card flex-1 shadow-xl grid grid-cols-2 gap-6 p-6 bg-white rounded-lg">
             {/* Profile Image and Info */}
             <div className="flex flex-col items-center justify-center gap-4">
@@ -211,7 +210,9 @@ export default function Details() {
             </div>
             {/* Rating and Hosting Info */}
             <div className="bg-white border-l-2 border-teal-700 p-12">
-              <h1 className="font-bold text-2xl text-gray-800">{`${flat.user.username}'s Information`}</h1>
+              <h1 className="font-bold text-2xl text-gray-800">
+                {`${flat.user.username}'s Information`}
+              </h1>
               <p className="mt-4 font-medium text-gray-600 flex items-center gap-2">
                 <IoMailOutline className="bgt" />
                 {flat.user.email}
@@ -224,21 +225,17 @@ export default function Details() {
                 <ImProfile className="bgt" />
                 {flat.user.profession}
               </p>
-              {/* icons */}
               <div className="flex flex-row gap-4 mt-4 mb-4 bgt text-xl">
-                {/* Messenger Icon */}
                 <FaFacebookMessenger
-                  onClick={() => setIsChatModalOpen(true)} // Open the chat modal on click
+                  onClick={() => setIsChatModalOpen(true)}
                   className="cursor-pointer"
                 />
-                {/* Phone Icon - Call */}
                 <MdWifiCalling3
                   onClick={() =>
                     (window.location.href = `tel:${flat.user.phone}`)
                   }
                   className="cursor-pointer"
                 />
-                {/* Mail Icon - Send Email */}
                 <IoMailSharp
                   onClick={() =>
                     (window.location.href = `mailto:${flat.user.email}`)
@@ -246,12 +243,12 @@ export default function Details() {
                   className="cursor-pointer"
                 />
               </div>
-              <label
-                htmlFor="my-modal"
-                className="mt-5 bgt cursor-pointer hover:underline"
+              <Link
+                to={`/seller/${flat.user.username}`}
+                className="btn btn-outline border-teal-700 bgt font-bold hover:bg-teal-900"
               >
-                Learn About the Identity Verification
-              </label>
+                See Details
+              </Link>
             </div>
           </div>
         </div>

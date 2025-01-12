@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   FaStar,
   FaFlag,
@@ -10,26 +11,42 @@ import { ImProfile } from "react-icons/im";
 import { MdWifiCalling3 } from "react-icons/md";
 import { IoMailSharp } from "react-icons/io5";
 import { HiOutlinePhoneArrowDownLeft } from "react-icons/hi2";
-import { useFetchUserData } from "../Authentication/UserDataContext";
 import ChattingModal from "../Modals/ChattingModal";
-
 export default function SellerDetails() {
-  const { userData, loading } = useFetchUserData();
+  const { username } = useParams();
+  const [sellerData, setSellerData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    const fetchSellerDetails = async () => {
+      try {
+        const response = await fetch(
+          `https://baribazar.onrender.com/User/search/${username}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch seller details");
+        }
+        const data = await response.json();
+        setSellerData(data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
 
-  if (!userData) {
-    return <div>Error: User data not available</div>;
-  }
+    fetchSellerDetails();
+  }, [username]);
 
+  if (loading) return <div>Loading seller details...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!sellerData) return <div>No seller data available</div>;
   const handleReportModal = () => {
     setIsReportModalOpen(!isReportModalOpen);
   };
-
   const reviews = [
     { name: "John Doe", rating: 4, comment: "Great service, very reliable!" },
     {
@@ -50,19 +67,21 @@ export default function SellerDetails() {
         {/* Profile Card Section */}
         <div className="lg:col-span-1 flex flex-col gap-6 lg:sticky lg:top-0">
           <div className="card shadow-xl grid grid-cols-2 gap-6 p-6 bg-white rounded-lg">
+            {/* Profile Image and Info */}
             <div className="flex flex-col items-center justify-center gap-4">
               <img
                 className="w-[120px] h-[120px] rounded-full border-4 bgr"
-                src={userData.profilpic || "/default-avatar.png"}
+                src={sellerData.profilpic || "/default-avatar.png"}
                 alt="Profile"
               />
               <h1 className="font-bold text-teal-700 text-xl">
-                @{userData.username}
+                @{sellerData.username}
               </h1>
               <p className="font-semibold text-gray-600 text-sm">
-                {userData.address}
+                {sellerData.address}
               </p>
             </div>
+            {/* Rating and Hosting Info */}
             <div className="flex flex-col items-center justify-center gap-4">
               <p className="text-lg flex text-center flex-col font-semibold text-gray-700">
                 5{" "}
@@ -89,32 +108,39 @@ export default function SellerDetails() {
             </div>
           </div>
 
+          {/* Personal Information */}
           <div className="bg-white p-12 border">
-            <h1 className="font-bold text-2xl text-gray-800">{`${userData.username}'s Information`}</h1>
+            <h1 className="font-bold text-2xl text-gray-800">{`${sellerData.username}'s Information`}</h1>
             <p className="mt-4 font-medium text-gray-600 flex items-center gap-2">
               <IoMailOutline className="bgt" />
-              {userData.email}
+              {sellerData.email}
             </p>
             <p className="font-medium text-gray-600 flex items-center gap-2">
               <HiOutlinePhoneArrowDownLeft className="bgt" />
-              {userData.phone}
+              {sellerData.phone}
             </p>
             <p className="font-medium text-gray-600 flex items-center gap-2">
               <ImProfile className="bgt" />
-              {userData.profession}
+              {sellerData.profession}
             </p>
+            {/* icons */}
             <div className="flex flex-row gap-4 mt-4 mb-4 bgt text-xl">
+              {/* Messenger Icon */}
               <FaFacebookMessenger
-                onClick={() => setIsChatModalOpen(true)}
+                onClick={() => setIsChatModalOpen(true)} // Open the chat modal on click
                 className="cursor-pointer"
               />
+              {/* Phone Icon - Call */}
               <MdWifiCalling3
-                onClick={() => (window.location.href = `tel:${userData.phone}`)}
+                onClick={() =>
+                  (window.location.href = `tel:${sellerData.phone}`)
+                }
                 className="cursor-pointer"
               />
+              {/* Mail Icon - Send Email */}
               <IoMailSharp
                 onClick={() =>
-                  (window.location.href = `mailto:${userData.email}`)
+                  (window.location.href = `mailto:${sellerData.email}`)
                 }
                 className="cursor-pointer"
               />
@@ -127,6 +153,7 @@ export default function SellerDetails() {
             </label>
           </div>
 
+          {/* Report User Button */}
           <p
             onClick={handleReportModal}
             className="flex items-center gap-2 mt-5 bgt cursor-pointer px-12 hover:underline"
@@ -136,18 +163,22 @@ export default function SellerDetails() {
           </p>
         </div>
 
+        {/* Right Section (About + Reviews) */}
         <div className="lg:col-span-2 px-12 ">
+          {/* About Section */}
           <div className="mt-6 mb-6">
             <h1 className="text-3xl font-bold text-black">
-              About {userData.username}
+              About {sellerData.username}
             </h1>
-            <p>{userData.bio}</p>
+            <p>{sellerData.bio}</p>
           </div>
           <hr />
+          {/* Review Section */}
           <div className="mt-4">
             <h1 className="text-xl font-bold text-gray-800">
-              What People are saying about {userData.username}
+              What People are saying about {sellerData.username}
             </h1>
+            {/* Review Cards */}
             <div className="flex flex-wrap gap-6">
               {reviews.map((review, index) => (
                 <div
@@ -171,6 +202,7 @@ export default function SellerDetails() {
         </div>
       </div>
 
+      {/* Modal for Identity Verification */}
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box relative">
@@ -191,6 +223,7 @@ export default function SellerDetails() {
         </div>
       </div>
 
+      {/* Modal for Reporting the User */}
       {isReportModalOpen && (
         <div className="modal modal-open">
           <div className="modal-box relative max-w-lg w-full">
@@ -237,10 +270,11 @@ export default function SellerDetails() {
         </div>
       )}
 
+      {/* Chatting Modal */}
       {isChatModalOpen && (
         <ChattingModal
           closeModal={() => setIsChatModalOpen(false)}
-          username={userData.username}
+          username={sellerData.username}
         />
       )}
     </section>

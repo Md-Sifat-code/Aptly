@@ -1,17 +1,88 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaTimes, FaPaperPlane, FaUserCircle } from "react-icons/fa";
+import { io } from "socket.io-client";
 
-const ChattingModal = ({ closeModal, username }) => {
+const ChattingModal = ({ closeModal, loggedInUsername, sellerUsername }) => {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
+  const [isTyping, setIsTyping] = useState(false); // New state for typing indicator
+  const [socket, setSocket] = useState(null);
+  const messageEndRef = useRef(null);
 
+  // Connect to WebSocket on mount and handle socket events
+  useEffect(() => {
+    // WebSocket URL now adapts to production and development environments
+    const socketURL =
+      process.env.NODE_ENV === "production"
+        ? "ws://baribazar.onrender.com/ws" // Production URL
+        : "ws://localhost:3000/ws"; // Local URL for development
+
+    const socketInstance = io(socketURL);
+    setSocket(socketInstance);
+
+    // Authenticate with logged-in username
+    socketInstance.emit("login", loggedInUsername);
+
+    // Listen for incoming messages
+    socketInstance.on("newMessage", (message) => {
+      if (
+        message.to === loggedInUsername ||
+        message.sender === loggedInUsername
+      ) {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { id: Date.now(), text: message.text, sender: message.sender },
+        ]);
+      }
+    });
+
+    // Listen for typing status (this is the new event listener)
+    socketInstance.on("userTyping", (username) => {
+      if (username !== loggedInUsername) {
+        setIsTyping(true); // Show typing indicator if other user is typing
+        setTimeout(() => setIsTyping(false), 3000); // Typing indicator disappears after 3 seconds
+      }
+    });
+
+    return () => {
+      socketInstance.disconnect(); // Cleanup on component unmount
+    };
+  }, [loggedInUsername]);
+
+  // Scroll to the latest message when a new one arrives
+  useEffect(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
+  // Handle message input and typing status (this is the updated input handler)
+  const handleInputChange = (e) => {
+    setMessageInput(e.target.value);
+    if (e.target.value.trim()) {
+      socket.emit("userTyping", loggedInUsername); // Notify that the user is typing
+    }
+  };
+
+  // Handle sending a message
   const handleSendMessage = () => {
-    if (messageInput.trim()) {
+    if (messageInput.trim() && socket) {
+      const message = {
+        text: messageInput,
+        sender: loggedInUsername,
+        to: sellerUsername,
+      };
+
+      // Emit the message to the server
+      socket.emit("sendMessage", message);
+
+      // Update local state for instant feedback
       setMessages((prevMessages) => [
         ...prevMessages,
-        { id: Date.now(), text: messageInput, sender: "user" },
+        { id: Date.now(), text: messageInput, sender: loggedInUsername },
       ]);
-      setMessageInput("");
+
+      setMessageInput(""); // Clear the input after sending
     }
   };
 
@@ -22,7 +93,7 @@ const ChattingModal = ({ closeModal, username }) => {
         <div className="bgc text-white px-4 py-2 flex justify-between items-center rounded-t-lg">
           <h2 className="text-lg font-bold flex items-center">
             <FaUserCircle className="mr-2" size={20} />
-            Chat with {username}
+            Chat with {sellerUsername}
           </h2>
           <button
             onClick={closeModal}
@@ -39,12 +110,14 @@ const ChattingModal = ({ closeModal, username }) => {
               <div
                 key={message.id}
                 className={`flex ${
-                  message.sender === "user" ? "justify-end" : "justify-start"
+                  message.sender === loggedInUsername
+                    ? "justify-end"
+                    : "justify-start"
                 }`}
               >
                 <div
                   className={`max-w-xs px-4 py-2 rounded-lg shadow ${
-                    message.sender === "user"
+                    message.sender === loggedInUsername
                       ? "bgc text-white"
                       : "bg-gray-200 text-gray-800"
                   }`}
@@ -56,7 +129,15 @@ const ChattingModal = ({ closeModal, username }) => {
           ) : (
             <p className="text-gray-500 text-center">No messages yet.</p>
           )}
+          <div ref={messageEndRef} />
         </div>
+
+        {/* Typing Indicator */}
+        {isTyping && (
+          <div className="text-sm text-gray-500 text-center mt-2">
+            The other user is typing...
+          </div>
+        )}
 
         {/* Message Input */}
         <div className="border-t p-4 flex items-center space-x-2">
@@ -65,11 +146,12 @@ const ChattingModal = ({ closeModal, username }) => {
             className="flex-1 px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-teal-500"
             placeholder="Type your message..."
             value={messageInput}
-            onChange={(e) => setMessageInput(e.target.value)}
+            onChange={handleInputChange} // Updated input handler to include typing event
           />
           <button
             onClick={handleSendMessage}
             className="bgc text-white px-4 py-2 rounded-lg hover:bg-teal-800 flex items-center"
+            disabled={!messageInput.trim()} // Disable button if input is empty
           >
             <FaPaperPlane className="mr-1" size={16} />
             Send
@@ -81,4 +163,3 @@ const ChattingModal = ({ closeModal, username }) => {
 };
 
 export default ChattingModal;
-// ok

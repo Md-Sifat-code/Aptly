@@ -74,7 +74,7 @@ const AddHomeForm = () => {
 
     try {
       const response = await fetch(
-        "https://flatelse.onrender.com/properties/add",
+        "https://baribazar.onrender.com/properties/add",
         {
           method: "POST",
           body: formData,

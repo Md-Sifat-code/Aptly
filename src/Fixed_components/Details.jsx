@@ -41,6 +41,17 @@ export default function Details() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!flat) return <div>Flat not found</div>;
+  const loggedInUsername = sessionStorage.getItem("username");
+
+  const openChatModal = () => {
+    if (!loggedInUsername) {
+      // Optionally handle the case when the user is not logged in
+      alert("Please log in to send a message.");
+      return;
+    }
+
+    setIsChatModalOpen(true);
+  };
 
   return (
     <div className="p-6 mb-32">
@@ -256,7 +267,11 @@ export default function Details() {
 
       {/* Chatting Modal */}
       {isChatModalOpen && (
-        <ChattingModal closeModal={closeModal} username={flat.user.username} />
+        <ChattingModal
+          closeModal={closeModal}
+          loggedInUsername={loggedInUsername}
+          sellerUsername={flat.user.username}
+        />
       )}
     </div>
   );

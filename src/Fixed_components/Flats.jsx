@@ -3,12 +3,19 @@ import { FlatContext } from "../Context_Api/FlatContext";
 import { FaRegMoneyBill1 } from "react-icons/fa6";
 import { FaLocationDot } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import load from "/loading.gif"; // Ensure the path is correct
 
 const Flats = () => {
   const { flats, loading, error } = useContext(FlatContext);
   const [visibleCount, setVisibleCount] = useState(30); // Show the first 30 cards initially
   console.log(flats);
-  if (loading) return <p>Loading flats...</p>;
+
+  if (loading)
+    return (
+      <div className="h-[70vh] flex justify-center items-center">
+        <img src={load} alt="Loading..." className="w-24 mx-auto" />
+      </div>
+    );
   if (error) return <p>Error: {error}</p>;
 
   const loadMoreFlats = () => {
@@ -16,7 +23,7 @@ const Flats = () => {
   };
 
   return (
-    <div className="pop w-[90%] mx-auto ">
+    <div className="pop w-[90%] mx-auto">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-8 gap-x-6">
         {flats.slice(0, visibleCount).map((flat) => (
           <Link
@@ -29,8 +36,7 @@ const Flats = () => {
               alt={flat.title}
               className="h-[250px] w-full object-cover rounded-[18px] mb-3"
             />
-
-            <p className="text-sm flex items-center gap-2 font-medium text-start  w-full">
+            <p className="text-sm flex items-center gap-2 font-medium text-start w-full">
               {flat.location}
             </p>
             <p className="text-sm flex items-center gap-2 font-normal text-start text-gray-400 w-full">
@@ -58,5 +64,3 @@ const Flats = () => {
 };
 
 export default Flats;
-// ok
-// okk

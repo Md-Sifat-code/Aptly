@@ -11,7 +11,7 @@ export const FlatProvider = ({ children }) => {
 
   useEffect(() => {
     // Fetch data from the external API
-    fetch("https://baribazar.onrender.com/properties/all")
+    fetch("https://basabari.onrender.com/properties/all")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch flat data");

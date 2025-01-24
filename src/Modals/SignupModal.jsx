@@ -12,7 +12,7 @@ const SignupModal = ({ closeModal }) => {
     const formData = new FormData(e.target);
 
     try {
-      const response = await fetch("https://baribazar.onrender.com/User/add", {
+      const response = await fetch("https://basabari.onrender.com/User/add", {
         method: "POST",
         body: formData,
       });

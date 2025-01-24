@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import { FlatContext } from "../Context_Api/FlatContext"; // Assuming you're using this context to track loading state
 import home from "/okay.png";
+
 export default function Footer() {
+  const { loading } = useContext(FlatContext); // Assuming 'loading' is a part of context
+
+  // If loading, don't render the footer
+  if (loading) {
+    return null;
+  }
+
   return (
     <footer className="bg-gray-300 border-t mt-12 py-10">
       <div className="container mx-auto px-4">

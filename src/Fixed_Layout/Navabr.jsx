@@ -99,7 +99,10 @@ export default function Navbar() {
                     Profile
                   </Link>
                   <button
-                    onClick={logout}
+                    onClick={() => {
+                      logout();
+                      window.location.reload(); // Reload the page after logout
+                    }}
                     className="w-full mt-2 bgc hover:bg-teal-700 btn px-4 py-2 text-white"
                   >
                     Logout

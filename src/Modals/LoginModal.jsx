@@ -1,5 +1,5 @@
 // LoginModal.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaGoogle, FaFacebook, FaUser, FaLock } from "react-icons/fa"; // Import new icons
 import { useUser } from "../Authentication/UserContext"; // Import useUser hook
 import { useFetchUserData } from "../Authentication/UserDataContext"; // Import new context API for GET request
@@ -10,7 +10,28 @@ const LoginModal = ({ closeModal }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // State for tracking loading
   const [loginSuccess, setLoginSuccess] = useState(false); // State for tracking login success
+
+  // Create a ref for the modal container to detect clicks outside
+  const modalRef = useRef(null);
+
+  // Close the modal if the user clicks outside
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
+        closeModal(); // Close the modal if clicked outside
+      }
+    };
+
+    // Add event listener
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [closeModal]);
 
   // Handle Google login
   const handleGoogleLogin = () => {
@@ -26,6 +47,7 @@ const LoginModal = ({ closeModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Set loading to true while fetching data
 
     // Prepare the data to send in the POST request
     const loginData = { username, password };
@@ -59,59 +81,33 @@ const LoginModal = ({ closeModal }) => {
       // Fetch additional user data using the new context API
       await fetchUserData(data.username);
 
-      // Set loginSuccess to true to show success modal
+      // Set loginSuccess to true to show success message
       setLoginSuccess(true);
 
-      // Optional: close the login modal after success
+      // Close modal after successful login
       setTimeout(() => {
         closeModal();
-      }, 2000); // Delay closing the login modal for 2 seconds (or adjust as needed)
+      }, 1500); // Close the modal after a slight delay for better UX
     } catch (error) {
       setErrorMessage(error.message); // Show the error message if login fails
+    } finally {
+      setIsLoading(false); // Set loading to false after the request completes
     }
   };
 
-  // Success Modal to display after login
-  const SuccessModal = () => (
-    <div className="fixed inset-0 bg-green-600 bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-6 rounded-md w-96">
-        <h2 className="text-xl text-green-500 mb-4">Login Successful!</h2>
-        <p>Welcome, {username}! You have successfully logged in.</p>
-        <button
-          onClick={closeModal}
-          className="mt-4 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md"
-        >
-          Close
-        </button>
-      </div>
-    </div>
-  );
-
   return (
-    <>
-      {loginSuccess && <SuccessModal />}{" "}
-      {/* Show success modal after successful login */}
-      <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
-        <div className="bg-white p-6 rounded-md w-96">
-          <button
-            onClick={closeModal}
-            className="absolute top-4 right-4 text-black"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
+    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
+      <div
+        ref={modalRef} // Attach the ref here
+        className="bg-white p-6 rounded-md w-96"
+      >
+        {isLoading ? (
+          // Show loading spinner while the request is being processed
+          <div className="flex justify-center items-center">
+            <div className="animate-spin rounded-full border-t-4 border-b-4 border-[#006d6f] w-16 h-16"></div>
+          </div>
+        ) : (
+          // Show the login form when not loading
           <form onSubmit={handleSubmit}>
             <h2 className="text-xl mb-4">Login</h2>
 
@@ -131,7 +127,7 @@ const LoginModal = ({ closeModal }) => {
             <div className="flex items-center mb-4">
               <FaLock className="text-gray-400 mr-2" />
               <input
-                type="text" // Changed password type to text
+                type="text" // Keeping the password input type as text as per your request
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
@@ -151,26 +147,9 @@ const LoginModal = ({ closeModal }) => {
               Login
             </button>
           </form>
-
-          <div className="flex justify-between items-center mt-4">
-            <button
-              onClick={handleGoogleLogin}
-              className="flex items-center justify-center w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-md"
-            >
-              <FaGoogle className="mr-2" /> Google
-            </button>
-          </div>
-          <div className="flex justify-between items-center mt-4">
-            <button
-              onClick={handleFacebookLogin}
-              className="flex items-center justify-center w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md"
-            >
-              <FaFacebook className="mr-2" /> Facebook
-            </button>
-          </div>
-        </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

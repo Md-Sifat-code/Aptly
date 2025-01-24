@@ -12,7 +12,7 @@ const Flats = () => {
 
   if (loading)
     return (
-      <div className="h-[70vh] flex justify-center items-center">
+      <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-white bg-opacity-70 z-50">
         <img src={load} alt="Loading..." className="w-24 mx-auto" />
       </div>
     );

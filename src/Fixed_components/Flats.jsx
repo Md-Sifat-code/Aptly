@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Flats = () => {
   const { flats, loading, error } = useContext(FlatContext);
   const [visibleCount, setVisibleCount] = useState(30); // Show the first 30 cards initially
-
+  console.log(flats);
   if (loading) return <p>Loading flats...</p>;
   if (error) return <p>Error: {error}</p>;
 

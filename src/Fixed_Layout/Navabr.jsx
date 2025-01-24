@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import logo from "/bariss.png";
 import { Link, useLocation } from "react-router-dom";
-import LoginModal from "../Modals/LoginModal"; // Keep the LoginModal
+import LoginModal from "../Modals/LoginModal";
 import { useUser } from "../Authentication/UserContext";
-import { useFetchUserData } from "../Authentication/UserDataContext"; // Import the UserDataContext
-import { FiUser } from "react-icons/fi"; // Import React Icon for fallback
+import { useFetchUserData } from "../Authentication/UserDataContext";
+import { FiUser } from "react-icons/fi";
+import { useFlatContext } from "../Context_Api/FlatContext"; // Import the FlatContext
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,12 @@ export default function Navbar() {
   const location = useLocation();
 
   const { user, logout } = useUser();
-  const { userData } = useFetchUserData(); // Access fetchUserData and userData
+  const { userData } = useFetchUserData();
+
+  // Adding dealType state to manage active deal
+  const [dealType, setDealType] = useState("buy");
+
+  const { flats, loading, error, filterFlats } = useFlatContext(); // Destructure from FlatContext
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -26,6 +32,12 @@ export default function Navbar() {
   const isActive = (path) =>
     location.pathname === path ? "text-[#006d6f] font-bold" : "";
 
+  // Function to handle deal type change
+  const handleDealTypeChange = (type) => {
+    setDealType(type);
+    filterFlats({ dealType: type }); // Trigger fetching based on dealType
+  };
+
   return (
     <section className="flex justify-center pop items-center">
       <div className="w-[90%] mt-4 px-4 md:px-0 flex justify-between items-center">
@@ -36,10 +48,18 @@ export default function Navbar() {
 
         {/* Middle Links */}
         <div className="hidden lg:flex flex-row gap-12">
-          <Link to="/" className={`hover:bgt ${isActive("/")}`}>
+          <Link
+            to="/"
+            className={`hover:bgt ${isActive("/")}`}
+            onClick={() => handleDealTypeChange("buy")}
+          >
             Buy
           </Link>
-          <Link to="/sell" className={`hover:bgt ${isActive("/sell")}`}>
+          <Link
+            to="/sell"
+            className={`hover:bgt ${isActive("/sell")}`}
+            onClick={() => handleDealTypeChange("rent")}
+          >
             Rent
           </Link>
         </div>
@@ -57,12 +77,12 @@ export default function Navbar() {
                 alt="Profile"
                 className="w-10 h-10 rounded-full object-cover"
                 onError={(e) => {
-                  e.target.onerror = null; // Prevent infinite error loop
+                  e.target.onerror = null;
                   e.target.src = "https://via.placeholder.com/40"; // Fallback image URL
                 }}
               />
             ) : (
-              <FiUser className="text-5xl p-[12px]" /> // React Icon fallback
+              <FiUser className="text-5xl p-[12px]" />
             )}
           </button>
 
@@ -93,7 +113,7 @@ export default function Navbar() {
                     Add Home
                   </Link>
                   <Link
-                    to={`/profile/${userData?.username}`} // Navigate to user's profile
+                    to={`/profile/${userData?.username}`}
                     className="w-full btn-outline bgr btn hover:bg-teal-700 mt-2 px-4 py-2 text-black"
                   >
                     Profile
@@ -101,7 +121,7 @@ export default function Navbar() {
                   <button
                     onClick={() => {
                       logout();
-                      window.location.reload(); // Reload the page after logout
+                      window.location.reload();
                     }}
                     className="w-full mt-2 bgc hover:bg-teal-700 btn px-4 py-2 text-white"
                   >

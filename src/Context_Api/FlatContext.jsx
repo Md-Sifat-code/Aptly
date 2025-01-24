@@ -1,7 +1,12 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 
 // Create the context
 export const FlatContext = createContext();
+
+// Custom hook to access context easily
+export const useFlatContext = () => {
+  return useContext(FlatContext);
+};
 
 // Create the provider component
 export const FlatProvider = ({ children }) => {
@@ -9,13 +14,9 @@ export const FlatProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetchFlats();
-  }, []);
-
-  const fetchFlats = () => {
+  const fetchFlats = (dealType) => {
     setLoading(true);
-    fetch("https://basabari.onrender.com/properties/getAll")
+    fetch(`https://basabari.onrender.com/properties/getAll/${dealType}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch flat data");
@@ -23,7 +24,6 @@ export const FlatProvider = ({ children }) => {
         return response.json();
       })
       .then((data) => {
-        // Ensure that the response is an array before setting the state
         setFlats(Array.isArray(data) ? data : []);
         setLoading(false);
       })
@@ -33,6 +33,11 @@ export const FlatProvider = ({ children }) => {
       });
   };
 
+  // Fetch flats initially with the default 'buy' dealType
+  useEffect(() => {
+    fetchFlats("buy");
+  }, []);
+
   // Function to filter flats based on selected criteria
   const filterFlats = (filters) => {
     setLoading(true);
@@ -41,7 +46,7 @@ export const FlatProvider = ({ children }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(filters), // Sending filter data in request body
+      body: JSON.stringify(filters),
     })
       .then((response) => {
         if (!response.ok) {
@@ -50,7 +55,6 @@ export const FlatProvider = ({ children }) => {
         return response.json();
       })
       .then((data) => {
-        // Ensure that the response is an array before setting the state
         setFlats(Array.isArray(data) ? data : []);
         setLoading(false);
       })

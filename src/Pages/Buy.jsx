@@ -8,7 +8,7 @@ import { FlatContext } from "../Context_Api/FlatContext"; // Import context to a
 
 export default function Buy() {
   const { filterFlats } = useContext(FlatContext); // Get filterFlats from context
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // Track search term
   const [filterOpen, setFilterOpen] = useState(false);
   const [petFriendly, setPetFriendly] = useState(null); // Track Pet Friendly filter state
   const [furnished, setFurnished] = useState(null); // Track Furnished filter state
@@ -20,69 +20,68 @@ export default function Buy() {
 
   const filterButtonRef = useRef(null);
 
-  // Handle the change in the search input
-  // Handle the change in the search input
-  const handleChange = (event) => {
+  // Handle changes in the search input, update state
+  const handleSearchChange = (event) => {
     const value = event.target.value;
-    setSearchTerm(value); // Update the search term
+    setSearchTerm(value); // Update search term state
+  };
 
-    // Trigger search API on each letter change
+  // Trigger the filter API request for search term
+  const handleSearchClick = () => {
+    console.log("Searching for: ", searchTerm); // Log search term (or replace this with the API call)
+
+    // Trigger API call only when the user clicks the search button
     filterFlats({
-      location: value, // Send the word typed by the user as location
-      petFriendly: petFriendly === null ? null : petFriendly, // Send null if not set
-      furnished: furnished === null ? null : furnished, // Send null if not set
-      parkingAvailable: parkingAvailable === null ? null : parkingAvailable, // Send null if not set
+      location: searchTerm, // Send search term as location
+      petFriendly: petFriendly === null ? null : petFriendly, // Send pet filter if set
+      furnished: furnished === null ? null : furnished, // Send furnished filter if set
+      parkingAvailable: parkingAvailable === null ? null : parkingAvailable, // Send parking filter if set
     });
   };
 
-  // Trigger search when user clicks on the search icon
-  const handleSearchClick = () => {
-    console.log("Searching for: ", searchTerm);
-    // Optionally trigger an API call to search for flats based on the current searchTerm
+  // Handle changes in pet friendly filter (trigger the API call)
+  const handlePetFriendlyChange = (value) => {
+    setPetFriendly(value);
+    filterFlats({
+      location: searchTerm, // Keep the search term
+      petFriendly: value === "none" ? null : value, // Send null if "None" is selected
+      furnished,
+      parkingAvailable,
+    });
   };
 
-  // Toggle filter dropdown
+  // Handle changes in furnished filter (trigger the API call)
+  const handleFurnishedChange = (value) => {
+    setFurnished(value);
+    filterFlats({
+      location: searchTerm, // Keep the search term
+      petFriendly,
+      furnished: value === "none" ? null : value, // Send null if "None" is selected
+      parkingAvailable,
+    });
+  };
+
+  // Handle changes in parking available filter (trigger the API call)
+  const handleParkingAvailableChange = (value) => {
+    setParkingAvailable(value);
+    filterFlats({
+      location: searchTerm, // Keep the search term
+      petFriendly,
+      furnished,
+      parkingAvailable: value === "none" ? null : value, // Send null if "None" is selected
+    });
+  };
+
+  // Toggle filter dropdown visibility
   const toggleFilterDropdown = () => {
     setFilterOpen(!filterOpen);
   };
 
+  // Toggle individual filter dropdowns
   const togglePetFriendly = () => setPetFriendlyOpen(!petFriendlyOpen);
   const toggleFurnished = () => setFurnishedOpen(!furnishedOpen);
   const toggleParkingAvailable = () =>
     setParkingAvailableOpen(!parkingAvailableOpen);
-
-  const handlePetFriendlySelect = (value) => {
-    setPetFriendly(value);
-    setPetFriendlyOpen(false);
-    filterFlats({
-      searchTerm,
-      petFriendly: value === "none" ? null : value, // If "None" is selected, send null
-      furnished,
-      parkingAvailable,
-    });
-  };
-
-  const handleFurnishedSelect = (value) => {
-    setFurnished(value);
-    setFurnishedOpen(false);
-    filterFlats({
-      searchTerm,
-      petFriendly,
-      furnished: value === "none" ? null : value, // If "None" is selected, send null
-      parkingAvailable,
-    });
-  };
-
-  const handleParkingAvailableSelect = (value) => {
-    setParkingAvailable(value);
-    setParkingAvailableOpen(false);
-    filterFlats({
-      searchTerm,
-      petFriendly,
-      furnished,
-      parkingAvailable: value === "none" ? null : value, // If "None" is selected, send null
-    });
-  };
 
   return (
     <>
@@ -95,14 +94,14 @@ export default function Buy() {
               <input
                 type="text"
                 value={searchTerm}
-                onChange={handleChange} // Trigger POST request on change
+                onChange={handleSearchChange} // Only updates the search term
                 className="w-full py-4 pl-12 pr-16 text-lg rounded-[42px] border border-gray-300 shadow-md focus:outline-none focus:ring-2 focus:ring-teal-700 transition-all duration-300 ease-in-out"
                 placeholder="Search for a location..."
               />
               <FaSearch
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 bgc text-white rounded-full cursor-pointer"
                 size={45}
-                onClick={handleSearchClick} // Optional: Trigger search on click
+                onClick={handleSearchClick} // Triggers the API call
               />
             </div>
             <button
@@ -129,7 +128,7 @@ export default function Buy() {
             left: filterButtonRef.current
               ? filterButtonRef.current.offsetLeft +
                 filterButtonRef.current.offsetWidth / 2 -
-                175 // 175px is half of 350px to center it
+                175 // Center on the button
               : 0,
           }}
         >
@@ -148,7 +147,7 @@ export default function Buy() {
             {petFriendlyOpen && (
               <div>
                 <button
-                  onClick={() => handlePetFriendlySelect(true)}
+                  onClick={() => handlePetFriendlyChange(true)}
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     petFriendly === true ? "bg-gray-200" : ""
                   }`}
@@ -156,7 +155,7 @@ export default function Buy() {
                   Yes
                 </button>
                 <button
-                  onClick={() => handlePetFriendlySelect(false)}
+                  onClick={() => handlePetFriendlyChange(false)}
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     petFriendly === false ? "bg-gray-200" : ""
                   }`}
@@ -165,7 +164,7 @@ export default function Buy() {
                 </button>
                 {/* "None" option */}
                 <button
-                  onClick={() => handlePetFriendlySelect("none")}
+                  onClick={() => handlePetFriendlyChange("none")}
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     petFriendly === null ? "bg-gray-200" : ""
                   }`}
@@ -190,7 +189,7 @@ export default function Buy() {
             {furnishedOpen && (
               <div>
                 <button
-                  onClick={() => handleFurnishedSelect(true)}
+                  onClick={() => handleFurnishedChange(true)}
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     furnished === true ? "bg-gray-200" : ""
                   }`}
@@ -198,7 +197,7 @@ export default function Buy() {
                   Yes
                 </button>
                 <button
-                  onClick={() => handleFurnishedSelect(false)}
+                  onClick={() => handleFurnishedChange(false)}
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     furnished === false ? "bg-gray-200" : ""
                   }`}
@@ -207,7 +206,7 @@ export default function Buy() {
                 </button>
                 {/* "None" option */}
                 <button
-                  onClick={() => handleFurnishedSelect("none")}
+                  onClick={() => handleFurnishedChange("none")}
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     furnished === null ? "bg-gray-200" : ""
                   }`}
@@ -234,7 +233,7 @@ export default function Buy() {
             {parkingAvailableOpen && (
               <div>
                 <button
-                  onClick={() => handleParkingAvailableSelect(true)}
+                  onClick={() => handleParkingAvailableChange(true)}
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     parkingAvailable === true ? "bg-gray-200" : ""
                   }`}
@@ -242,7 +241,7 @@ export default function Buy() {
                   Yes
                 </button>
                 <button
-                  onClick={() => handleParkingAvailableSelect(false)}
+                  onClick={() => handleParkingAvailableChange(false)}
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     parkingAvailable === false ? "bg-gray-200" : ""
                   }`}
@@ -251,7 +250,7 @@ export default function Buy() {
                 </button>
                 {/* "None" option */}
                 <button
-                  onClick={() => handleParkingAvailableSelect("none")}
+                  onClick={() => handleParkingAvailableChange("none")}
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     parkingAvailable === null ? "bg-gray-200" : ""
                   }`}

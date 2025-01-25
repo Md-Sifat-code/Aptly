@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { FaGoogle, FaFacebook, FaUser, FaLock } from "react-icons/fa"; // Import new icons
 import { useUser } from "../Authentication/UserContext"; // Import useUser hook
 import { useFetchUserData } from "../Authentication/UserDataContext"; // Import new context API for GET request
-
+import load from "/loading.gif";
 const LoginModal = ({ closeModal }) => {
   const { updateUser } = useUser(); // Access updateUser from context
   const { fetchUserData } = useFetchUserData(); // Access fetchUserData from the new context
@@ -87,7 +87,7 @@ const LoginModal = ({ closeModal }) => {
       // Close modal after successful login
       setTimeout(() => {
         closeModal();
-      }, 1500); // Close the modal after a slight delay for better UX
+      }, 1); // Close the modal after a slight delay for better UX
     } catch (error) {
       setErrorMessage(error.message); // Show the error message if login fails
     } finally {
@@ -95,59 +95,66 @@ const LoginModal = ({ closeModal }) => {
     }
   };
 
+  // Render loading spinner or login form based on loading state
+  const renderLoading = () => (
+    <div className="flex justify-center items-center bg-transparent">
+      {" "}
+      {/* Ensure the background is transparent here */}
+      <img src={load} className="w-16" alt="" />
+    </div>
+  );
+
+  const renderLoginForm = () => (
+    <form onSubmit={handleSubmit}>
+      <h2 className="text-xl mb-4">Login</h2>
+
+      {/* Username Field */}
+      <div className="flex items-center mb-2">
+        <FaUser className="text-gray-400 mr-2" />
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Username"
+          className="w-full p-2 border rounded-md"
+        />
+      </div>
+
+      {/* Password Field */}
+      <div className="flex items-center mb-4">
+        <FaLock className="text-gray-400 mr-2" />
+        <input
+          type="text" // Keeping the password input type as text as per your request
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          className="w-full p-2 border rounded-md"
+        />
+      </div>
+
+      {/* Error message (if any) */}
+      {errorMessage && (
+        <div className="text-red-500 text-sm mb-2">{errorMessage}</div>
+      )}
+
+      <button
+        type="submit"
+        className="w-full bg-[#006d6f] hover:bg-teal-700 text-white py-2 rounded-md"
+      >
+        Login
+      </button>
+    </form>
+  );
+
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
       <div
         ref={modalRef} // Attach the ref here
-        className="bg-white p-6 rounded-md w-96"
+        className={`p-6 rounded-md w-96 ${
+          isLoading ? "bg-transparent" : "bg-white"
+        }`}
       >
-        {isLoading ? (
-          // Show loading spinner while the request is being processed
-          <div className="flex justify-center items-center">
-            <div className="animate-spin rounded-full border-t-4 border-b-4 border-[#006d6f] w-16 h-16"></div>
-          </div>
-        ) : (
-          // Show the login form when not loading
-          <form onSubmit={handleSubmit}>
-            <h2 className="text-xl mb-4">Login</h2>
-
-            {/* Username Field */}
-            <div className="flex items-center mb-2">
-              <FaUser className="text-gray-400 mr-2" />
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-                className="w-full p-2 border rounded-md"
-              />
-            </div>
-
-            {/* Password Field */}
-            <div className="flex items-center mb-4">
-              <FaLock className="text-gray-400 mr-2" />
-              <input
-                type="text" // Keeping the password input type as text as per your request
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                className="w-full p-2 border rounded-md"
-              />
-            </div>
-
-            {/* Error message (if any) */}
-            {errorMessage && (
-              <div className="text-red-500 text-sm mb-2">{errorMessage}</div>
-            )}
-
-            <button
-              type="submit"
-              className="w-full bg-[#006d6f] hover:bg-teal-700 text-white py-2 rounded-md"
-            >
-              Login
-            </button>
-          </form>
-        )}
+        {isLoading ? renderLoading() : renderLoginForm()}
       </div>
     </div>
   );

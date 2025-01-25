@@ -12,6 +12,7 @@ import { MdWifiCalling3 } from "react-icons/md";
 import { IoMailSharp } from "react-icons/io5";
 import { HiOutlinePhoneArrowDownLeft } from "react-icons/hi2";
 import ChattingModal from "../Modals/ChattingModal";
+import load from "/loading.gif";
 export default function SellerDetails() {
   const { username } = useParams();
   const [sellerData, setSellerData] = useState(null);
@@ -24,7 +25,7 @@ export default function SellerDetails() {
     const fetchSellerDetails = async () => {
       try {
         const response = await fetch(
-          `https://baribazar.onrender.com/User/search/${username}`
+          `https://basabari.onrender.com/User/search/${username}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch seller details");
@@ -41,7 +42,12 @@ export default function SellerDetails() {
     fetchSellerDetails();
   }, [username]);
 
-  if (loading) return <div>Loading seller details...</div>;
+  if (loading)
+    return (
+      <div className="flex justify-center h-[90vh] items-center">
+        <img src={load} className="w-16" />
+      </div>
+    );
   if (error) return <div>Error: {error}</div>;
   if (!sellerData) return <div>No seller data available</div>;
   const handleReportModal = () => {
@@ -63,7 +69,7 @@ export default function SellerDetails() {
 
   return (
     <section>
-      <div className="container mt-12 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="container min-h-screen mt-12 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Profile Card Section */}
         <div className="lg:col-span-1 flex flex-col gap-6 lg:sticky lg:top-0">
           <div className="card shadow-xl grid grid-cols-2 gap-6 p-6 bg-white rounded-lg">

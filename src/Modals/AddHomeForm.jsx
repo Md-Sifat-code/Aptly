@@ -109,7 +109,8 @@ const AddHomeForm = () => {
 
   const handleCloseModal = () => {
     setShowModal(false); // Close the modal
-    navigate("/"); // Navigate back to the home page
+    navigate("/");
+    window.location.reload(); // Navigate back to the home page
   };
 
   return (

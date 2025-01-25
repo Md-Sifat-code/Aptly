@@ -21,14 +21,19 @@ export default function Sell() {
   const filterButtonRef = useRef(null); // Reference to the filter button to position dropdown
 
   // Handle the change in the search input
-  const handleChange = (event) => {
+  const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
   // Trigger search when user clicks on the search icon
   const handleSearchClick = () => {
     console.log("Searching for: ", searchTerm);
-    // You can replace this with your actual search functionality
+    filterFlats({
+      location: searchTerm, // Send the search term as location
+      petFriendly: petFriendly === null ? null : petFriendly, // Send pet filter if set
+      furnished: furnished === null ? null : furnished, // Send furnished filter if set
+      parkingAvailable: parkingAvailable === null ? null : parkingAvailable, // Send parking filter if set
+    });
   };
 
   // Toggle filter dropdown
@@ -42,23 +47,39 @@ export default function Sell() {
   const toggleParkingAvailable = () =>
     setParkingAvailableOpen(!parkingAvailableOpen);
 
-  // Close dropdown after selecting an option and trigger filtering
+  // Handle selection for Pet Friendly filter
   const handlePetFriendlySelect = (value) => {
     setPetFriendly(value);
     setPetFriendlyOpen(false);
     filterFlats({ petFriendly: value, furnished, parkingAvailable });
   };
 
+  // Handle selection for Furnished filter
   const handleFurnishedSelect = (value) => {
     setFurnished(value);
     setFurnishedOpen(false);
     filterFlats({ petFriendly, furnished: value, parkingAvailable });
   };
 
+  // Handle selection for Parking Available filter
   const handleParkingAvailableSelect = (value) => {
     setParkingAvailable(value);
     setParkingAvailableOpen(false);
     filterFlats({ petFriendly, furnished, parkingAvailable: value });
+  };
+
+  // Handle "None" selection to reset a filter
+  const handleNoneSelect = (filterType) => {
+    if (filterType === "petFriendly") {
+      setPetFriendly(null);
+      filterFlats({ petFriendly: null, furnished, parkingAvailable });
+    } else if (filterType === "furnished") {
+      setFurnished(null);
+      filterFlats({ petFriendly, furnished: null, parkingAvailable });
+    } else if (filterType === "parkingAvailable") {
+      setParkingAvailable(null);
+      filterFlats({ petFriendly, furnished, parkingAvailable: null });
+    }
   };
 
   return (
@@ -72,14 +93,14 @@ export default function Sell() {
               <input
                 type="text"
                 value={searchTerm}
-                onChange={handleChange}
+                onChange={handleSearchChange} // Only updates the search term
                 className="w-full py-4 pl-12 pr-16 text-lg rounded-[42px] border border-gray-300 shadow-md focus:outline-none focus:ring-2 focus:ring-teal-700 transition-all duration-300 ease-in-out"
                 placeholder="Search for a location..."
               />
               <FaSearch
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 bgc text-white rounded-full cursor-pointer"
                 size={45}
-                onClick={handleSearchClick} // Trigger search on click
+                onClick={handleSearchClick} // Triggers the API call when clicked
               />
             </div>
             <button
@@ -123,7 +144,7 @@ export default function Sell() {
             {petFriendlyOpen && (
               <div>
                 <button
-                  onClick={() => handlePetFriendlySelect(true)} // Call handler to set value and close dropdown
+                  onClick={() => handlePetFriendlySelect(true)} // Set value and filter
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     petFriendly === true ? "bg-gray-200" : ""
                   }`}
@@ -131,12 +152,19 @@ export default function Sell() {
                   Yes
                 </button>
                 <button
-                  onClick={() => handlePetFriendlySelect(false)} // Call handler to set value and close dropdown
+                  onClick={() => handlePetFriendlySelect(false)} // Set value and filter
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     petFriendly === false ? "bg-gray-200" : ""
                   }`}
                 >
                   No
+                </button>
+                {/* None option to reset the filter */}
+                <button
+                  onClick={() => handleNoneSelect("petFriendly")}
+                  className="block w-full text-left p-2 hover:bg-gray-200"
+                >
+                  None
                 </button>
               </div>
             )}
@@ -156,7 +184,7 @@ export default function Sell() {
             {furnishedOpen && (
               <div>
                 <button
-                  onClick={() => handleFurnishedSelect(true)} // Call handler to set value and close dropdown
+                  onClick={() => handleFurnishedSelect(true)} // Set value and filter
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     furnished === true ? "bg-gray-200" : ""
                   }`}
@@ -164,12 +192,19 @@ export default function Sell() {
                   Yes
                 </button>
                 <button
-                  onClick={() => handleFurnishedSelect(false)} // Call handler to set value and close dropdown
+                  onClick={() => handleFurnishedSelect(false)} // Set value and filter
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     furnished === false ? "bg-gray-200" : ""
                   }`}
                 >
                   No
+                </button>
+                {/* None option to reset the filter */}
+                <button
+                  onClick={() => handleNoneSelect("furnished")}
+                  className="block w-full text-left p-2 hover:bg-gray-200"
+                >
+                  None
                 </button>
               </div>
             )}
@@ -191,7 +226,7 @@ export default function Sell() {
             {parkingAvailableOpen && (
               <div>
                 <button
-                  onClick={() => handleParkingAvailableSelect(true)} // Call handler to set value and close dropdown
+                  onClick={() => handleParkingAvailableSelect(true)} // Set value and filter
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     parkingAvailable === true ? "bg-gray-200" : ""
                   }`}
@@ -199,12 +234,19 @@ export default function Sell() {
                   Yes
                 </button>
                 <button
-                  onClick={() => handleParkingAvailableSelect(false)} // Call handler to set value and close dropdown
+                  onClick={() => handleParkingAvailableSelect(false)} // Set value and filter
                   className={`block w-full text-left p-2 hover:bg-gray-200 ${
                     parkingAvailable === false ? "bg-gray-200" : ""
                   }`}
                 >
                   No
+                </button>
+                {/* None option to reset the filter */}
+                <button
+                  onClick={() => handleNoneSelect("parkingAvailable")}
+                  className="block w-full text-left p-2 hover:bg-gray-200"
+                >
+                  None
                 </button>
               </div>
             )}

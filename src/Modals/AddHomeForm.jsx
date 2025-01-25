@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaUpload } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { FaRegArrowAltCircleLeft } from "react-icons/fa";
+
 const AddHomeForm = () => {
   const [propertyName, setPropertyName] = useState("");
   const [shortTitle, setShortTitle] = useState("");
@@ -19,8 +20,10 @@ const AddHomeForm = () => {
   const [price, setPrice] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [longDescription, setLongDescription] = useState("");
-  const [features, setFeatures] = useState("");
-  const [restrictions, setRestrictions] = useState("");
+  const [features, setFeatures] = useState(""); // New state for features
+  const [restrictions, setRestrictions] = useState(""); // New state for restrictions
+  const [dealType, setDealType] = useState("Buy"); // Default to "Buy"
+  // New state for dealType
   const [heroImage, setHeroImage] = useState(null);
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const [isSubmitting, setIsSubmitting] = useState(false); // To prevent multiple submits
@@ -48,14 +51,18 @@ const AddHomeForm = () => {
     const updatedYearBuilt = yearBuilt || 0;
     const updatedOwnerName = ownerName || "";
     const updatedOwnerContact = ownerContact || "";
+    const updatedFeatures = features || ""; // New data
+    const updatedRestrictions = restrictions || ""; // New data
+    const updatedDealType = dealType || ""; // New data
 
     const formData = new FormData();
     formData.append("location", location);
     formData.append("price", price);
     formData.append("shortDescription", shortDescription);
     formData.append("longDescription", longDescription);
-    formData.append("features", features);
-    formData.append("restrictions", restrictions);
+    formData.append("features", updatedFeatures); // Add features to formData
+    formData.append("restrictions", updatedRestrictions); // Add restrictions to formData
+    formData.append("dealType", updatedDealType); // Add dealType to formData
     formData.append("heroImage", heroImage);
     formData.append("shortTitle", shortTitle);
     formData.append("propertyType", updatedPropertyType);
@@ -108,7 +115,7 @@ const AddHomeForm = () => {
   return (
     <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-4xl mx-auto">
       <form onSubmit={handleSubmit} className="space-y-8">
-        <Link to={"/"} className=" bgt font-bold text-2xl">
+        <Link to={"/"} className="bgt font-bold text-2xl">
           <FaRegArrowAltCircleLeft />
         </Link>
         <h2 className="text-3xl pop font-bold text-teal-700 text-center mb-6">
@@ -312,6 +319,51 @@ const AddHomeForm = () => {
           </div>
         </div>
 
+        {/* New fields: Features, Restrictions, Deal Type */}
+        {/* Features, Restrictions, Deal Type */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="form-group">
+            <label className="text-sm font-medium text-gray-700">
+              Features
+            </label>
+            <input
+              type="text"
+              value={features}
+              onChange={(e) => setFeatures(e.target.value)}
+              placeholder="Enter features"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="text-sm font-medium text-gray-700">
+              Restrictions
+            </label>
+            <input
+              type="text"
+              value={restrictions}
+              onChange={(e) => setRestrictions(e.target.value)}
+              placeholder="Enter restrictions"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="text-sm font-medium text-gray-700">
+              Deal Type
+            </label>
+            <select
+              value={dealType}
+              onChange={(e) => setDealType(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            >
+              <option value="Buy">Buy</option>
+              <option value="Rent">Rent</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Showcase Image */}
         <div className="form-group">
           <label className="text-sm font-medium text-gray-700">
             Showcase Image

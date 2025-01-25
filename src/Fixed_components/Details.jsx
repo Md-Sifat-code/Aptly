@@ -51,6 +51,9 @@ export default function Details() {
     setIsChatModalOpen(true);
   };
 
+  // Safely access user properties with null checks
+  const user = flat.user || {}; // If flat.user is null, use an empty object as fallback
+
   return (
     <div className="p-6 mb-32">
       {/* Image Gallery */}
@@ -207,14 +210,14 @@ export default function Details() {
             <div className="flex flex-col items-center justify-center gap-4">
               <img
                 className="w-[120px] h-[120px] rounded-full border-4 bgr"
-                src={flat.user.profilpic || "/default-avatar.png"}
+                src={user.profilpic || "/default-avatar.png"} // Default avatar if no profilpic
                 alt="Profile"
               />
               <h1 className="font-bold text-teal-700 text-xl">
-                @{flat.user.username}
+                @{user.username || "Unknown"}
               </h1>
               <p className="font-semibold text-gray-600 text-sm">
-                {flat.user.address}
+                {user.address || "N/A"}
               </p>
             </div>
             {/* Rating and Hosting Info */}
@@ -243,7 +246,7 @@ export default function Details() {
               </p>
             </div>
             <Link
-              to={`/seller/${flat.user.username}`}
+              to={`/seller/${user.username}`}
               className="btn col-span-2 w-full btn-outline border-teal-700 bgt font-bold hover:bg-teal-900"
             >
               See Details
@@ -257,7 +260,7 @@ export default function Details() {
         <ChattingModal
           closeModal={closeModal}
           loggedInUsername={loggedInUsername}
-          sellerUsername={flat.user.username}
+          sellerUsername={user.username}
         />
       )}
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react"; // Added useRef and useEffect
 import logo from "/bariss.png";
 import { Link, useLocation } from "react-router-dom";
 import LoginModal from "../Modals/LoginModal";
@@ -21,6 +21,8 @@ export default function Navbar() {
 
   const { flats, loading, error, filterFlats } = useFlatContext(); // Destructure from FlatContext
 
+  const dropdownRef = useRef(null); // Reference for the dropdown
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -37,6 +39,23 @@ export default function Navbar() {
     setDealType(type);
     filterFlats({ dealType: type }); // Trigger fetching based on dealType
   };
+
+  // Close the dropdown if the user clicks outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    // Add event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Clean up event listener on component unmount
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []); // Empty dependency array to run only once after mount
 
   return (
     <section className="flex justify-center pop items-center">
@@ -88,7 +107,10 @@ export default function Navbar() {
 
           {/* Dropdown Menu */}
           {isDropdownOpen && (
-            <div className="absolute right-0 bg-white shadow-lg mt-2 rounded-md w-64 p-6 z-50">
+            <div
+              ref={dropdownRef} // Attach the ref to the dropdown
+              className="absolute right-0 bg-white shadow-lg mt-2 rounded-md w-64 p-6 z-50"
+            >
               {!user ? (
                 <>
                   <button

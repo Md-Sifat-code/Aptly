@@ -55,6 +55,7 @@ export const FlatProvider = ({ children }) => {
         return response.json();
       })
       .then((data) => {
+        // Update the flats state with the response data
         setFlats(Array.isArray(data) ? data : []);
         setLoading(false);
       })

@@ -24,7 +24,7 @@ const Flats = () => {
 
   return (
     <div className="pop w-[90%] min-h-screen mx-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-8 gap-x-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-8 gap-x-6">
         {flats.slice(0, visibleCount).map((flat) => (
           <Link
             to={`/details/${flat.id}`} // Assuming `flat.id` is the dynamic value you want to pass

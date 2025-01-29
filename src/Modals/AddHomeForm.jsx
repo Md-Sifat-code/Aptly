@@ -1,21 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaUpload } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 
 const AddHomeForm = () => {
+  useEffect(() => {
+    const storedUsername = sessionStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
   const [propertyName, setPropertyName] = useState("");
 
   const [propertyType, setPropertyType] = useState("");
   // extra
   const [schoolDistance, setschoolDistance] = useState("");
   const [hospitalDistance, sethospitalDistance] = useState("");
-  const [propertyType, setPropertyType] = useState("");
+  const [mainRoadDistance, setmainRoadDistance] = useState("");
   //
   const [propertySize, setPropertySize] = useState("");
   const [parking, setParking] = useState(false);
   const [furnished, setFurnished] = useState(false);
   const [yearBuilt, setYearBuilt] = useState(0);
+  // more extras
+  const [noOfBedrooms, setnoOfBedrooms] = useState(0);
+  const [noOfBathrooms, setnoOfBathrooms] = useState(0);
+  const [floorLevel, setfloorLevel] = useState(0);
+  const [noOfBalconies, setnoOfBalconies] = useState(0);
+  // end
   const [petFriendly, setPetFriendly] = useState(false);
   const [elevator, setElevator] = useState(false);
   const [generator, setGenerator] = useState(false);
@@ -24,7 +36,7 @@ const AddHomeForm = () => {
   const [pool, setPool] = useState(false);
   const [cctv, setCctv] = useState(false);
   const [roofTopAllowed, setRoofTopAllowed] = useState(false);
-
+  const [username, setUsername] = useState("");
   const [availabilityStatus, setAvailabilityStatus] = useState("available"); // Changed to dropdown with string values
   const [ownerName, setOwnerName] = useState("");
   const [ownerContact, setOwnerContact] = useState("");
@@ -62,12 +74,18 @@ const AddHomeForm = () => {
     const updatedPropertyType = propertyType || "";
     // extras
     const updatedschoolDistance = schoolDistance || "";
-    const updatedhospitalDistance = propertyType || "";
-    const updatedPropertyType = propertyType || "";
+    const updatedhospitalDistance = hospitalDistance || "";
+    const updatedmainRoadDistance = mainRoadDistance || "";
 
     //
     const updatedPropertySize = propertySize || "";
     const updatedYearBuilt = yearBuilt || 0;
+    // more extra
+    const updatednoOfBedrooms = noOfBedrooms || 0;
+    const updatednoOfBathrooms = noOfBathrooms || 0;
+    const updatedfloorLevel = floorLevel || 0;
+    const updatednoOfBalconies = noOfBalconies || 0;
+    // end
     const updatedOwnerName = ownerName || "";
     const updatedOwnerContact = ownerContact || "";
     const updatedFeatures = features || ""; // New data
@@ -93,15 +111,21 @@ const AddHomeForm = () => {
 
     formData.append("propertyType", updatedPropertyType);
     // extra
-    formData.append("propertyType", updatedschoolDistance);
-    formData.append("propertyType", updatedhospitalDistance);
-    formData.append("propertyType", updatedPropertyType);
+    formData.append("schoolDistance", updatedschoolDistance);
+    formData.append("hospitalDistance", updatedhospitalDistance);
+    formData.append("mainRoadDistance", updatedmainRoadDistance);
 
     //
     formData.append("propertySize", updatedPropertySize);
     formData.append("parking", updatedParking);
     formData.append("furnished", updatedFurnished);
     formData.append("yearBuilt", updatedYearBuilt);
+    // more extras
+    formData.append("noOfBedrooms", updatednoOfBedrooms);
+    formData.append("noOfBathrooms", updatednoOfBathrooms);
+    formData.append("floorLevel", updatedfloorLevel);
+    formData.append("noOfBalconies", updatednoOfBalconies);
+    // end
     formData.append("petFriendly", updatedPetFriendly);
     formData.append("availabilityStatus", updatedAvailabilityStatus);
     formData.append("ownerName", updatedOwnerName);
@@ -113,7 +137,7 @@ const AddHomeForm = () => {
     formData.append("pool", updatedPool);
     formData.append("cctv", updatedCctv);
     formData.append("roofTopAllowed", updatedRoofTopAllowed);
-
+    formData.append("username", username);
     images.forEach((image) => {
       formData.append("imageUrls", image);
     });
@@ -457,8 +481,8 @@ const AddHomeForm = () => {
               Main Road Distance
             </label>
             <select
-              value={propertyType}
-              onChange={(e) => setPropertyType(e.target.value)}
+              value={mainRoadDistance}
+              onChange={(e) => setmainRoadDistance(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
               <option value="">Select</option>
@@ -471,7 +495,7 @@ const AddHomeForm = () => {
 
         {/* New fields: Features, Restrictions, Deal Type */}
         {/* Features, Restrictions, Deal Type */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-6">
           <div className="form-group">
             <label className="text-sm font-medium text-gray-700">
               Features
@@ -511,6 +535,70 @@ const AddHomeForm = () => {
               <option value="Rent">Rent</option>
             </select>
           </div>
+          {/* more extras */}
+          <div className="form-group">
+            <label className="text-sm font-medium text-gray-700">
+              Bedrooms
+            </label>
+            <input
+              type="number"
+              value={noOfBedrooms === 0 ? "" : noOfBedrooms} // Show empty string if yearBuilt is 0
+              onChange={(e) =>
+                setnoOfBedrooms(
+                  e.target.value === "" ? "" : Number(e.target.value)
+                )
+              }
+              placeholder="Enter Bedrooms"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+          </div>
+          <div className="form-group">
+            <label className="text-sm font-medium text-gray-700">
+              Bathrooms
+            </label>
+            <input
+              type="number"
+              value={noOfBathrooms === 0 ? "" : noOfBathrooms} // Show empty string if yearBuilt is 0
+              onChange={(e) =>
+                setnoOfBathrooms(
+                  e.target.value === "" ? "" : Number(e.target.value)
+                )
+              }
+              placeholder="Enter Bathrooms"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+          </div>
+          <div className="form-group">
+            <label className="text-sm font-medium text-gray-700">Floor</label>
+            <input
+              type="number"
+              value={floorLevel === 0 ? "" : floorLevel} // Show empty string if yearBuilt is 0
+              onChange={(e) =>
+                setfloorLevel(
+                  e.target.value === "" ? "" : Number(e.target.value)
+                )
+              }
+              placeholder="Enter Floor lvl"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+          </div>
+          <div className="form-group">
+            <label className="text-sm font-medium text-gray-700">
+              Balconies
+            </label>
+            <input
+              type="number"
+              value={noOfBalconies === 0 ? "" : noOfBalconies} // Show empty string if yearBuilt is 0
+              onChange={(e) =>
+                setnoOfBalconies(
+                  e.target.value === "" ? "" : Number(e.target.value)
+                )
+              }
+              placeholder="Enter Balconies"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+          </div>
+          {/* end */}
         </div>
 
         {/* Showcase Image */}

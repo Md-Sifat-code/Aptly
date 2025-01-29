@@ -4,30 +4,19 @@ import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 
 const AddHomeForm = () => {
-  useEffect(() => {
-    const storedUsername = sessionStorage.getItem("username");
-    if (storedUsername) {
-      setUsername(storedUsername);
-    }
-  }, []);
   const [propertyName, setPropertyName] = useState("");
-
   const [propertyType, setPropertyType] = useState("");
-  // extra
-  const [schoolDistance, setschoolDistance] = useState("");
-  const [hospitalDistance, sethospitalDistance] = useState("");
-  const [mainRoadDistance, setmainRoadDistance] = useState("");
-  //
+  const [schoolDistance, setSchoolDistance] = useState("");
+  const [hospitalDistance, setHospitalDistance] = useState("");
+  const [mainRoadDistance, setMainRoadDistance] = useState("");
   const [propertySize, setPropertySize] = useState("");
   const [parking, setParking] = useState(false);
   const [furnished, setFurnished] = useState(false);
   const [yearBuilt, setYearBuilt] = useState(0);
-  // more extras
-  const [noOfBedrooms, setnoOfBedrooms] = useState(0);
-  const [noOfBathrooms, setnoOfBathrooms] = useState(0);
-  const [floorLevel, setfloorLevel] = useState(0);
-  const [noOfBalconies, setnoOfBalconies] = useState(0);
-  // end
+  const [noOfBedrooms, setNoOfBedrooms] = useState(0);
+  const [noOfBathrooms, setNoOfBathrooms] = useState(0);
+  const [floorLevel, setFloorLevel] = useState(0);
+  const [noOfBalconies, setNoOfBalconies] = useState(0);
   const [petFriendly, setPetFriendly] = useState(false);
   const [elevator, setElevator] = useState(false);
   const [generator, setGenerator] = useState(false);
@@ -37,7 +26,7 @@ const AddHomeForm = () => {
   const [cctv, setCctv] = useState(false);
   const [roofTopAllowed, setRoofTopAllowed] = useState(false);
   const [username, setUsername] = useState("");
-  const [availabilityStatus, setAvailabilityStatus] = useState("available"); // Changed to dropdown with string values
+  const [availabilityStatus, setAvailabilityStatus] = useState("available");
   const [ownerName, setOwnerName] = useState("");
   const [ownerContact, setOwnerContact] = useState("");
   const [images, setImages] = useState([]);
@@ -45,15 +34,22 @@ const AddHomeForm = () => {
   const [price, setPrice] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [longDescription, setLongDescription] = useState("");
-  const [features, setFeatures] = useState(""); // New state for features
-  const [restrictions, setRestrictions] = useState(""); // New state for restrictions
-  const [dealType, setDealType] = useState("Buy"); // Default to "Buy"
-  // New state for dealType
+  const [features, setFeatures] = useState("");
+  const [restrictions, setRestrictions] = useState("");
+  const [dealType, setDealType] = useState("Buy");
   const [heroImage, setHeroImage] = useState(null);
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
-  const [isSubmitting, setIsSubmitting] = useState(false); // To prevent multiple submits
+  const [showModal, setShowModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUsername = sessionStorage.getItem("username");
+    console.log(storedUsername);
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
 
   const handleImageChange = (e) => {
     setImages([...images, ...e.target.files]);
@@ -70,27 +66,22 @@ const AddHomeForm = () => {
     const updatedFurnished = furnished ? "true" : "false";
     const updatedPetFriendly = petFriendly ? "true" : "false";
     const updatedAvailabilityStatus =
-      availabilityStatus === "available" ? "true" : "false"; // logic for availability status dropdown
+      availabilityStatus === "available" ? "true" : "false";
     const updatedPropertyType = propertyType || "";
-    // extras
-    const updatedschoolDistance = schoolDistance || "";
-    const updatedhospitalDistance = hospitalDistance || "";
-    const updatedmainRoadDistance = mainRoadDistance || "";
-
-    //
+    const updatedSchoolDistance = schoolDistance || "";
+    const updatedHospitalDistance = hospitalDistance || "";
+    const updatedMainRoadDistance = mainRoadDistance || "";
     const updatedPropertySize = propertySize || "";
     const updatedYearBuilt = yearBuilt || 0;
-    // more extra
-    const updatednoOfBedrooms = noOfBedrooms || 0;
-    const updatednoOfBathrooms = noOfBathrooms || 0;
-    const updatedfloorLevel = floorLevel || 0;
-    const updatednoOfBalconies = noOfBalconies || 0;
-    // end
+    const updatedNoOfBedrooms = noOfBedrooms || 0;
+    const updatedNoOfBathrooms = noOfBathrooms || 0;
+    const updatedFloorLevel = floorLevel || 0;
+    const updatedNoOfBalconies = noOfBalconies || 0;
     const updatedOwnerName = ownerName || "";
     const updatedOwnerContact = ownerContact || "";
-    const updatedFeatures = features || ""; // New data
-    const updatedRestrictions = restrictions || ""; // New data
-    const updatedDealType = dealType || ""; // New data
+    const updatedFeatures = features || "";
+    const updatedRestrictions = restrictions || "";
+    const updatedDealType = dealType || "";
     const updatedElevator = elevator ? "true" : "false";
     const updatedGenerator = generator ? "true" : "false";
     const updatedSecurity = security ? "true" : "false";
@@ -104,28 +95,23 @@ const AddHomeForm = () => {
     formData.append("price", price);
     formData.append("shortDescription", shortDescription);
     formData.append("longDescription", longDescription);
-    formData.append("features", updatedFeatures); // Add features to formData
-    formData.append("restrictions", updatedRestrictions); // Add restrictions to formData
-    formData.append("dealType", updatedDealType); // Add dealType to formData
+    formData.append("features", updatedFeatures);
+    formData.append("restrictions", updatedRestrictions);
+    formData.append("dealType", updatedDealType);
     formData.append("heroImage", heroImage);
 
     formData.append("propertyType", updatedPropertyType);
-    // extra
-    formData.append("schoolDistance", updatedschoolDistance);
-    formData.append("hospitalDistance", updatedhospitalDistance);
-    formData.append("mainRoadDistance", updatedmainRoadDistance);
-
-    //
+    formData.append("schoolDistance", updatedSchoolDistance);
+    formData.append("hospitalDistance", updatedHospitalDistance);
+    formData.append("mainRoadDistance", updatedMainRoadDistance);
     formData.append("propertySize", updatedPropertySize);
     formData.append("parking", updatedParking);
     formData.append("furnished", updatedFurnished);
     formData.append("yearBuilt", updatedYearBuilt);
-    // more extras
-    formData.append("noOfBedrooms", updatednoOfBedrooms);
-    formData.append("noOfBathrooms", updatednoOfBathrooms);
-    formData.append("floorLevel", updatedfloorLevel);
-    formData.append("noOfBalconies", updatednoOfBalconies);
-    // end
+    formData.append("noOfBedrooms", updatedNoOfBedrooms);
+    formData.append("noOfBathrooms", updatedNoOfBathrooms);
+    formData.append("floorLevel", updatedFloorLevel);
+    formData.append("noOfBalconies", updatedNoOfBalconies);
     formData.append("petFriendly", updatedPetFriendly);
     formData.append("availabilityStatus", updatedAvailabilityStatus);
     formData.append("ownerName", updatedOwnerName);
@@ -137,7 +123,11 @@ const AddHomeForm = () => {
     formData.append("pool", updatedPool);
     formData.append("cctv", updatedCctv);
     formData.append("roofTopAllowed", updatedRoofTopAllowed);
+
+    // Append username from sessionStorage
     formData.append("username", username);
+
+    // Append images
     images.forEach((image) => {
       formData.append("imageUrls", image);
     });
@@ -171,7 +161,7 @@ const AddHomeForm = () => {
   };
 
   const handleCloseModal = () => {
-    setShowModal(false); // Close the modal
+    setShowModal(false);
     navigate("/");
     window.location.reload(); // Navigate back to the home page
   };

@@ -25,6 +25,7 @@ export const FlatProvider = ({ children }) => {
       })
       .then((data) => {
         setFlats(Array.isArray(data) ? data : []);
+        console.log(data);
         setLoading(false);
       })
       .catch((err) => {

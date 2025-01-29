@@ -101,7 +101,7 @@ export default function Buy() {
                 value={searchTerm}
                 onChange={handleSearchChange}
                 placeholder="Search Location"
-                className="w-full py-4 px-6 pl-12 rounded-full border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                className="w-full py-4 px-6 pl-12 rounded-full border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-700 transition duration-200"
               />
 
               {/* Search Icon */}

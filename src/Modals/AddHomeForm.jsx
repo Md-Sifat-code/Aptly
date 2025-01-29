@@ -5,13 +5,26 @@ import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 
 const AddHomeForm = () => {
   const [propertyName, setPropertyName] = useState("");
-  const [shortTitle, setShortTitle] = useState("");
+
   const [propertyType, setPropertyType] = useState("");
+  // extra
+  const [schoolDistance, setschoolDistance] = useState("");
+  const [hospitalDistance, sethospitalDistance] = useState("");
+  const [propertyType, setPropertyType] = useState("");
+  //
   const [propertySize, setPropertySize] = useState("");
   const [parking, setParking] = useState(false);
   const [furnished, setFurnished] = useState(false);
   const [yearBuilt, setYearBuilt] = useState(0);
   const [petFriendly, setPetFriendly] = useState(false);
+  const [elevator, setElevator] = useState(false);
+  const [generator, setGenerator] = useState(false);
+  const [security, setSecurity] = useState(false);
+  const [gym, setGym] = useState(false);
+  const [pool, setPool] = useState(false);
+  const [cctv, setCctv] = useState(false);
+  const [roofTopAllowed, setRoofTopAllowed] = useState(false);
+
   const [availabilityStatus, setAvailabilityStatus] = useState("available"); // Changed to dropdown with string values
   const [ownerName, setOwnerName] = useState("");
   const [ownerContact, setOwnerContact] = useState("");
@@ -47,6 +60,12 @@ const AddHomeForm = () => {
     const updatedAvailabilityStatus =
       availabilityStatus === "available" ? "true" : "false"; // logic for availability status dropdown
     const updatedPropertyType = propertyType || "";
+    // extras
+    const updatedschoolDistance = schoolDistance || "";
+    const updatedhospitalDistance = propertyType || "";
+    const updatedPropertyType = propertyType || "";
+
+    //
     const updatedPropertySize = propertySize || "";
     const updatedYearBuilt = yearBuilt || 0;
     const updatedOwnerName = ownerName || "";
@@ -54,6 +73,13 @@ const AddHomeForm = () => {
     const updatedFeatures = features || ""; // New data
     const updatedRestrictions = restrictions || ""; // New data
     const updatedDealType = dealType || ""; // New data
+    const updatedElevator = elevator ? "true" : "false";
+    const updatedGenerator = generator ? "true" : "false";
+    const updatedSecurity = security ? "true" : "false";
+    const updatedGym = gym ? "true" : "false";
+    const updatedPool = pool ? "true" : "false";
+    const updatedCctv = cctv ? "true" : "false";
+    const updatedRoofTopAllowed = roofTopAllowed ? "true" : "false";
 
     const formData = new FormData();
     formData.append("location", location);
@@ -64,8 +90,14 @@ const AddHomeForm = () => {
     formData.append("restrictions", updatedRestrictions); // Add restrictions to formData
     formData.append("dealType", updatedDealType); // Add dealType to formData
     formData.append("heroImage", heroImage);
-    formData.append("shortTitle", shortTitle);
+
     formData.append("propertyType", updatedPropertyType);
+    // extra
+    formData.append("propertyType", updatedschoolDistance);
+    formData.append("propertyType", updatedhospitalDistance);
+    formData.append("propertyType", updatedPropertyType);
+
+    //
     formData.append("propertySize", updatedPropertySize);
     formData.append("parking", updatedParking);
     formData.append("furnished", updatedFurnished);
@@ -74,6 +106,13 @@ const AddHomeForm = () => {
     formData.append("availabilityStatus", updatedAvailabilityStatus);
     formData.append("ownerName", updatedOwnerName);
     formData.append("ownerContact", updatedOwnerContact);
+    formData.append("elevator", updatedElevator);
+    formData.append("generator", updatedGenerator);
+    formData.append("security", updatedSecurity);
+    formData.append("gym", updatedGym);
+    formData.append("pool", updatedPool);
+    formData.append("cctv", updatedCctv);
+    formData.append("roofTopAllowed", updatedRoofTopAllowed);
 
     images.forEach((image) => {
       formData.append("imageUrls", image);
@@ -114,7 +153,7 @@ const AddHomeForm = () => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-4xl mx-auto">
+    <div className="bg-white p-8 rounded-xl shadow-xl w-full  mx-auto">
       <form onSubmit={handleSubmit} className="space-y-8">
         <Link to={"/"} className="bgt font-bold text-2xl">
           <FaRegArrowAltCircleLeft />
@@ -124,7 +163,7 @@ const AddHomeForm = () => {
         </h2>
 
         {/* Location, Price and Short Title */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           <div className="form-group">
             <label className="text-sm font-medium text-gray-700">
               Location
@@ -147,56 +186,7 @@ const AddHomeForm = () => {
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
-          <div className="form-group">
-            <label className="text-sm font-medium text-gray-700">
-              Short Title
-            </label>
-            <input
-              type="text"
-              value={shortTitle}
-              onChange={(e) => setShortTitle(e.target.value)}
-              placeholder="Enter short title"
-              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
-            />
-          </div>
-        </div>
 
-        {/* Short Description and Long Description */}
-        <div className="space-y-4">
-          <div className="form-group">
-            <label className="text-sm font-medium text-gray-700">
-              Short Description
-            </label>
-            <input
-              type="text"
-              value={shortDescription}
-              onChange={(e) => setShortDescription(e.target.value)}
-              placeholder="Enter a brief description"
-              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
-            />
-          </div>
-          <div className="form-group">
-            <label className="text-sm font-medium text-gray-700">
-              Long Description
-            </label>
-            <textarea
-              value={longDescription}
-              onChange={(e) => {
-                if (e.target.value.length <= 250) {
-                  setLongDescription(e.target.value);
-                }
-              }}
-              placeholder="Detailed description (max 250 characters)"
-              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
-            />
-            <p className="text-sm text-gray-500">
-              {longDescription.length}/250 characters
-            </p>
-          </div>
-        </div>
-
-        {/* Property Type, Size, Parking */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="form-group">
             <label className="text-sm font-medium text-gray-700">
               Property Type
@@ -242,8 +232,50 @@ const AddHomeForm = () => {
           </div>
         </div>
 
+        {/* Short Description and Long Description */}
+        <div className=" grid grid-cols-2 gap-6">
+          <div className="form-group">
+            <label className="text-sm font-medium text-gray-700">
+              Short Overview
+            </label>
+            <textarea
+              value={shortDescription}
+              onChange={(e) => {
+                if (e.target.value.length <= 100) {
+                  setShortDescription(e.target.value);
+                }
+              }}
+              placeholder="Detailed description (max 250 characters)"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+            <p className="text-sm text-gray-500">
+              {longDescription.length}/100 characters
+            </p>
+          </div>
+          <div className="form-group">
+            <label className="text-sm font-medium text-gray-700">
+              Long Description
+            </label>
+            <textarea
+              value={longDescription}
+              onChange={(e) => {
+                if (e.target.value.length <= 250) {
+                  setLongDescription(e.target.value);
+                }
+              }}
+              placeholder="Detailed description (max 250 characters)"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+            <p className="text-sm text-gray-500">
+              {longDescription.length}/250 characters
+            </p>
+          </div>
+        </div>
+
+        {/* Property Type, Size, Parking */}
+
         {/* Furnished, Year Built, Pet Friendly */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-10 gap-6">
           <div className="form-group flex flex-row items-center gap-2">
             <label className="text-sm font-medium text-gray-700">
               Furnished
@@ -277,10 +309,81 @@ const AddHomeForm = () => {
               className="w-5 h-5 text-teal-700 border-2 border-teal-700 focus:ring-teal-700"
             />
           </div>
+          <div className="form-group flex flex-row items-center gap-2">
+            <label className="text-sm font-medium text-gray-700">
+              Elevator
+            </label>
+            <input
+              type="checkbox"
+              checked={elevator}
+              onChange={(e) => setElevator(e.target.checked)}
+              className="w-5 h-5 text-teal-700 border-2 border-teal-700 focus:ring-teal-700"
+            />
+          </div>
+          <div className="form-group flex flex-row items-center gap-2">
+            <label className="text-sm font-medium text-gray-700">
+              Generator
+            </label>
+            <input
+              type="checkbox"
+              checked={generator}
+              onChange={(e) => setGenerator(e.target.checked)}
+              className="w-5 h-5 text-teal-700 border-2 border-teal-700 focus:ring-teal-700"
+            />
+          </div>
+          <div className="form-group flex flex-row items-center gap-2">
+            <label className="text-sm font-medium text-gray-700">
+              Security
+            </label>
+            <input
+              type="checkbox"
+              checked={security}
+              onChange={(e) => setSecurity(e.target.checked)}
+              className="w-5 h-5 text-teal-700 border-2 border-teal-700 focus:ring-teal-700"
+            />
+          </div>
+          <div className="form-group flex flex-row items-center gap-2">
+            <label className="text-sm font-medium text-gray-700">Gym</label>
+            <input
+              type="checkbox"
+              checked={gym}
+              onChange={(e) => setGym(e.target.checked)}
+              className="w-5 h-5 text-teal-700 border-2 border-teal-700 focus:ring-teal-700"
+            />
+          </div>
+          <div className="form-group flex flex-row items-center gap-2">
+            <label className="text-sm font-medium text-gray-700">Pool</label>
+            <input
+              type="checkbox"
+              checked={pool}
+              onChange={(e) => setPool(e.target.checked)}
+              className="w-5 h-5 text-teal-700 border-2 border-teal-700 focus:ring-teal-700"
+            />
+          </div>
+          <div className="form-group flex flex-row items-center gap-2">
+            <label className="text-sm font-medium text-gray-700">CCTV</label>
+            <input
+              type="checkbox"
+              checked={cctv}
+              onChange={(e) => setCctv(e.target.checked)}
+              className="w-5 h-5 text-teal-700 border-2 border-teal-700 focus:ring-teal-700"
+            />
+          </div>
+          <div className="form-group flex flex-row items-center gap-2">
+            <label className="text-sm font-medium text-gray-700">
+              Roof Top Allowed
+            </label>
+            <input
+              type="checkbox"
+              checked={roofTopAllowed}
+              onChange={(e) => setRoofTopAllowed(e.target.checked)}
+              className="w-5 h-5 text-teal-700 border-2 border-teal-700 focus:ring-teal-700"
+            />
+          </div>
         </div>
 
         {/* Availability, Owner Name, Owner Contact */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
           <div className="form-group">
             <label className="text-sm font-medium text-gray-700">
               Availability Status
@@ -317,6 +420,52 @@ const AddHomeForm = () => {
               placeholder="Enter owner's contact"
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
+          </div>
+          {/* extra parts */}
+          <div className="form-group">
+            <label className="text-sm font-medium text-gray-700">
+              School Distance
+            </label>
+            <select
+              value={schoolDistance}
+              onChange={(e) => setschoolDistance(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            >
+              <option value="">Select</option>
+              <option value="Apartment">Close</option>
+              <option value="House">Medium</option>
+              <option value="Condo">Far</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="text-sm font-medium text-gray-700">
+              Hospital Distance
+            </label>
+            <select
+              value={hospitalDistance}
+              onChange={(e) => sethospitalDistance(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            >
+              <option value="">Select</option>
+              <option value="Apartment">Close</option>
+              <option value="House">Medium</option>
+              <option value="Condo">Far</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="text-sm font-medium text-gray-700">
+              Main Road Distance
+            </label>
+            <select
+              value={propertyType}
+              onChange={(e) => setPropertyType(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+            >
+              <option value="">Select</option>
+              <option value="Apartment">Close</option>
+              <option value="House">Medium</option>
+              <option value="Condo">Far</option>
+            </select>
           </div>
         </div>
 
@@ -387,21 +536,21 @@ const AddHomeForm = () => {
             onChange={handleImageChange}
             className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
-          <div className="mt-4 grid grid-cols-3 gap-2">
+          <div className="mt-4 grid lg:grid-cols-8 gap-2">
             {images.length > 0 &&
               Array.from(images).map((image, index) => (
                 <div key={index} className="relative">
                   <img
                     src={URL.createObjectURL(image)}
                     alt={`preview-${index}`}
-                    className="w-full h-24 object-cover rounded-md"
+                    className="w-full h-24  rounded-md"
                   />
                   <button
                     onClick={() => {
                       const newImages = images.filter((_, i) => i !== index);
                       setImages(newImages);
                     }}
-                    className="absolute top-0 right-0 p-1 bg-red-600 text-white rounded-full text-xs"
+                    className="absolute top-1 left-1 p-1 bg-red-600 text-white rounded-full text-xs"
                   >
                     X
                   </button>
@@ -443,3 +592,4 @@ const AddHomeForm = () => {
 };
 
 export default AddHomeForm;
+//okk

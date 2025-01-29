@@ -10,10 +10,12 @@ export const useFlatContext = () => {
 
 // Create the provider component
 export const FlatProvider = ({ children }) => {
-  const [flats, setFlats] = useState([]); // Start with an empty array
+  const [flats, setFlats] = useState([]); // Flats data
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [dealType, setDealType] = useState("buy"); // Track the current dealType
 
+  // Fetch flats based on dealType
   const fetchFlats = (dealType) => {
     setLoading(true);
     fetch(`https://basabari.onrender.com/properties/getAll/${dealType}`)
@@ -25,7 +27,6 @@ export const FlatProvider = ({ children }) => {
       })
       .then((data) => {
         setFlats(Array.isArray(data) ? data : []);
-        console.log(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -34,12 +35,12 @@ export const FlatProvider = ({ children }) => {
       });
   };
 
-  // Fetch flats initially with the default 'buy' dealType
+  // Fetch flats whenever the dealType changes
   useEffect(() => {
-    fetchFlats("buy");
-  }, []);
+    fetchFlats(dealType);
+  }, [dealType]); // Dependency on dealType
 
-  // Function to filter flats based on selected criteria
+  // Function to filter flats based on selected criteria (POST request)
   const filterFlats = (filters) => {
     setLoading(true);
     fetch("https://basabari.onrender.com/properties/search", {
@@ -67,7 +68,9 @@ export const FlatProvider = ({ children }) => {
   };
 
   return (
-    <FlatContext.Provider value={{ flats, loading, error, filterFlats }}>
+    <FlatContext.Provider
+      value={{ flats, loading, error, setDealType, filterFlats }}
+    >
       {children}
     </FlatContext.Provider>
   );

@@ -1,22 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FaUpload } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { FaRegArrowAltCircleLeft } from "react-icons/fa";
+import { useFetchUserData } from "../Authentication/UserDataContext";
 
 const AddHomeForm = () => {
+  const { userData } = useFetchUserData();
+  console.log(userData);
   const [propertyName, setPropertyName] = useState("");
   const [propertyType, setPropertyType] = useState("");
-  const [schoolDistance, setSchoolDistance] = useState("");
-  const [hospitalDistance, setHospitalDistance] = useState("");
-  const [mainRoadDistance, setMainRoadDistance] = useState("");
+  const [schoolDistance, setschoolDistance] = useState("");
+  const [hospitalDistance, sethospitalDistance] = useState("");
+  const [mainRoadDistance, setmainRoadDistance] = useState("");
   const [propertySize, setPropertySize] = useState("");
   const [parking, setParking] = useState(false);
   const [furnished, setFurnished] = useState(false);
   const [yearBuilt, setYearBuilt] = useState(0);
-  const [noOfBedrooms, setNoOfBedrooms] = useState(0);
-  const [noOfBathrooms, setNoOfBathrooms] = useState(0);
-  const [floorLevel, setFloorLevel] = useState(0);
-  const [noOfBalconies, setNoOfBalconies] = useState(0);
+  const [noOfBedrooms, setnoOfBedrooms] = useState(0);
+  const [noOfBathrooms, setnoOfBathrooms] = useState(0);
+  const [floorLevel, setfloorLevel] = useState(0);
+  const [noOfBalconies, setnoOfBalconies] = useState(0);
   const [petFriendly, setPetFriendly] = useState(false);
   const [elevator, setElevator] = useState(false);
   const [generator, setGenerator] = useState(false);
@@ -36,7 +39,7 @@ const AddHomeForm = () => {
   const [longDescription, setLongDescription] = useState("");
   const [features, setFeatures] = useState("");
   const [restrictions, setRestrictions] = useState("");
-  const [dealType, setDealType] = useState("Buy");
+  const [dealType, setDealType] = useState("buy");
   const [heroImage, setHeroImage] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,12 +47,10 @@ const AddHomeForm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUsername = sessionStorage.getItem("username");
-    console.log(storedUsername);
-    if (storedUsername) {
-      setUsername(storedUsername);
+    if (userData && userData.username) {
+      setUsername(userData.username);
     }
-  }, []);
+  }, [userData]);
 
   const handleImageChange = (e) => {
     setImages([...images, ...e.target.files]);
@@ -125,13 +126,13 @@ const AddHomeForm = () => {
     formData.append("roofTopAllowed", updatedRoofTopAllowed);
 
     // Append username from sessionStorage
-    formData.append("username", username);
+    formData.append("userName", username);
 
     // Append images
     images.forEach((image) => {
       formData.append("imageUrls", image);
     });
-
+    console.log(formData);
     try {
       const response = await fetch(
         "https://basabari.onrender.com/properties/add",

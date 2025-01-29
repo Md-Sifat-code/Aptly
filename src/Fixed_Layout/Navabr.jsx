@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"; // Added useRef and useEffect
+import React, { useState, useEffect, useRef } from "react";
 import logo from "/bariss.png";
 import { Link, useLocation } from "react-router-dom";
 import LoginModal from "../Modals/LoginModal";
@@ -16,10 +16,8 @@ export default function Navbar() {
   const { user, logout } = useUser();
   const { userData } = useFetchUserData();
 
-  // Adding dealType state to manage active deal
-  const [dealType, setDealType] = useState("buy");
-
-  const { flats, loading, error, filterFlats } = useFlatContext(); // Destructure from FlatContext
+  // Access FlatContext
+  const { flats, loading, error, setDealType, filterFlats } = useFlatContext();
 
   const dropdownRef = useRef(null); // Reference for the dropdown
 
@@ -36,8 +34,12 @@ export default function Navbar() {
 
   // Function to handle deal type change
   const handleDealTypeChange = (type) => {
-    setDealType(type);
-    filterFlats({ dealType: type }); // Trigger fetching based on dealType
+    setDealType(type); // Update the dealType
+  };
+
+  // Function to handle applying additional filters (if needed)
+  const handleFilterChange = (filters) => {
+    filterFlats(filters); // Apply filters via POST request
   };
 
   // Close the dropdown if the user clicks outside

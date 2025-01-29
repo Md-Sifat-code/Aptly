@@ -147,7 +147,7 @@ export default function Buy() {
                   handleOptionChange(setNoOfBedrooms)(e.target.value)
                 }
               >
-                <option value={null}>Select Bedrooms</option>
+                <option value={null}>Bedrooms</option>
                 <option value="2">2 Bedroom</option>
                 <option value="3">3 Bedroom</option>
                 <option value="4">4 Bedroom</option>
@@ -233,9 +233,9 @@ export default function Buy() {
           {filterOpen && (
             <div className="grid grid-cols-9  w-[90%] gap-6 justify-center mb-6">
               {[
-                { label: "School Distance", setter: setSchoolDistance },
-                { label: "Hospital Distance", setter: setHospitalDistance },
-                { label: "Main Road Distance", setter: setMainRoadDistance },
+                { label: "School", setter: setSchoolDistance },
+                { label: "Hospital", setter: setHospitalDistance },
+                { label: "Main Road", setter: setMainRoadDistance },
               ].map(({ label, setter }) => (
                 <div key={label} className="flex flex-col w-full ">
                   <label className="font-semibold text-lg mb-2">{label}</label>
@@ -254,9 +254,7 @@ export default function Buy() {
                 </div>
               ))}
               <div className="flex flex-col w-full">
-                <label className="font-semibold text-lg mb-2">
-                  Gas Connection
-                </label>
+                <label className="font-semibold text-lg mb-2">Gas</label>
                 <select
                   className={`form-select border-2 ${
                     gasConnection ? "border-teal-700" : "border-gray-300"

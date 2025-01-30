@@ -201,56 +201,55 @@ export default function Details() {
                 Buy Now
               </Link>
             </div>
-          </div>
-        </div>
-
-        <div className="mt-12 flex flex-col lg:flex-row">
-          <div className="card shadow-xl grid grid-cols-2 gap-6 p-6 bg-white rounded-lg">
-            {/* Profile Image and Info */}
-            <div className="flex flex-col items-center justify-center gap-4">
-              <img
-                className="w-[120px] h-[120px] rounded-full border-4 bgr"
-                src={user.profilpic || "/default-avatar.png"} // Default avatar if no profilpic
-                alt="Profile"
-              />
-              <h1 className="font-bold text-teal-700 text-xl">
-                @{user.username || "Unknown"}
-              </h1>
-              <p className="font-semibold text-gray-600 text-sm">
-                {user.address || "N/A"}
-              </p>
+            <div className="mt-6 flex flex-col w-full justify-end lg:flex-row">
+              <div className="card shadow-xl grid grid-cols-2 border w-full gap-6 p-6 bg-white rounded-lg">
+                {/* Profile Image and Info */}
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <img
+                    className="w-[120px] h-[120px] rounded-full border-4 bgr"
+                    src={user.profilpic || "/default-avatar.png"} // Default avatar if no profilpic
+                    alt="Profile"
+                  />
+                  <h1 className="font-bold text-teal-700 text-xl">
+                    @{user.username || "Unknown"}
+                  </h1>
+                  <p className="font-semibold text-gray-600 text-sm">
+                    {user.address || "N/A"}
+                  </p>
+                </div>
+                {/* Rating and Hosting Info */}
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <p className="text-lg flex text-center flex-col font-semibold text-gray-700">
+                    5{" "}
+                    <span className="font-medium text-gray-500 text-xs">
+                      Reviews
+                    </span>
+                  </p>
+                  <hr className="w-full border-t-2 border-gray-200" />
+                  <p className="flex flex-col items-center">
+                    <p className="flex items-center gap-2 text-xl font-semibold text-teal-600">
+                      4.8 <FaStar className="inline-block text-yellow-500" />
+                    </p>
+                    <span className="font-medium text-xs text-gray-500">
+                      Rating
+                    </span>
+                  </p>
+                  <hr className="w-full border-t-2 border-gray-200" />
+                  <p className="text-lg flex text-center flex-col font-semibold text-gray-700">
+                    2{" "}
+                    <span className="font-medium text-gray-500 text-xs">
+                      Hosting
+                    </span>
+                  </p>
+                </div>
+                <Link
+                  to={`/seller/${user.username}`}
+                  className="btn col-span-2 w-full btn-outline border-teal-700 bgt font-bold hover:bg-teal-900"
+                >
+                  See Details
+                </Link>
+              </div>
             </div>
-            {/* Rating and Hosting Info */}
-            <div className="flex flex-col items-center justify-center gap-4">
-              <p className="text-lg flex text-center flex-col font-semibold text-gray-700">
-                5{" "}
-                <span className="font-medium text-gray-500 text-xs">
-                  Reviews
-                </span>
-              </p>
-              <hr className="w-full border-t-2 border-gray-200" />
-              <p className="flex flex-col items-center">
-                <p className="flex items-center gap-2 text-xl font-semibold text-teal-600">
-                  4.8 <FaStar className="inline-block text-yellow-500" />
-                </p>
-                <span className="font-medium text-xs text-gray-500">
-                  Rating
-                </span>
-              </p>
-              <hr className="w-full border-t-2 border-gray-200" />
-              <p className="text-lg flex text-center flex-col font-semibold text-gray-700">
-                2{" "}
-                <span className="font-medium text-gray-500 text-xs">
-                  Hosting
-                </span>
-              </p>
-            </div>
-            <Link
-              to={`/seller/${user.username}`}
-              className="btn col-span-2 w-full btn-outline border-teal-700 bgt font-bold hover:bg-teal-900"
-            >
-              See Details
-            </Link>
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ const UserProviders = ({ children }) => {
     // Get username from sessionStorage
 
     if (username) {
-      const url = `https://basabari.onrender.com/User/search/${username}`;
+      const url = `https://baribazar-489l.onrender.com/User/search/${username}`;
 
       fetch(url)
         .then((response) => {

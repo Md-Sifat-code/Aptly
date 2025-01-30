@@ -20,7 +20,7 @@ export const UserDataProvider = ({ children }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://basabari.onrender.com/User/search/${username}`
+        `https://baribazar-489l.onrender.com/User/search/${username}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch user data");

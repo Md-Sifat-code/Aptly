@@ -54,7 +54,7 @@ const LoginModal = ({ closeModal }) => {
 
     try {
       // Send the POST request to the backend
-      const response = await fetch("https://basabari.onrender.com/Log", {
+      const response = await fetch("https://baribazar-489l.onrender.com/Log", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

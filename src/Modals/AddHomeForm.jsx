@@ -135,7 +135,7 @@ const AddHomeForm = () => {
     console.log(formData);
     try {
       const response = await fetch(
-        "https://basabari.onrender.com/properties/add",
+        "https://baribazar-489l.onrender.com/properties/add",
         {
           method: "POST",
           body: formData,

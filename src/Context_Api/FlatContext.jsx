@@ -18,7 +18,7 @@ export const FlatProvider = ({ children }) => {
   // Fetch flats based on dealType
   const fetchFlats = (dealType) => {
     setLoading(true);
-    fetch(`https://basabari.onrender.com/properties/getAll/${dealType}`)
+    fetch(`https://baribazar-489l.onrender.com/properties/getAll/${dealType}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch flat data");
@@ -43,7 +43,7 @@ export const FlatProvider = ({ children }) => {
   // Function to filter flats based on selected criteria (POST request)
   const filterFlats = (filters) => {
     setLoading(true);
-    fetch("https://basabari.onrender.com/properties/search", {
+    fetch("https://baribazar-489l.onrender.com/properties/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

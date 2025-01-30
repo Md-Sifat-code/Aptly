@@ -53,7 +53,7 @@ export default function ProfileEditModal() {
 
     try {
       const response = await fetch(
-        `https://basabari.onrender.com/User/update?id=${userData.id}`,
+        `https://baribazar-489l.onrender.com/User/update?id=${userData.id}`,
         {
           method: "PUT",
           body: formDataToSend,

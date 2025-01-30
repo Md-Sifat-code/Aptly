@@ -25,7 +25,7 @@ export default function SellerDetails() {
     const fetchSellerDetails = async () => {
       try {
         const response = await fetch(
-          `https://basabari.onrender.com/User/search/${username}`
+          `https://baribazar-489l.onrender.com/User/search/${username}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch seller details");

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaStar,
   FaFlag,
@@ -12,11 +12,32 @@ import { IoMailSharp } from "react-icons/io5";
 import { HiOutlinePhoneArrowDownLeft } from "react-icons/hi2";
 import { useFetchUserData } from "../Authentication/UserDataContext";
 import ChattingModal from "../Modals/ChattingModal"; // import the ChattingModal
+import { Link } from "react-router-dom";
 
 export default function ProfileDrawer() {
   const { userData, loading } = useFetchUserData();
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false); // State for showing the chat modal
+  const [flats, setFlats] = useState([]); // State for storing flats data
+
+  useEffect(() => {
+    if (userData) {
+      // Fetch flats added by the user
+      const fetchFlats = async () => {
+        try {
+          const response = await fetch(
+            `https://baribazar-489l.onrender.com/properties/user/${userData.id}`
+          );
+          const data = await response.json();
+          setFlats(data); // Set the flats data
+        } catch (error) {
+          console.error("Error fetching flats:", error);
+        }
+      };
+
+      fetchFlats();
+    }
+  }, [userData]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -29,21 +50,6 @@ export default function ProfileDrawer() {
   const handleReportModal = () => {
     setIsReportModalOpen(!isReportModalOpen);
   };
-
-  // Static reviews
-  const reviews = [
-    { name: "John Doe", rating: 4, comment: "Great service, very reliable!" },
-    {
-      name: "Jane Smith",
-      rating: 5,
-      comment: "Excellent experience, highly recommend.",
-    },
-    {
-      name: "Alice Brown",
-      rating: 3,
-      comment: "Good, but there's room for improvement.",
-    },
-  ];
 
   return (
     <section>
@@ -155,30 +161,44 @@ export default function ProfileDrawer() {
             <p>{userData.bio}</p>
           </div>
           <hr />
-          {/* Review Section */}
-          <div className="mt-4">
-            <h1 className="text-xl font-bold text-gray-800">
-              What People are saying about {userData.username}
-            </h1>
-            {/* Review Cards */}
-            <div className="flex flex-wrap gap-6">
-              {reviews.map((review, index) => (
-                <div
-                  key={index}
-                  className="card my-4 p-6 shadow-lg bg-white rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
-                >
-                  <div className="flex items-center gap-4">
-                    <h2 className="text-lg font-semibold text-teal-700">
-                      {review.name}
-                    </h2>
-                    <div className="flex items-center gap-1">
-                      <FaStar className="text-yellow-500" />
-                      <span className="text-gray-600">{review.rating}</span>
+          {/* Flats Added Section */}
+          <div className="mt-6">
+            <h2 className="text-2xl font-semibold text-black mb-4">
+              Flats Added by {userData.username}
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {flats.length > 0 ? (
+                flats.map((property) => (
+                  <div
+                    key={property.id}
+                    className="card w-full bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+                  >
+                    <img
+                      src={property.heroImage || "/default-image.png"}
+                      alt="Property"
+                      className="w-full h-48 object-cover rounded-t-xl"
+                    />
+                    <div className="p-6 flex flex-col gap-4">
+                      <h3 className="text-xl font-semibold text-gray-800 hover:text-teal-600 transition duration-200">
+                        {property.shortDescription}
+                      </h3>
+                      <p className="text-lg font-medium text-gray-600">
+                        {property.price}
+                      </p>
+                      <div className="mt-auto">
+                        <Link
+                          to={`/details/${property.id}`} // Assuming you have a route to view detailed property
+                          className="btn btn-outline bg-teal-500 text-white rounded-lg py-2 px-4 w-full text-center font-bold hover:bg-teal-600 hover:border-teal-600 transition duration-300"
+                        >
+                          See Details
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                  <p className="mt-2 text-gray-600">{review.comment}</p>
-                </div>
-              ))}
+                ))
+              ) : (
+                <p>No flats added yet.</p>
+              )}
             </div>
           </div>
         </div>

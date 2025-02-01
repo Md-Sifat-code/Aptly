@@ -69,9 +69,9 @@ const AddHomeForm = () => {
     const updatedAvailabilityStatus =
       availabilityStatus === "available" ? "true" : "false";
     const updatedPropertyType = propertyType || "";
-    const updatedSchoolDistance = schoolDistance || "";
-    const updatedHospitalDistance = hospitalDistance || "";
-    const updatedMainRoadDistance = mainRoadDistance || "";
+    const updatedschoolDistance = schoolDistance || "";
+    const updatedhospitalDistance = hospitalDistance || "";
+    const updatedmainRoadDistance = mainRoadDistance || "";
     const updatedPropertySize = propertySize || "";
     const updatedYearBuilt = yearBuilt || 0;
     const updatedNoOfBedrooms = noOfBedrooms || 0;
@@ -102,9 +102,9 @@ const AddHomeForm = () => {
     formData.append("heroImage", heroImage);
 
     formData.append("propertyType", updatedPropertyType);
-    formData.append("schoolDistance", updatedSchoolDistance);
-    formData.append("hospitalDistance", updatedHospitalDistance);
-    formData.append("mainRoadDistance", updatedMainRoadDistance);
+    formData.append("schoolDistance", updatedschoolDistance);
+    formData.append("hospitalDistance", updatedhospitalDistance);
+    formData.append("mainRoadDistance", updatedmainRoadDistance);
     formData.append("propertySize", updatedPropertySize);
     formData.append("parking", updatedParking);
     formData.append("furnished", updatedFurnished);
@@ -212,7 +212,7 @@ const AddHomeForm = () => {
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
               <option value="">Select Property Type</option>
-              <option value="Apartment">Apartment</option>
+              <option value="Apartment">Apar</option>
               <option value="House">House</option>
               <option value="Condo">Condo</option>
             </select>
@@ -447,9 +447,9 @@ const AddHomeForm = () => {
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
               <option value="">Select</option>
-              <option value="Apartment">Close</option>
-              <option value="House">Medium</option>
-              <option value="Condo">Far</option>
+              <option value="Close">Close</option>
+              <option value="Medium">Medium</option>
+              <option value="Far">Far</option>
             </select>
           </div>
           <div className="form-group">
@@ -462,9 +462,9 @@ const AddHomeForm = () => {
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
               <option value="">Select</option>
-              <option value="Apartment">Close</option>
-              <option value="House">Medium</option>
-              <option value="Condo">Far</option>
+              <option value="Close">Close</option>
+              <option value="Medium">Medium</option>
+              <option value="Far">Far</option>
             </select>
           </div>
           <div className="form-group">
@@ -477,9 +477,9 @@ const AddHomeForm = () => {
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
               <option value="">Select</option>
-              <option value="Apartment">Close</option>
-              <option value="House">Medium</option>
-              <option value="Condo">Far</option>
+              <option value="Close">Close</option>
+              <option value="Medium">Medium</option>
+              <option value="Far">Far</option>
             </select>
           </div>
         </div>

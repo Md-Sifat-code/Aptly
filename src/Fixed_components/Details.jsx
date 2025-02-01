@@ -11,6 +11,9 @@ import {
   FaStar,
   FaFlag,
 } from "react-icons/fa";
+import { MdElevator } from "react-icons/md";
+import { GiPowerGenerator } from "react-icons/gi";
+import { GrUserPolice } from "react-icons/gr";
 import { BiSolidMessageSquareError } from "react-icons/bi";
 import { Link, useParams } from "react-router-dom";
 import { PiMapPinAreaFill } from "react-icons/pi";
@@ -101,38 +104,95 @@ export default function Details() {
           {/* Left Column */}
           <div className="md:w-3/4 pr-6 flex flex-col justify-between">
             <div>
-              <p className="text-2xl mb-3 text-black font-medium flex flex-row items-center gap-2">
+              <p className="text-2xl mb-1 text-black font-medium flex flex-row items-center gap-2">
                 {flat.shortDescription}
               </p>
-              <p className="font-bold flex items-center gap-2">
-                <FaBed className="inline-block bgt" />
-                {flat.features}
+              <p className="font-medium  flex items-center gap-2">
+                {flat.noOfBedrooms} Bed, {flat.noOfBathrooms} Bath,{" "}
+                {flat.noOfBalconies} Balconies
               </p>
-              <p className="text-lg mb-1 text-black font-bold flex flex-row items-center gap-2">
-                <FaMapMarkerAlt className="bgt inline-block" /> {flat.location}
+              <p className="text-sm  mb-1 text-black font-medium flex flex-row items-center gap-2">
+                <span className="font-normal text-black">Location:</span>{" "}
+                {flat.location}
               </p>
               <p
-                className={`text-sm font-medium text-start w-full ${
+                className={`text-sm mb-2 flex flex-row items-center gap-2 font-medium text-start w-full ${
                   flat.availabilityStatus ? "text-green-500" : "text-red-500"
                 }`}
               >
+                <span className="font-normal text-black">Available:</span>
                 {flat.availabilityStatus ? "Available" : "Not Available"}
               </p>
-              <hr />
-              <p className="text-lg mt-6 text-gray-500 flex flex-row items-center gap-2">
-                <FaMoneyBill className="bgt inline-block" />
-                <span className="font-bold">{flat.price.toLocaleString()}</span>
-                /-
-              </p>
-              <p className="font-bold flex items-center gap-2">
-                <PiMapPinAreaFill className="bgt inline-block" />
-                {flat.propertySize}
-                <span className="px-2">Fit</span>
-              </p>
-              <p className="font-bold mb-6 flex items-center gap-2">
-                <BiSolidMessageSquareError className="bgt inline-block" />
-                {flat.restrictions}
-              </p>
+              <h1 className="bgt mt-6 font-bold">What This Place Offer</h1>
+              <div className="flex flex-col lg:flex-row justify-between items-center lg:mr-24">
+                <div>
+                  <p className="text-sm mt-2 text-gray-500 flex flex-row items-center gap-2">
+                    <span className="font-normal text-black">Price/Rent:</span>
+                    <span className="font-normal">
+                      {flat.price.toLocaleString()}
+                    </span>
+                    /-
+                  </p>
+                  <p className="font-medium text-sm text-gray-500 flex items-center gap-2">
+                    <span className="font-normal text-black">Space:</span>
+                    {flat.propertySize}
+                    <span className="">Fit</span>
+                  </p>
+                  <p className="font-normal text-gray-500 mb-6 flex text-sm items-center gap-2">
+                    <span className="font-normal text-black">
+                      Restrictions:
+                    </span>
+                    {flat.restrictions}
+                  </p>
+                </div>
+                <div>
+                  {/* other
+                   */}
+                  <p
+                    className={`text-sm mb-2 font-medium flex flex-row gap-2 items-center text-start w-full ${
+                      flat.elevator ? "text-green-500" : "text-red-500"
+                    }`}
+                  >
+                    <span className="font-normal text-black">Lift :</span>
+                    {flat.elevator ? "Available" : "Not Available"}
+                  </p>
+                  <p
+                    className={`text-sm mb-1 flex flex-row gap-2 font-medium text-start w-full ${
+                      flat.generator ? "text-green-500" : "text-red-500"
+                    }`}
+                  >
+                    <span className="font-normal text-black">Generator:</span>
+                    {flat.generator ? "Available" : "Not Available"}
+                  </p>
+                  <p
+                    className={`text-sm mb-1 flex flex-row gap-2 font-medium text-start w-full ${
+                      flat.security ? "text-green-500" : "text-red-500"
+                    }`}
+                  >
+                    <span className="font-normal text-black">Security:</span>
+                    {flat.security ? "Available" : "Not Available"}
+                  </p>
+                </div>
+              </div>
+              <h1 className="bgt font-bold">Distance Mesurement</h1>
+              <div>
+                <div>
+                  <p className="text-sm mt-2 text-gray-500 flex flex-row items-center gap-2">
+                    <span className="font-normal text-black">From School</span>
+                    <span className="font-normal">{flat.schoolDistance}</span>
+                  </p>
+                  <p className="font-medium text-sm text-gray-500 flex items-center gap-2">
+                    <span className="font-normal text-black">
+                      From Hospital
+                    </span>
+                    {flat.hospitalDistance}
+                  </p>
+                  <p className="font-normal text-gray-500 mb-6 flex text-sm items-center gap-2">
+                    <span className="font-normal text-black">From Road</span>
+                    {flat.mainRoadDistance}
+                  </p>
+                </div>
+              </div>
               <hr />
               <p className="mt-6 bgt font-bold">About Flat</p>
               <p className="whitespace-pre-line">{flat.longDescription}</p>

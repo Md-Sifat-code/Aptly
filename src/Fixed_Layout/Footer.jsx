@@ -85,17 +85,17 @@ export default function Footer() {
             <h6 className="text-lg font-bold mb-4 text-black">Legal</h6>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="link link-hover text-white">
+                <a href="#" className="link link-hover text-black">
                   Terms of use
                 </a>
               </li>
               <li>
-                <a href="#" className="link link-hover text-white">
+                <a href="#" className="link link-hover text-black">
                   Privacy policy
                 </a>
               </li>
               <li>
-                <a href="#" className="link link-hover text-white">
+                <a href="#" className="link link-hover text-black">
                   Cookie policy
                 </a>
               </li>

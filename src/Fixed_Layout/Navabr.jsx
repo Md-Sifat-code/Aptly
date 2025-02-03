@@ -68,7 +68,7 @@ export default function Navbar() {
         </div>
 
         {/* Middle Links */}
-        <div className="hidden lg:flex flex-row gap-12">
+        <div className="flex flex-row gap-6 sm:gap-12">
           <Link
             to="/"
             className={`hover:bgt ${isActive("/")}`}

@@ -119,7 +119,7 @@ export default function Sell() {
       <section className=" border py-2">
         <div className=" flex flex-col items-center justify-around w-full border">
           {/* Main Filter options shown as dropdowns */}
-          <div className="w-[90%] grid grid-cols-9 gap-6 justify-center mb-6">
+          <div className="w-full md:w-[90%] grid grid-cols-3 md:grid-cols-5 px-4 lg:grid-cols-9 gap-6 justify-center mb-6">
             {/* Price */}
             <div className="flex flex-col w-full ">
               <label className="font-semibold text-lg mb-2">Price</label>
@@ -220,7 +220,7 @@ export default function Sell() {
             {/* More Filters Button */}
             <div className="flex items-center w-full mt-8 ">
               <button
-                className="bg-teal-700 text-white px-6 py-3 rounded-md hover:bg-teal-700 transition duration-300"
+                className="bg-teal-700 btn btn text-white px-5 lg:px-6 py-3 rounded-md hover:bg-teal-700 transition duration-300"
                 onClick={() => setFilterOpen(!filterOpen)} // Toggle the filter visibility
               >
                 {filterOpen ? "Less Filters" : "More Filters"}{" "}
@@ -231,11 +231,11 @@ export default function Sell() {
 
           {/* More filters show after clicking 'More Filters' */}
           {filterOpen && (
-            <div className="grid grid-cols-9  w-[90%] gap-6 justify-center mb-6">
+            <div className="w-full md:w-[90%] grid grid-cols-3 md:grid-cols-5 px-4 lg:grid-cols-9  gap-6 justify-center mb-6">
               {[
-                { label: "School Distance", setter: setSchoolDistance },
-                { label: "Hospital Distance", setter: setHospitalDistance },
-                { label: "Main Road Distance", setter: setMainRoadDistance },
+                { label: "School", setter: setSchoolDistance },
+                { label: "Hospital", setter: setHospitalDistance },
+                { label: "Main Road", setter: setMainRoadDistance },
               ].map(({ label, setter }) => (
                 <div key={label} className="flex flex-col w-full ">
                   <label className="font-semibold text-lg mb-2">{label}</label>
@@ -254,9 +254,7 @@ export default function Sell() {
                 </div>
               ))}
               <div className="flex flex-col w-full">
-                <label className="font-semibold text-lg mb-2">
-                  Gas Connection
-                </label>
+                <label className="font-semibold text-lg mb-2">Gas</label>
                 <select
                   className={`form-select border-2 ${
                     gasConnection ? "border-teal-700" : "border-gray-300"
@@ -279,9 +277,9 @@ export default function Sell() {
                 { label: "CCTV", setter: setCctv },
                 { label: "Furnished", setter: setFurnished },
                 { label: "Pet Friendly", setter: setPetFriendly },
-                { label: "Roof Top Allowed", setter: setRoofTopAllowed },
+                { label: "Roof", setter: setRoofTopAllowed },
 
-                { label: "Facing Direction", setter: setFacingDirection },
+                { label: "Facing", setter: setFacingDirection },
               ].map(({ label, setter, state }) => (
                 <div key={label} className="flex flex-col w-full">
                   <label className="font-semibold text-lg mb-2">{label}</label>

@@ -220,7 +220,7 @@ export default function Buy() {
             {/* More Filters Button */}
             <div className="flex items-center w-full mt-8 ">
               <button
-                className="bg-teal-700 text-[12px] btn text-white px-4 lg:px-6 py-3 rounded-md hover:bg-teal-700 transition duration-300"
+                className="bg-teal-700  btn text-white px-5 lg:px-6 py-3 rounded-md hover:bg-teal-700 transition duration-300"
                 onClick={() => setFilterOpen(!filterOpen)} // Toggle the filter visibility
               >
                 {filterOpen ? "Less Filters" : "More Filters"}{" "}

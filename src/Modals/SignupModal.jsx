@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
+import { FaSadTear } from "react-icons/fa";
 const SignupModal = ({ closeModal }) => {
   const [isSuccess, setIsSuccess] = useState(false); // state to control success modal
+  const [showErrorModal, setShowErrorModal] = useState(false); // state to control error modal
   const navigate = useNavigate(); // Hook to navigate to another route
 
   // Handle form submission
@@ -37,6 +39,11 @@ const SignupModal = ({ closeModal }) => {
       } else {
         const errorText = await response.text();
         console.log("Error Text: ", errorText);
+
+        // Show error modal if username already exists (response status 500)
+        if (response.status === 500) {
+          setShowErrorModal(true); // Show the error modal
+        }
       }
     } catch (error) {
       console.log("Error: ", error);
@@ -190,34 +197,6 @@ const SignupModal = ({ closeModal }) => {
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none"
               />
             </div>
-
-            {/* Sold Input */}
-            <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-600 mb-2">
-                Sold
-              </label>
-              <input
-                type="number"
-                name="sold"
-                placeholder="Enter sold count"
-                required
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none"
-              />
-            </div>
-
-            {/* Property Added Input */}
-            <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-600 mb-2">
-                Property Added
-              </label>
-              <input
-                type="number"
-                name="propertyAdded"
-                placeholder="Enter number of properties added"
-                required
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none"
-              />
-            </div>
           </div>
 
           {/* Submit Button */}
@@ -246,6 +225,33 @@ const SignupModal = ({ closeModal }) => {
                     className="btn btn-teal"
                   >
                     Go to Homepage
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Error Modal for username already exists */}
+        {showErrorModal && (
+          <div className="fixed inset-0 flex items-center justify-center z-20">
+            <div className="modal modal-open">
+              <div className="modal-box">
+                <h2 className="text-3xl mb-4 text-center font-semibold text-red-500">
+                  Opps!
+                </h2>
+                <p className="flex justify-center items-center mt-3">
+                  <FaSadTear className="text-teal-700 text-2xl" />
+                </p>
+                <p className="text-gray-600 mt-2 text-center">
+                  Username Already Exsist
+                </p>
+                <div className=" w-full">
+                  <button
+                    onClick={() => setShowErrorModal(false)} // Close the error modal
+                    className="btn w-full mt-4 text-teal-700 font-bold btn-red"
+                  >
+                    Close
                   </button>
                 </div>
               </div>

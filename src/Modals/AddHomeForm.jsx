@@ -212,7 +212,7 @@ const AddHomeForm = () => {
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
               <option value="">Select Property Type</option>
-              <option value="Apartment">Apar</option>
+              <option value="Apartment">Apartment</option>
               <option value="House">House</option>
               <option value="Condo">Condo</option>
             </select>
@@ -260,11 +260,11 @@ const AddHomeForm = () => {
                   setShortDescription(e.target.value);
                 }
               }}
-              placeholder="Detailed description (max 250 characters)"
+              placeholder="Detailed description (max 100 characters)"
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
             <p className="text-sm text-gray-500">
-              {longDescription.length}/100 characters
+              {shortDescription.length}/100 characters
             </p>
           </div>
           <div className="form-group">

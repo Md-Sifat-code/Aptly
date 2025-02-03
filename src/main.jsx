@@ -15,6 +15,8 @@ import { UserDataProvider } from "./Authentication/UserDataContext";
 import ProfileDrawer from "./Modals/ProfileDrawer";
 import SignupModal from "./Modals/SignupModal";
 import SellerDetails from "./Fixed_components/SellerDetails";
+import { ToastContainer } from "react-toastify"; // Import ToastContainer
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
 
 const router = createBrowserRouter([
   {
@@ -61,6 +63,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <FlatProvider>
             <CategoryProvider>
               <RouterProvider router={router} />
+              <ToastContainer /> {/* Place ToastContainer here */}
             </CategoryProvider>
           </FlatProvider>
         </UserProviders>

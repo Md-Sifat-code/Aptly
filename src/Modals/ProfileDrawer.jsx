@@ -52,7 +52,7 @@ export default function ProfileDrawer() {
   };
 
   return (
-    <section>
+    <section className="min-h-screen">
       <div className="container mt-12 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Profile Card Section */}
         <div className="lg:col-span-1 flex flex-col gap-6 lg:sticky lg:top-0">
@@ -158,7 +158,7 @@ export default function ProfileDrawer() {
             <h1 className="text-3xl font-bold text-black">
               About {userData.username}
             </h1>
-            <p>{userData.bio}</p>
+            <p className="mt-4">{userData.bio}</p>
           </div>
           <hr />
           {/* Flats Added Section */}

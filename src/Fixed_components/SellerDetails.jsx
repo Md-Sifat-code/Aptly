@@ -68,7 +68,7 @@ export default function SellerDetails() {
   };
 
   return (
-    <section>
+    <section className="min-h-screen">
       <div className="container min-h-screen mt-12 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Profile Card Section */}
         <div className="lg:col-span-1 flex flex-col gap-6 lg:sticky lg:top-0">
@@ -176,7 +176,7 @@ export default function SellerDetails() {
             <h1 className="text-3xl font-bold text-black">
               About {sellerData.username}
             </h1>
-            <p>{sellerData.bio}</p>
+            <p className="mt-6">{sellerData.bio}</p>
           </div>
           <hr />
           {/* Flats Added Section */}

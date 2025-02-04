@@ -17,11 +17,13 @@ import SignupModal from "./Modals/SignupModal";
 import SellerDetails from "./Fixed_components/SellerDetails";
 import { ToastContainer } from "react-toastify"; // Import ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
+import Error from "./Error/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main_Layout />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",

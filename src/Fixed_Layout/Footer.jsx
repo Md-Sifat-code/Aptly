@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { FlatContext } from "../Context_Api/FlatContext"; // Assuming you're using this context to track loading state
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import home from "/okay.png";
 
 export default function Footer() {
@@ -10,6 +11,11 @@ export default function Footer() {
     return null;
   }
 
+  // Utility function to convert text to a URL-friendly route
+  const convertToRoute = (text) => {
+    return `/${text.toLowerCase().replace(/\s+/g, "-")}`;
+  };
+
   return (
     <footer className="bg-gray-300 border-t mt-12 py-10">
       <div className="container mx-auto px-4">
@@ -17,7 +23,7 @@ export default function Footer() {
           {/* Company Info */}
           <aside className="text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start mb-4">
-              <img className="w-[120px]" src={home} alt="" />
+              <img className="w-[120px]" src={home} alt="Company Logo" />
             </div>
             <p className="text-black">
               <strong>Bari Bazar BD</strong>
@@ -31,24 +37,36 @@ export default function Footer() {
             <h6 className="text-lg font-bold mb-4 text-black">Services</h6>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="link link-hover text-black">
+                <Link
+                  to={convertToRoute("Buy")}
+                  className="link link-hover text-black"
+                >
                   Buy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="link link-hover text-black">
+                <Link
+                  to={convertToRoute("Design")}
+                  className="link link-hover text-black"
+                >
                   Design
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="link link-hover text-black">
+                <Link
+                  to={convertToRoute("Marketing")}
+                  className="link link-hover text-black"
+                >
                   Marketing
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="link link-hover text-black">
+                <Link
+                  to={convertToRoute("Advertisement")}
+                  className="link link-hover text-black"
+                >
                   Advertisement
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
@@ -58,24 +76,36 @@ export default function Footer() {
             <h6 className="text-lg font-bold mb-4 text-black">Company</h6>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="link link-hover text-black">
+                <Link
+                  to={convertToRoute("About us")}
+                  className="link link-hover text-black"
+                >
                   About us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="link link-hover text-black">
+                <Link
+                  to={convertToRoute("Contact")}
+                  className="link link-hover text-black"
+                >
                   Contact
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="link link-hover text-black">
+                <Link
+                  to={convertToRoute("Jobs")}
+                  className="link link-hover text-black"
+                >
                   Jobs
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="link link-hover text-black">
+                <Link
+                  to={convertToRoute("Press kit")}
+                  className="link link-hover text-black"
+                >
                   Press kit
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
@@ -85,19 +115,28 @@ export default function Footer() {
             <h6 className="text-lg font-bold mb-4 text-black">Legal</h6>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="link link-hover text-black">
+                <Link
+                  to={convertToRoute("Terms of use")}
+                  className="link link-hover text-black"
+                >
                   Terms of use
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="link link-hover text-black">
+                <Link
+                  to={convertToRoute("Privacy policy")}
+                  className="link link-hover text-black"
+                >
                   Privacy policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="link link-hover text-black">
+                <Link
+                  to={convertToRoute("Cookie policy")}
+                  className="link link-hover text-black"
+                >
                   Cookie policy
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>

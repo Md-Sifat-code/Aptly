@@ -1,48 +1,70 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { FiSend } from "react-icons/fi";
 import { useParams } from "react-router-dom";
-import { useFetchUserData } from "../Authentication/UserDataContext"; // Import user data hook
+import { useFetchUserData } from "../Authentication/UserDataContext";
+import WebSocketContext from "../Authentication/WebSocketContext";
 
 const Messages = () => {
-  const { senderId, receiverId } = useParams(); // Get sender and receiver IDs from URL
+  const { senderId, recipientId } = useParams(); // Get sender & recipient ID from URL
   const { userData } = useFetchUserData(); // Get logged-in user
+  const { stompClient } = useContext(WebSocketContext); // Get WebSocket client
   const [messages, setMessages] = useState([]); // Messages state
-  const [newMessage, setNewMessage] = useState(""); // New message state
+  const [newMessage, setNewMessage] = useState(""); // New message input state
   const [chatId, setChatId] = useState(null); // Store chatId
 
+  // Fetch previous messages from backend
   useEffect(() => {
     const fetchMessages = async () => {
       try {
         const response = await fetch(
-          `https://flatelse.onrender.com/messages/${senderId}/${receiverId}`
+          `https://flatelse.onrender.com/messages/${senderId}/${recipientId}`
         );
         if (!response.ok) throw new Error("Failed to fetch messages");
 
         const data = await response.json();
         console.log("Fetched messages:", data);
-        setMessages(data); // Store messages
-        if (data.length > 0) {
-          setChatId(data[0].chatId); // Store chatId from first message
-        }
+        setMessages(data);
+        if (data.length > 0) setChatId(data[0].chatId); // Store chatId if exists
       } catch (error) {
         console.error("Error fetching messages:", error);
       }
     };
 
     fetchMessages();
-  }, [senderId, receiverId]);
+  }, [senderId, recipientId]);
 
+  // Subscribe to WebSocket for new messages
+  useEffect(() => {
+    if (!stompClient) return;
+
+    const subscription = stompClient.subscribe(
+      "/user/queue/messages",
+      (message) => {
+        const receivedMessage = JSON.parse(message.body);
+        console.log("New WebSocket message received:", receivedMessage);
+
+        setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+      }
+    );
+
+    return () => {
+      if (subscription) subscription.unsubscribe();
+    };
+  }, [stompClient]);
+
+  // Send Message via WebSocket
   const sendMessage = () => {
-    if (newMessage.trim() === "") return;
+    if (!stompClient || newMessage.trim() === "") return;
 
     const newMsg = {
-      chatId,
-      senderId: userData.id, // Send from current user
-      recipientId: receiverId, // Send to seller
+      senderId: userData.id,
+      recipientId,
       content: newMessage,
+      chatId: chatId || null, // Initially null
     };
 
-    setMessages([...messages, newMsg]); // Add to local state
+    stompClient.send("/app/chat", {}, JSON.stringify(newMsg));
+
     setNewMessage(""); // Clear input
   };
 
@@ -92,4 +114,3 @@ const Messages = () => {
 };
 
 export default Messages;
-//okk

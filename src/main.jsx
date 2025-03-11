@@ -67,7 +67,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: "/messege/:senderId/:receiverId",
+        path: "/messege/:senderId/:recipientId",
         element: <Messages />,
       },
     ],

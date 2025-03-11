@@ -1,57 +1,51 @@
 import React, { createContext, useState, useEffect } from "react";
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
 
-// Default export of WebSocketContext
 const WebSocketContext = createContext();
 
 export function WebSocketProvider({ children }) {
-  const [socket, setSocket] = useState(null);
-  const [retries, setRetries] = useState(0);
+  const [stompClient, setStompClient] = useState(null);
+  const [isConnected, setIsConnected] = useState(false); // Track connection state
 
   useEffect(() => {
-    const connectWebSocket = () => {
-      const ws = new WebSocket("wss://flatelse.onrender.com/ws/websocket");
-      setSocket(ws);
+    const socket = new SockJS("https://flatelse.onrender.com/ws");
+    const client = Stomp.over(socket);
 
-      ws.onopen = () => {
-        console.log("WebSocket connected");
-      };
-
-      ws.onmessage = (message) => {
-        console.log("Received message:", message.data);
-      };
-
-      ws.onerror = (error) => {
+    client.connect(
+      {},
+      () => {
+        console.log("Connected to WebSocket");
+        setIsConnected(true); // Set connection state
+        setStompClient(client);
+      },
+      (error) => {
         console.error("WebSocket error:", error);
-      };
+        setIsConnected(false);
+      }
+    );
 
-      ws.onclose = (event) => {
-        console.log("WebSocket disconnected", event.code, event.reason);
-
-        // Retry if connection failed with error code 1006 (unexpected closure)
-        if (event.code === 1006 && retries < 3) {
-          console.log("Retrying WebSocket connection...");
-          setRetries(retries + 1);
-          setTimeout(connectWebSocket, 3000); // Retry after 3 seconds
-        }
-      };
-    };
-
-    connectWebSocket(); // Initial connection attempt
-
-    // Cleanup on component unmount
     return () => {
-      if (socket) {
-        socket.close();
+      if (client.connected) {
+        client.disconnect();
+        console.log("Disconnected from WebSocket");
       }
     };
-  }, [retries]);
+  }, []);
+
+  const sendMessage = (message) => {
+    if (stompClient && isConnected) {
+      stompClient.send("/app/chat", {}, JSON.stringify(message));
+    } else {
+      console.warn("WebSocket not connected yet. Message not sent.");
+    }
+  };
 
   return (
-    <WebSocketContext.Provider value={{ socket }}>
+    <WebSocketContext.Provider value={{ stompClient, sendMessage }}>
       {children}
     </WebSocketContext.Provider>
   );
 }
 
 export default WebSocketContext;
-//okk

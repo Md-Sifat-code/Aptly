@@ -13,6 +13,8 @@ import { IoMailSharp } from "react-icons/io5";
 import { HiOutlinePhoneArrowDownLeft } from "react-icons/hi2";
 import ChattingModal from "../Modals/ChattingModal";
 import load from "/loading.gif";
+import { useFetchUserData } from "../Authentication/UserDataContext"; // Import user data hook
+import { useNavigate } from "react-router-dom"; // Import navigation hook
 
 export default function SellerDetails() {
   const { username } = useParams();
@@ -22,7 +24,8 @@ export default function SellerDetails() {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const [properties, setProperties] = useState([]); // New state to hold properties
-
+  const navigate = useNavigate();
+  const { userData } = useFetchUserData();
   useEffect(() => {
     const fetchSellerDetails = async () => {
       try {
@@ -66,7 +69,13 @@ export default function SellerDetails() {
   const handleReportModal = () => {
     setIsReportModalOpen(!isReportModalOpen);
   };
-
+  const handleChatRedirect = () => {
+    if (userData?.id && sellerData?.id) {
+      navigate(`/messege/${userData.id}/${sellerData.id}`); // Navigate to chat
+    } else {
+      alert("Unable to start chat. Missing user information.");
+    }
+  };
   return (
     <section className="min-h-screen">
       <div className="container min-h-screen mt-12 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -133,7 +142,7 @@ export default function SellerDetails() {
             <div className="flex flex-row gap-4 mt-4 mb-4 bgt text-xl">
               {/* Messenger Icon */}
               <FaFacebookMessenger
-                onClick={() => setIsChatModalOpen(true)} // Open the chat modal on click
+                onClick={handleChatRedirect}
                 className="cursor-pointer"
               />
               {/* Phone Icon - Call */}
@@ -298,3 +307,4 @@ export default function SellerDetails() {
     </section>
   );
 }
+//ok

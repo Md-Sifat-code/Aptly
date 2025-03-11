@@ -1,5 +1,5 @@
 import React from "react";
-import { FaExclamationTriangle } from "react-icons/fa"; // You can use any icon from react-icons
+import { FaExclamationTriangle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for React Router v6
 
 function Error() {
@@ -29,7 +29,7 @@ function Error() {
             onClick={handleBackClick} // Call handleBackClick when the button is clicked
             className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
           >
-            Back
+            GO BACK
           </button>
         </div>
       </div>

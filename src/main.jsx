@@ -15,9 +15,13 @@ import { UserDataProvider } from "./Authentication/UserDataContext";
 import ProfileDrawer from "./Modals/ProfileDrawer";
 import SignupModal from "./Modals/SignupModal";
 import SellerDetails from "./Fixed_components/SellerDetails";
-import { ToastContainer } from "react-toastify"; // Import ToastContainer
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Error from "./Error/Error";
+import Messege_Layout from "./Layout/Messege_Layout";
+import Messages from "./Chatting_System/Messeges";
+import { WebSocketProvider } from "./Authentication/WebSocketContext";
+// Ensure correct filename spelling
 
 const router = createBrowserRouter([
   {
@@ -38,22 +42,35 @@ const router = createBrowserRouter([
         element: <Details />,
       },
       {
-        path: "/profile/:username", // Use :username to handle dynamic route parameters
-        element: <ProfileDrawer />, // Render the ProfileModal when the route is matched
+        path: "/profile/:username",
+        element: <ProfileDrawer />,
       },
       {
-        path: "/seller/:username", // Use :username to handle dynamic route parameters
-        element: <SellerDetails></SellerDetails>,
+        path: "/seller/:username",
+        element: <SellerDetails />,
       },
     ],
   },
   {
     path: "/add-home",
     element: <AddHomeForm />,
+    errorElement: <Error />,
   },
   {
     path: "/signup",
     element: <SignupModal />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/messege",
+    element: <Messege_Layout />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "/messege/:senderId/:receiverId",
+        element: <Messages />,
+      },
+    ],
   },
 ]);
 
@@ -64,8 +81,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <UserProviders>
           <FlatProvider>
             <CategoryProvider>
-              <RouterProvider router={router} />
-              <ToastContainer /> {/* Place ToastContainer here */}
+              <WebSocketProvider>
+                <RouterProvider router={router} />
+                <ToastContainer />
+              </WebSocketProvider>
             </CategoryProvider>
           </FlatProvider>
         </UserProviders>

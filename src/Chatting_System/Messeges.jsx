@@ -101,20 +101,22 @@ const Messages = () => {
         style={{ maxHeight: "calc(100vh - 100px)" }}
       >
         {messages.map((msg, index) => {
-          // Check if the message is from the sender or recipient
-          const isSender = msg.senderId === userData.id;
+          const isSender = String(msg.senderId) === String(userData.id);
 
           return (
             <div
               key={index}
-              className={`flex ${isSender ? "justify-end" : "justify-start"}`}
+              className={`flex w-full ${
+                isSender ? "justify-end" : "justify-start"
+              }`}
             >
               <div
-                className={`px-4 py-2 rounded-lg max-w-xs text-sm ${
+                className={`px-4 py-2 rounded-lg max-w-sm text-sm ${
                   isSender
-                    ? "bg-blue-500 text-white self-end rounded-l-lg rounded-br-lg"
-                    : "bg-gray-300 text-gray-800 self-start rounded-r-lg rounded-bl-lg"
+                    ? "bg-blue-500 text-white rounded-br-lg rounded-tl-lg"
+                    : "bg-gray-300 text-gray-800 rounded-bl-lg rounded-tr-lg"
                 }`}
+                style={{ wordWrap: "break-word" }}
               >
                 {msg.content}
               </div>

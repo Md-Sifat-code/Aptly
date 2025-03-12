@@ -7,12 +7,12 @@ import WebSocketContext from "../Authentication/WebSocketContext";
 const Messages = () => {
   const { senderId, recipientId } = useParams(); // Get sender & recipient ID from URL
   const { userData } = useFetchUserData(); // Get logged-in user
-  const { stompClient } = useContext(WebSocketContext); // Get WebSocket client
-  const [messages, setMessages] = useState([]); // Messages state
-  const [newMessage, setNewMessage] = useState(""); // New message input state
+  const { stompClient, sendMessage } = useContext(WebSocketContext); // Get WebSocket client and sendMessage function
+  const [newMessageInput, setNewMessageInput] = useState(""); // New message input state
   const [chatId, setChatId] = useState(null); // Store chatId
+  const [messages, setMessages] = useState([]); // Store all messages
 
-  // Fetch previous messages from backend
+  // Fetch previous messages when component mounts
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -22,9 +22,12 @@ const Messages = () => {
         if (!response.ok) throw new Error("Failed to fetch messages");
 
         const data = await response.json();
-        console.log("Fetched messages:", data);
+        console.log("Fetched previous messages:", data);
+
         setMessages(data);
-        if (data.length > 0) setChatId(data[0].chatId); // Store chatId if exists
+        if (data.length > 0) {
+          setChatId(data[0].chatId); // Store chatId if exists
+        }
       } catch (error) {
         console.error("Error fetching messages:", error);
       }
@@ -33,78 +36,114 @@ const Messages = () => {
     fetchMessages();
   }, [senderId, recipientId]);
 
-  // Subscribe to WebSocket for new messages
+  // Fetch and handle real-time incoming messages from WebSocket
   useEffect(() => {
     if (!stompClient) return;
 
+    // Subscribe to the WebSocket channel for the specific chat
     const subscription = stompClient.subscribe(
-      "/user/queue/messages",
+      `/user/${userData.id}/queue/messages`,
       (message) => {
         const receivedMessage = JSON.parse(message.body);
         console.log("New WebSocket message received:", receivedMessage);
 
-        setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+        // If the received message is part of the current chat, add it to the message list
+        if (
+          (receivedMessage.senderId === senderId &&
+            receivedMessage.recipientId === recipientId) ||
+          (receivedMessage.senderId === recipientId &&
+            receivedMessage.recipientId === senderId)
+        ) {
+          setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+        }
       }
     );
 
     return () => {
+      // Unsubscribe when the component unmounts
       if (subscription) subscription.unsubscribe();
     };
-  }, [stompClient]);
+  }, [stompClient, senderId, recipientId, userData.id]);
 
   // Send Message via WebSocket
-  const sendMessage = () => {
-    if (!stompClient || newMessage.trim() === "") return;
+  const handleSendMessage = () => {
+    if (!stompClient || newMessageInput.trim() === "") return;
 
-    const newMsg = {
+    const message = {
       senderId: userData.id,
       recipientId,
-      content: newMessage,
-      chatId: chatId || null, // Initially null
+      content: newMessageInput,
+      chatId: chatId || null, // Initially null, if it's a new chat
     };
 
-    stompClient.send("/app/chat", {}, JSON.stringify(newMsg));
+    // Optimistically add the message to the UI before sending it
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      {
+        senderId: userData.id,
+        recipientId,
+        content: newMessageInput,
+        chatId: chatId || null,
+      },
+    ]);
 
-    setNewMessage(""); // Clear input
+    // Send the message over WebSocket
+    sendMessage(message);
+
+    setNewMessageInput(""); // Clear input after sending
   };
 
   return (
     <div className="flex flex-col h-full bg-gray-100 border rounded-lg shadow-md">
-      {/* Chat Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-2">
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`flex ${
-              msg.senderId === userData.id ? "justify-end" : "justify-start"
-            }`}
-          >
+      {/* Chat Messages (Scrollable part) */}
+      <div
+        className="flex-1 overflow-y-auto p-4 space-y-2"
+        style={{ maxHeight: "calc(100vh - 100px)" }}
+      >
+        {messages.map((msg, index) => {
+          // Check if the message is from the sender or recipient
+          const isSender = msg.senderId === userData.id;
+
+          return (
             <div
-              className={`px-4 py-2 rounded-lg max-w-xs text-sm ${
-                msg.senderId === userData.id
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-300 text-gray-800"
-              }`}
+              key={index}
+              className={`flex ${isSender ? "justify-end" : "justify-start"}`}
             >
-              {msg.content}
+              <div
+                className={`px-4 py-2 rounded-lg max-w-xs text-sm ${
+                  isSender
+                    ? "bg-blue-500 text-white self-end rounded-l-lg rounded-br-lg"
+                    : "bg-gray-300 text-gray-800 self-start rounded-r-lg rounded-bl-lg"
+                }`}
+              >
+                {msg.content}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* Message Input */}
-      <div className="p-3 bg-white flex items-center border-t">
+      {/* Message Input (Fixed at the bottom) */}
+      <div
+        className="p-3 bg-white flex items-center border-t"
+        style={{
+          position: "sticky",
+          bottom: 0,
+          backgroundColor: "white",
+          zIndex: 10,
+        }}
+      >
         <input
           type="text"
           placeholder="Type a message..."
           className="flex-1 px-4 py-2 border rounded-full focus:outline-none"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          value={newMessageInput}
+          onChange={(e) => setNewMessageInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
         />
         <button
           className="ml-2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition"
-          onClick={sendMessage}
+          onClick={handleSendMessage}
         >
           <FiSend size={20} />
         </button>

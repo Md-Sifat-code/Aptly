@@ -56,3 +56,6 @@
 .message {
   margin-bottom: 5px;
 }
+.scrollable-messages {
+  scroll-behavior: smooth;
+}

@@ -7,6 +7,7 @@ const WebSocketContext = createContext();
 export function WebSocketProvider({ children }) {
   const [stompClient, setStompClient] = useState(null);
   const [isConnected, setIsConnected] = useState(false); // Track connection state
+  const [messages, setMessages] = useState([]); // Store received messages
 
   useEffect(() => {
     const socket = new SockJS("https://flatelse.onrender.com/ws");
@@ -18,6 +19,15 @@ export function WebSocketProvider({ children }) {
         console.log("Connected to WebSocket");
         setIsConnected(true); // Set connection state
         setStompClient(client);
+
+        // Subscribe to the message topic for real-time updates
+        client.subscribe("/user/queue/messages", (message) => {
+          const receivedMessage = JSON.parse(message.body);
+          console.log("New WebSocket message received:", receivedMessage);
+
+          // Update state with the new message (both sender and recipient should get this)
+          setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+        });
       },
       (error) => {
         console.error("WebSocket error:", error);
@@ -42,7 +52,7 @@ export function WebSocketProvider({ children }) {
   };
 
   return (
-    <WebSocketContext.Provider value={{ stompClient, sendMessage }}>
+    <WebSocketContext.Provider value={{ stompClient, sendMessage, messages }}>
       {children}
     </WebSocketContext.Provider>
   );
